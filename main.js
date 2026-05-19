@@ -87,4 +87,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+  const introText = "Internet was a place, now it is a moment. Think of the home computer, that was located in the family living room. That internet is a place that I and the majority of gen Z never knew. We are digital natives meaning we grew up, when the internet already existed. Still it was fascinating, hypnotizing and idealized, when we first met the Internet. But during the past 10 years a lot of things happened. We grew up and so did the internet. Well sort of at least. And exactly this strange relationship awaits you in the following scrolls.";
+
+const typingEl = document.querySelector('#intro-typing');
+if (typingEl) {
+  let i = 0;
+  typingEl.textContent = '';
+  const interval = setInterval(() => {
+    typingEl.textContent += introText[i];
+    i++;
+    if (i >= introText.length) clearInterval(interval);
+  }, 30); // 30ms pro Buchstabe — kleiner = schneller
+}
 });
