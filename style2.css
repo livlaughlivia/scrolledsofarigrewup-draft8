@@ -1,0 +1,97 @@
+@font-face {
+  font-family: "Arizona Variable";
+  src: url("FOOTAGE/03_FONTS/ABCArizonaSuperfamilyVariable-Trial.woff") format("woff");
+  font-display: swap;
+}
+
+h1 {
+  font-family: "Arizona Variable";
+  font-variation-settings: "SRFF" 100;
+  text-align: center;
+  font-size: 100px;
+  color: #5c658a;
+}
+
+.era1 {
+  font-family: "Arizona Variable";
+  font-variation-settings: "SRFF" 100;
+  text-align: center;
+  font-size: 40px;
+  color: #5c658a;
+}
+
+.era2 {
+  font-family: "Arizona Variable";
+  font-variation-settings: "SRFF" 50;
+  text-align: center;
+  font-size: 40px;
+  color: #5c658a;
+}
+
+.era3 {
+  font-family: "Arizona Variable";
+  font-variation-settings: "SRFF" 0;
+  text-align: center;
+  font-size: 40px;
+  color: #5c658a;
+}
+
+.post-wrapper {
+  position: relative;  /* Referenzpunkt für die Floater */
+  width: 60%;
+  margin: 0 auto;
+}
+
+.insta-post img{
+  width: 60%;
+}
+
+.floater1 img{
+  width: 60%;
+  position: absolute;
+  bottom: 4px;
+}
+
+.floater2 img{
+  width: 60%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.insta-update-universal {
+  z-index: 102;
+  margin: 40px;
+  width: 60%;
+  background: radial-gradient(
+  circle at center,
+  #c2df47 0%,
+  #ffffff78 70%
+  
+);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(0,0,0,0.2);
+  text-align: justify;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin: 0 0 20px #c2df47;
+
+  position: relative;
+}
+
+.insta-update-header-1 {
+  font-family: "Arizona Variable";
+  font-variation-settings: "SRFF" 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  
+}
+
+.insta-update-text-1 {
+  font-family: "Arizona Variable";
+  font-variation-settings: "SRFF" 100;
+  font-size: 18px;
+  color: #5c658a;
+}
