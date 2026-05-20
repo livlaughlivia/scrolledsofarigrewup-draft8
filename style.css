@@ -10,7 +10,7 @@ h1 {
   text-align: center;
   font-size: 100px;
    z-index: 20;
-  color: #fff;
+  color: #5478ff;
   animation: serifTransition 2s ease-in-out infinite alternate;
 }
 
@@ -48,7 +48,7 @@ h1 {
 }
 
 body {
-  background: #5c77f7;
+  background: #a9ceff;
   overflow-x: hidden;
 }
 
@@ -58,7 +58,7 @@ body {
   left: 0;
   width: 100%;
   height: 150%;
-  background: radial-gradient(circle at center,#5c77f700, #f2a3edff);
+  background: linear-gradient(0deg,#5c77f700, #bbe002ff);
   z-index: 1000;
   pointer-events: none;
 }
@@ -69,7 +69,7 @@ body {
   right: 0;
   width: 30px;
   height: 100%;
-  background: #f2a3ed;
+  background: linear-gradient(-90deg,#f2a3edff, #f2a3ed00) ;
   z-index: 100;
   pointer-events: all;
   display: flex;
