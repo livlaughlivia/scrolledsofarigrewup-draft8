@@ -10,6 +10,9 @@
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollSmoother.min.js"></script>
 </head>
 
 
@@ -38,629 +41,645 @@
   </div>
 
   <!-- ── Titel: I scrolled so far I grew up. Hier soll eine Animation stattfinden von "SRFF" 100; zu "SRFF" 0;. Sie soll im Loop unendlich abspielen─────────────── -->
-  <section id="title">
-    <h1>scrolled<br>sooooo<br>ooooo<br>far i<br>grew up</h1>
-  </section>
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+
+      <div class="stage">
+        <section id="title">
+          <h1>scrolled<br>sooooo<br>ooooo<br>far i<br>grew up</h1>
+        </section>
 
 
-  <section id="intro">
-    <div class="intro-text">
-      <p id="intro-typing">Internet was a place, now it is a moment. Think of the home computer, that was located in the
-        familiy living room. That internet is a place that I and the majority of gen Z never knew. We are digital
-        natives meaning we grew up, when the internet already existed. Still it was fascinating, hypnotizing and
-        idealized, when we first met the Internet. But during the past 10 years a lot of things happened. We grew up and
-        so did the internet. Well sort of at least. And exactly this strange relationship awaits you in the following
-        scrolls.</p>
+        <section id="intro">
+          <div class="intro-text">
+            <p id="intro-typing">Internet was a place, now it is a moment. Think of the home computer, that was located
+              in the
+              familiy living room. That internet is a place that I and the majority of gen Z never knew. We are digital
+              natives meaning we grew up, when the internet already existed. Still it was fascinating, hypnotizing and
+              idealized, when we first met the Internet. But during the past 10 years a lot of things happened. We grew
+              up and
+              so did the internet. Well sort of at least. And exactly this strange relationship awaits you in the
+              following
+              scrolls.</p>
+          </div>
+        </section>
+
+        <!-- ── ERA 1: WELCOME TO THE INTERNET ─────────────── -->
+        <section id="era-1">
+          <p class="era1">Welcome <br>to the internet</p>
+          <!--  Gen Z Kommentar  -->
+          <!-- Quote -->
+          <div class="quote-block-1">
+            <div class="quote-inner">«Honestly I miss how unpolished everything felt. Posts didn't have to educate,
+              convert or
+              "add value". People just posted vibes, blurry photos, inside jokes.» (@Visual-Sun-6018)<br><br>✦<br><br>
+              People
+              posted more frequently in 2016, in 2026 people don’t post a soften but consume just as much.
+              (@CharlesIntheWoods)<br><br>✦<br><br>Photo dumps were very common a decade ago. People were still
+              chronically
+              online, the only difference is that the influencer craze was just beginning. (@didozer10)</div>
+          </div>
+
+          <section id="2016">
+            <!--  1 Insta Post  -->
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2016/post 1/post2016-01 Kopie 2.png">
+              </div>
+
+              <div class="floater1 floater"  attr-float-speed-y="-300" attr-float-speed-x="1" attr-scale="1">
+                <!-- das sind die pixel Werte für die Bewegung. Du kannst auch mit negativen Werten arbeitn, dann geht die Bewegung hoch-->
+                <!-- zusätzlich kannst du noch eine Skalierung festlegen-->
+                <img src="img/2016/post 1/post2016-01 Kopie.png">
+              </div>
+
+              <div class="floater2 floater"  attr-float-speed-y="-100" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2016/post 1/post2016-01.png">
+              </div>
+            </div>
+            <!-- wenn der gesamte Insta Post erscheint, sieht es zunächst nach einem «ganzen Bild» aus. Doch floater1 und floater2 haben unterschiedliche Geeschwindigkeiten, welche schnellere als die Geschwindigkeit von .insta-post ist. Ausserdem sollen sich auch nicht alle .insta-post gleich schnell bewegen, damit Überlagerungen entstehen können. -->
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2016/post 2/post2016-02 2.png">
+              </div>
+
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2016/post 2/post2016-02 3.png">
+              </div>
+
+              <div class="floater2 floater" attr-float-speed-y="-300" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2016/post 2/post2016-02.png">
+              </div>
+            </div>
+
+            <!-- Insta Update. Dieses Text Elemente soll einen Fade in haben, etwas stehen bleiben und anschliessend verschwinden wie auf https://sabrinazeltner.com/. Durch die verschiedenen z-index fliegen floater über das .insta-update und andere fahren darunter hindurch  -->
+            <div class="insta-update" attr-delay-hold="500">
+              <!--über das Attribut attr-delay-hold kannst du setzen, wie lange das Element stehenbleibt -->
+              <p class="insta-update-header1">15. MÄRZ 2016</p>
+              <p class="insta-update-text1">
+                DIE REIHENFOLGE DER POSTS AUF DER USER*INNEN TIMELINE WIRD NEU VOM ALGORITHMUS BESTIMMT UND IST NICHT
+                MEHR CHRONOLOGISCH.
+              </p>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2016/post4/post2016-04 Kopie 2.png">
+              </div>
+
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2016/post4/post2016-04 Kopie.png">
+              </div>
+
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2016/post4/post2016-04.png">
+              </div>
+            </div>
+          </section>
+
+          <section id="2017">
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2017/post1/post2017-01 Kopie 2.png">
+              </div>
+
+              <div class="floater1 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2017/post1/post2017-01 Kopie.png">
+              </div>
+
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2017/post1/post2017-01.png">
+              </div>
+            </div>
+
+            <div class="insta-update">
+              <p class="insta-update-header1">15. AUGUST 2017</p>
+              <p class="insta-update-text1">
+                DIE KOMMENTARSPALTE IST IN THREADS ORGANISIERT, DAMIT EINFACHER AUF KOMMENTARE GEANTWORTET WERDEN KANN.
+              </p>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2017/post2/post2017-02 2.png">
+              </div>
+
+              <div class="floater1 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2017/post2/post2017-02 3.png">
+              </div>
+
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2017/post2/post2017-02.png">
+              </div>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2017/post3/post2017-03 Kopie 2.png">
+              </div>
+
+              <div class="floater1 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2017/post3/post2017-03 Kopie.png">
+              </div>
+
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2017/post3/post2017-03.png">
+              </div>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2017/post4/post2017-04 Kopie 2.png">
+              </div>
+
+              <div class="floater1 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2017/post4/post2017-04 Kopie.png">
+              </div>
+
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2017/post4/post2017-04.png">
+              </div>
+            </div>
+          </section>
+
+          <section id="2018">
+            <div class="insta-update">
+              <p class="insta-update-header1">20. JUNI 2018</p>
+              <p class="insta-update-text1">
+                DAS FEATURE IGTV LAUNCHT, WODURCH LÄNGERE VIDEOFORMATE AUF INSTAGRAM GETEILT WERDEN KÖNNEN.
+              </p>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2018/post1/post2018-01 Kopie 2.png">
+              </div>
+
+              <div class="floater1 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2018/post1/post2018-01 Kopie.png">
+              </div>
+
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2018/post1/post2018-01.png">
+              </div>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2018/post2/post2018-02 Kopie 2.png">
+              </div>
+
+              <div class="floater1 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2018/post2/post2018-02 Kopie.png">
+              </div>
+
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2018/post2/post2018-02.png">
+              </div>
+            </div>
+
+            <div class="insta-update">
+              <p class="insta-update-header1">15. März 2016</p>
+              <p class="insta-update-text1">
+                Die Reihenfolge der Posts auf der User*innen Timeline wird neu
+                vom Algorithmus bestimmt und ist nicht mehr chronologisch.
+              </p>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2018/post3/post2018-03 Kopie 2.png">
+              </div>
+
+              <div class="floater1 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2018/post3/post2018-03 Kopie.png">
+              </div>
+
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
+                <img src="img/2018/post3/post2018-03.png">
+              </div>
+            </div>
+          </section>
+        </section>
+
+
+        <!-- ── ERA 2: For You. Hier soll eine Animation stattfinden von "SRFF" 100; zu "SRFF" 50;. Sie soll darauf getimed sein, wenn der Text in der Mitte des Bildschirms erscheint ─────────────── -->
+        <section id="era-2">
+          <p class="era2">For You</p>
+
+          <section id="2019">
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2019/post1/post2019-01 Kopie 2.png">
+              </div>
+
+              <div class="floater1">
+                <img src="img/2019/post1/post2019-01 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2019/post1/post2019-01.png">
+              </div>
+            </div>
+
+            <div class="insta-update">
+              <p class="insta-update-header2">15. März 2016</p>
+              <p class="insta-update-text2">
+                Die Reihenfolge der Posts auf der User*innen Timeline wird neu
+                vom Algorithmus bestimmt und ist nicht mehr chronologisch.
+              </p>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2019/post2/post2019-02 Kopie 2.png">
+              </div>
+
+              <div class="floater1">
+                <img src="img/2019/post2/post2019-02 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2019/post2/post2019-02.png">
+              </div>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2019/post4/post2019-04 Kopie 2.png">
+              </div>
+
+              <div class="floater1">
+                <img src="img/2019/post4/post2019-04 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2019/post4/post2019-04.png">
+              </div>
+            </div>
+          </section>
+
+          <!--  2020  -->
+          <section id="2020">
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2020/post1/post2020-01 Kopie 2.png">
+              </div>
+              <div class="floater1">
+                <img src="img/2020/post1/post2020-01 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2020/post1/post2020-01.png">
+              </div>
+            </div>
+
+            <div class="insta-update">
+              <p class="insta-update-header2">15. März 2016</p>
+              <p class="insta-update-text2">
+                Die Reihenfolge der Posts auf der User*innen Timeline wird neu
+                vom Algorithmus bestimmt und ist nicht mehr chronologisch.
+              </p>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2020/post2/post2020-02 Kopie 2.png">
+              </div>
+
+              <div class="floater1" attr-float-speed-y="-30" attr-float-speed-x="30" attr-scale="1.2">
+                <img src="img/2020/post2/post2020-02 Kopie.png">
+              </div>
+
+              <div class="floater2" attr-float-speed-y="200" attr-float-speed-x="-20">
+                <img src="img/2020/post2/post2020-02.png">
+              </div>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2020/post3/post2020-03 Kopie 2.png">
+              </div>
+
+              <div class="floater1" attr-float-speed-y="10" attr-float-speed-x="-50" attr-scale="0.5">
+                <img src="img/2020/post3/post2020-03 Kopie.png">
+              </div>
+
+              <div class="floater2" attr-float-speed-y="40" attr-float-speed-x="40" attr-scale="0.8">
+                <img src="img/2020/post3/post2020-03.png">
+              </div>
+            </div>
+          </section>
+
+          <section id="2021">
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2021/post2/post2021-02 Kopie 2.png">
+              </div>
+              <div class="floater1">
+                <img src="img/2021/post2/post2021-02 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2021/post2/post2021-02.png">
+              </div>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2021/post3/post2021-03 Kopie 2.png">
+              </div>
+
+              <div class="floater1">
+                <img src="img/2021/post3/post2021-03 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2021/post3/post2021-03.png">
+              </div>
+            </div>
+
+            <div class="insta-update">
+              <p class="insta-update-header2">15. März 2016</p>
+              <p class="insta-update-text2">
+                Die Reihenfolge der Posts auf der User*innen Timeline wird neu
+                vom Algorithmus bestimmt und ist nicht mehr chronologisch.
+              </p>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2021/post4/post2021-04 Kopie 2.png">
+              </div>
+
+              <div class="floater1">
+                <img src="img/2021/post4/post2021-04 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2021/post4/post2021-04.png">
+              </div>
+            </div>
+          </section>
+
+          <!--  2022  -->
+          <section id="2022">
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2022/post3/post2022-03 Kopie 2.png">
+              </div>
+              <div class="floater1">
+                <img src="img/2022/post3/post2022-03 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2022/post3/post2022-03.png">
+              </div>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2022/post4/post2022-04 Kopie 2.png">
+              </div>
+
+              <div class="floater1">
+                <img src="img/2022/post4/post2022-04 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2022/post4/post2022-04.png">
+              </div>
+            </div>
+
+            <div class="insta-update">
+              <p class="insta-update-header2">15. März 2016</p>
+              <p class="insta-update-text2">
+                Die Reihenfolge der Posts auf der User*innen Timeline wird neu
+                vom Algorithmus bestimmt und ist nicht mehr chronologisch.
+              </p>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2022/post5/post2022-05 Kopie 2.png">
+              </div>
+
+              <div class="floater1">
+                <img src="img/2022/post5/post2022-05 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2022/post5/post2022-05.png">
+              </div>
+            </div>
+
+            <div class="insta-update">
+              <p class="insta-update-header2">15. März 2016</p>
+              <p class="insta-update-text2">
+                Die Reihenfolge der Posts auf der User*innen Timeline wird neu
+                vom Algorithmus bestimmt und ist nicht mehr chronologisch.
+              </p>
+            </div>
+          </section>
+        </section>
+
+        <!-- ── ERA 3: Algorithm Abyss ─────────────── -->
+        <section id="era-3">
+          <p class="era3">Algorithm Abyss</p>
+
+          <section id="2023">
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2023/post1/post2023-01 Kopie 2.png">
+              </div>
+              <div class="floater1">
+                <img src="img/2023/post1/post2023-01 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2023/post1/post2023-01.png">
+              </div>
+            </div>
+
+            <div class="insta-update">
+              <p class="insta-update-header3">15. März 2016</p>
+              <p class="insta-update-text3">
+                Die Reihenfolge der Posts auf der User*innen Timeline wird neu
+                vom Algorithmus bestimmt und ist nicht mehr chronologisch.
+              </p>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2023/post2/post2023-02 Kopie 2.png">
+              </div>
+
+              <div class="floater1">
+                <img src="img/2023/post2/post2023-02 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2023/post2/post2023-02.png">
+              </div>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2023/post3/post2023-03 Kopie 2.png">
+              </div>
+
+              <div class="floater1">
+                <img src="img/2023/post3/post2023-03 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2023/post3/post2023-03.png">
+              </div>
+            </div>
+          </section>
+
+          <section id="2024">
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2024/post1/post2024-01 Kopie 2.png">
+              </div>
+              <div class="floater1">
+                <img src="img/2024/post1/post2024-01 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2024/post1/post2024-01.png">
+              </div>
+            </div>
+            <div class="insta-update">
+              <p class="insta-update-header3">15. März 2016</p>
+              <p class="insta-update-text3">
+                Die Reihenfolge der Posts auf der User*innen Timeline wird neu
+                vom Algorithmus bestimmt und ist nicht mehr chronologisch.
+              </p>
+            </div>
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2024/post2/post2024-02 Kopie 2.png">
+              </div>
+              <div class="floater1">
+                <img src="img/2024/post2/post2024-02 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2024/post2/post2024-02.png">
+              </div>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2024/post4/post2024-04 Kopie 2.png">
+              </div>
+              <div class="floater1">
+                <img src="img/2024/post4/post2024-04 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2024/post4/post2024-04.png">
+              </div>
+            </div>
+          </section>
+
+          <section id="2025">
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2025/post1/post2025-01 Kopie 2.png">
+              </div>
+              <div class="floater1">
+                <img src="img/2025/post1/post2025-01 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2025/post1/post2025-01.png">
+              </div>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2025/post2/post2025-02 Kopie 2.png">
+              </div>
+              <div class="floater1">
+                <img src="img/2025/post2/post2025-02 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2025/post2/post2025-02.png">
+              </div>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2025/post3/post2025-03 Kopie 2.png">
+              </div>
+              <div class="floater1">
+                <img src="img/2025/post3/post2025-03 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2025/post3/post2025-03.png">
+              </div>
+            </div>
+          </section>
+
+          <section id="2026">
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2026/post1/post2026-01 Kopie 2.png">
+              </div>
+              <div class="floater1">
+                <img src="img/2026/post1/post2026-01 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2026/post1/post2026-01.png">
+              </div>
+            </div>
+
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2026/post2/post2026-02 Kopie 2.png">
+              </div>
+              <div class="floater1">
+                <img src="img/2026/post2/post2026-02 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2026/post2/post2026-02.png">
+              </div>
+            </div>
+            <div class="insta-update">
+              <p class="insta-update-header3">15. März 2016</p>
+              <p class="insta-update-text3">
+                Die Reihenfolge der Posts auf der User*innen Timeline wird neu
+                vom Algorithmus bestimmt und ist nicht mehr chronologisch.
+              </p>
+            </div>
+            <div class="post-wrapper">
+              <div class="insta-post">
+                <img src="img/2026/post3/post2026-03 Kopie 2.png">
+              </div>
+              <div class="floater1">
+                <img src="img/2026/post3/post2026-03 Kopie.png">
+              </div>
+
+              <div class="floater2">
+                <img src="img/2026/post3/post2026-03.png">
+              </div>
+            </div>
+
+          </section>
+
+        </section>
+        <script src="parallax.js"></script>
+      </div>
     </div>
-  </section>
-
-
-
-  <!-- ── ERA 1: WELCOME TO THE INTERNET ─────────────── -->
-  <section id="era-1">
-    <p class="era1">Welcome <br>to the internet</p>
-    <!--  Gen Z Kommentar  -->
-    <!-- Quote -->
-    <div class="quote-block-1">
-      <div class="quote-inner">«Honestly I miss how unpolished everything felt. Posts didn't have to educate, convert or
-        "add value". People just posted vibes, blurry photos, inside jokes.» (@Visual-Sun-6018)<br><br>✦<br><br> People
-        posted more frequently in 2016, in 2026 people don’t post a soften but consume just as much.
-        (@CharlesIntheWoods)<br><br>✦<br><br>Photo dumps were very common a decade ago. People were still chronically
-        online, the only difference is that the influencer craze was just beginning. (@didozer10)</div>
-    </div>
-
-    <section id="2016">
-      <!--  1 Insta Post  -->
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2016/post 1/post2016-01 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2016/post 1/post2016-01 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2016/post 1/post2016-01.png">
-        </div>
-      </div>
-      <!-- wenn der gesamte Insta Post erscheint, sieht es zunächst nach einem «ganzen Bild» aus. Doch floater1 und floater2 haben unterschiedliche Geeschwindigkeiten, welche schnellere als die Geschwindigkeit von .insta-post ist. Ausserdem sollen sich auch nicht alle .insta-post gleich schnell bewegen, damit Überlagerungen entstehen können. -->
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2016/post 2/post2016-02 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2016/post 2/post2016-02 3.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2016/post 2/post2016-02.png">
-        </div>
-      </div>
-
-      <!-- Insta Update. Dieses Text Elemente soll einen Fade in haben, etwas stehen bleiben und anschliessend verschwinden wie auf https://sabrinazeltner.com/. Durch die verschiedenen z-index fliegen floater über das .insta-update und andere fahren darunter hindurch  -->
-      <div class="insta-update">
-        <p class="insta-update-header1">15. MÄRZ 2016</p>
-        <p class="insta-update-text1">
-          DIE REIHENFOLGE DER POSTS AUF DER USER*INNEN TIMELINE WIRD NEU VOM ALGORITHMUS BESTIMMT UND IST NICHT MEHR CHRONOLOGISCH.
-        </p>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2016/post4/post2016-04 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2016/post4/post2016-04 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2016/post4/post2016-04.png">
-        </div>
-      </div>
-    </section>
-
-    <section id="2017">
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2017/post1/post2017-01 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2017/post1/post2017-01 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2017/post1/post2017-01.png">
-        </div>
-      </div>
-
-      <div class="insta-update">
-        <p class="insta-update-header1">15. AUGUST 2017</p>
-        <p class="insta-update-text1">
-          DIE KOMMENTARSPALTE IST IN THREADS ORGANISIERT, DAMIT EINFACHER AUF KOMMENTARE GEANTWORTET WERDEN KANN.
-        </p>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2017/post2/post2017-02 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2017/post2/post2017-02 3.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2017/post2/post2017-02.png">
-        </div>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2017/post3/post2017-03 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2017/post3/post2017-03 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2017/post3/post2017-03.png">
-        </div>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2017/post4/post2017-04 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2017/post4/post2017-04 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2017/post4/post2017-04.png">
-        </div>
-      </div>
-    </section>
-
-    <section id="2018">
-      <div class="insta-update">
-        <p class="insta-update-header1">20. JUNI 2018</p>
-        <p class="insta-update-text1">
-          DAS FEATURE IGTV LAUNCHT, WODURCH LÄNGERE VIDEOFORMATE AUF INSTAGRAM GETEILT WERDEN KÖNNEN.
-        </p>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2018/post1/post2018-01 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2018/post1/post2018-01 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2018/post1/post2018-01.png">
-        </div>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2018/post2/post2018-02 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2018/post2/post2018-02 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2018/post2/post2018-02.png">
-        </div>
-      </div>
-
-      <div class="insta-update">
-        <p class="insta-update-header1">15. März 2016</p>
-        <p class="insta-update-text1">
-          Die Reihenfolge der Posts auf der User*innen Timeline wird neu
-          vom Algorithmus bestimmt und ist nicht mehr chronologisch.
-        </p>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2018/post3/post2018-03 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2018/post3/post2018-03 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2018/post3/post2018-03.png">
-        </div>
-      </div>
-    </section>
-  </section>
-
-
-  <!-- ── ERA 2: For You. Hier soll eine Animation stattfinden von "SRFF" 100; zu "SRFF" 50;. Sie soll darauf getimed sein, wenn der Text in der Mitte des Bildschirms erscheint ─────────────── -->
-  <section id="era-2">
-    <p class="era2">For You</p>
-
-    <section id="2019">
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2019/post1/post2019-01 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2019/post1/post2019-01 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2019/post1/post2019-01.png">
-        </div>
-      </div>
-
-      <div class="insta-update">
-        <p class="insta-update-header2">15. März 2016</p>
-        <p class="insta-update-text2">
-          Die Reihenfolge der Posts auf der User*innen Timeline wird neu
-          vom Algorithmus bestimmt und ist nicht mehr chronologisch.
-        </p>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2019/post2/post2019-02 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2019/post2/post2019-02 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2019/post2/post2019-02.png">
-        </div>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2019/post4/post2019-04 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2019/post4/post2019-04 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2019/post4/post2019-04.png">
-        </div>
-      </div>
-    </section>
-
-    <!--  2020  -->
-    <section id="2020">
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2020/post1/post2020-01 Kopie 2.png">
-        </div>
-        <div class="floater1">
-          <img src="img/2020/post1/post2020-01 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2020/post1/post2020-01.png">
-        </div>
-      </div>
-
-      <div class="insta-update">
-        <p class="insta-update-header2">15. März 2016</p>
-        <p class="insta-update-text2">
-          Die Reihenfolge der Posts auf der User*innen Timeline wird neu
-          vom Algorithmus bestimmt und ist nicht mehr chronologisch.
-        </p>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2020/post2/post2020-02 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2020/post2/post2020-02 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2020/post2/post2020-02.png">
-        </div>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2020/post3/post2020-03 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2020/post3/post2020-03 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2020/post3/post2020-03.png">
-        </div>
-      </div>
-    </section>
-
-    <section id="2021">
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2021/post2/post2021-02 Kopie 2.png">
-        </div>
-        <div class="floater1">
-          <img src="img/2021/post2/post2021-02 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2021/post2/post2021-02.png">
-        </div>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2021/post3/post2021-03 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2021/post3/post2021-03 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2021/post3/post2021-03.png">
-        </div>
-      </div>
-
-      <div class="insta-update">
-        <p class="insta-update-header2">15. März 2016</p>
-        <p class="insta-update-text2">
-          Die Reihenfolge der Posts auf der User*innen Timeline wird neu
-          vom Algorithmus bestimmt und ist nicht mehr chronologisch.
-        </p>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2021/post4/post2021-04 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2021/post4/post2021-04 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2021/post4/post2021-04.png">
-        </div>
-      </div>
-    </section>
-
-    <!--  2022  -->
-    <section id="2022">
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2022/post3/post2022-03 Kopie 2.png">
-        </div>
-        <div class="floater1">
-          <img src="img/2022/post3/post2022-03 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2022/post3/post2022-03.png">
-        </div>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2022/post4/post2022-04 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2022/post4/post2022-04 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2022/post4/post2022-04.png">
-        </div>
-      </div>
-
-      <div class="insta-update">
-        <p class="insta-update-header2">15. März 2016</p>
-        <p class="insta-update-text2">
-          Die Reihenfolge der Posts auf der User*innen Timeline wird neu
-          vom Algorithmus bestimmt und ist nicht mehr chronologisch.
-        </p>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2022/post5/post2022-05 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2022/post5/post2022-05 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2022/post5/post2022-05.png">
-        </div>
-      </div>
-
-      <div class="insta-update">
-        <p class="insta-update-header2">15. März 2016</p>
-        <p class="insta-update-text2">
-          Die Reihenfolge der Posts auf der User*innen Timeline wird neu
-          vom Algorithmus bestimmt und ist nicht mehr chronologisch.
-        </p>
-      </div>
-    </section>
-  </section>
-
-  <!-- ── ERA 3: Algorithm Abyss ─────────────── -->
-  <section id="era-3">
-    <p class="era3">Algorithm Abyss</p>
-
-    <section id="2023">
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2023/post1/post2023-01 Kopie 2.png">
-        </div>
-        <div class="floater1">
-          <img src="img/2023/post1/post2023-01 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2023/post1/post2023-01.png">
-        </div>
-      </div>
-
-      <div class="insta-update">
-        <p class="insta-update-header3">15. März 2016</p>
-        <p class="insta-update-text3">
-          Die Reihenfolge der Posts auf der User*innen Timeline wird neu
-          vom Algorithmus bestimmt und ist nicht mehr chronologisch.
-        </p>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2023/post2/post2023-02 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2023/post2/post2023-02 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2023/post2/post2023-02.png">
-        </div>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2023/post3/post2023-03 Kopie 2.png">
-        </div>
-
-        <div class="floater1">
-          <img src="img/2023/post3/post2023-03 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2023/post3/post2023-03.png">
-        </div>
-      </div>
-    </section>
-
-    <section id="2024">
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2024/post1/post2024-01 Kopie 2.png">
-        </div>
-        <div class="floater1">
-          <img src="img/2024/post1/post2024-01 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2024/post1/post2024-01.png">
-        </div>
-      </div>
-      <div class="insta-update">
-        <p class="insta-update-header3">15. März 2016</p>
-        <p class="insta-update-text3">
-          Die Reihenfolge der Posts auf der User*innen Timeline wird neu
-          vom Algorithmus bestimmt und ist nicht mehr chronologisch.
-        </p>
-      </div>
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2024/post2/post2024-02 Kopie 2.png">
-        </div>
-        <div class="floater1">
-          <img src="img/2024/post2/post2024-02 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2024/post2/post2024-02.png">
-        </div>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2024/post4/post2024-04 Kopie 2.png">
-        </div>
-        <div class="floater1">
-          <img src="img/2024/post4/post2024-04 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2024/post4/post2024-04.png">
-        </div>
-      </div>
-    </section>
-
-    <section id="2025">
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2025/post1/post2025-01 Kopie 2.png">
-        </div>
-        <div class="floater1">
-          <img src="img/2025/post1/post2025-01 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2025/post1/post2025-01.png">
-        </div>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2025/post2/post2025-02 Kopie 2.png">
-        </div>
-        <div class="floater1">
-          <img src="img/2025/post2/post2025-02 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2025/post2/post2025-02.png">
-        </div>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2025/post3/post2025-03 Kopie 2.png">
-        </div>
-        <div class="floater1">
-          <img src="img/2025/post3/post2025-03 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2025/post3/post2025-03.png">
-        </div>
-      </div>
-    </section>
-
-    <section id="2026">
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2026/post1/post2026-01 Kopie 2.png">
-        </div>
-        <div class="floater1">
-          <img src="img/2026/post1/post2026-01 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2026/post1/post2026-01.png">
-        </div>
-      </div>
-
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2026/post2/post2026-02 Kopie 2.png">
-        </div>
-        <div class="floater1">
-          <img src="img/2026/post2/post2026-02 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2026/post2/post2026-02.png">
-        </div>
-      </div>
-      <div class="insta-update">
-        <p class="insta-update-header3">15. März 2016</p>
-        <p class="insta-update-text3">
-          Die Reihenfolge der Posts auf der User*innen Timeline wird neu
-          vom Algorithmus bestimmt und ist nicht mehr chronologisch.
-        </p>
-      </div>
-      <div class="post-wrapper">
-        <div class="insta-post">
-          <img src="img/2026/post3/post2026-03 Kopie 2.png">
-        </div>
-        <div class="floater1">
-          <img src="img/2026/post3/post2026-03 Kopie.png">
-        </div>
-
-        <div class="floater2">
-          <img src="img/2026/post3/post2026-03.png">
-        </div>
-      </div>
-
-    </section>
-
-  </section>
+  </div>
 
   <script src="main.js"></script>
 </body>

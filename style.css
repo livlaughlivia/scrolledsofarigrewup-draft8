@@ -173,17 +173,27 @@ body {
 
 .insta-post {
   margin-top: 50px;
+  position: relative;
+}
+
+
+
+.floater1, .floater2 {
+  position: absolute;
+  top: 0px;
 }
 
 .insta-post img {
   width: 80%;
   z-index: 1;
-  
+}
+
+.floater {
+  z-index:10px;
 }
 
 .floater1 img {
   width: 80%;
-  position: absolute;
   bottom: 4px;
   z-index: 2;
 
@@ -191,7 +201,6 @@ body {
 
 .floater2 img {
   width: 80%;
-  position: absolute;
   top: 0px;
   left: 0px;
   z-index: 4;
@@ -204,11 +213,8 @@ body {
   justify-content: center;
   flex-direction: column;
   padding: 14px 14px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  width: 70%;
+  margin: 40px auto;
+  width: 80%;
   background: radial-gradient(circle at center,
       #ff9ff2 0%,
       #ffffff00 100%);
