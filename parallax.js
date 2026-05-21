@@ -22,7 +22,7 @@ function initDelayed(){
         gsap.timeline({
             scrollTrigger: {
                 trigger: card,
-                start: "top 70%",
+                start: "top 20%",
                 end: () => "+=" + holdVh + "px",
                 scrub: true,
                 pin: true,
