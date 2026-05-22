@@ -13,13 +13,12 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollSmoother.min.js"></script>
- <script src="https://assets.codepen.io/16327/SplitText3-beta.min.js"></script>
+  <script src="https://assets.codepen.io/16327/SplitText3-beta.min.js"></script>
 </head>
 
 
 <body>
   <div class="gradient-overlay"></div>
-  <div class="side-bar"></div>
   <div class="side-bar">
     <a href="#title">SSFIG</a>
     <a href="#intro">Intro</a>
@@ -40,16 +39,28 @@
     <a href="#Outro">Outro</a>
     <a href="#Impressum">Imp</a>
   </div>
+  <!--  Gen Z Kommentar  -->
+  <!-- Quote -->
+    <div class="quote-wrapper">
+    <div class="quote-block-1">
+      <p>«Honestly I miss how unpolished everything felt. Posts didn't have to educate,
+        convert or "add value". People just posted vibes, blurry photos, inside jokes.» (@Visual-Sun-6018)</p>
+      <p class="divider">✦</p>
+      <p>People posted more frequently in 2016, in 2026 people don’t post a soften but consume just as much.
+        (@CharlesIntheWoods)</p>
+      <p class="divider">✦</p>
+      <p>Photo dumps were very common a decade ago. People were still chronically online, the only difference is that
+        the influencer craze was just beginning. (@didozer10)</p>>
+    </div>
+  </div>
 
   <!-- ── Titel: I scrolled so far I grew up. Hier soll eine Animation stattfinden von "SRFF" 100; zu "SRFF" 0;. Sie soll im Loop unendlich abspielen─────────────── -->
   <div id="smooth-wrapper">
     <div id="smooth-content">
-
       <div class="stage">
         <section id="title">
           <h1>scrolled<br>sooooo<br>ooooo<br>far i<br>grew up</h1>
         </section>
-
 
         <section id="intro">
           <div class="intro-text">
@@ -65,21 +76,12 @@
           </div>
         </section>
 
+
         <!-- ── ERA 1: WELCOME TO THE INTERNET ─────────────── -->
         <section id="era-1">
           <p class="era1">Welcome <br>to the internet</p>
-          <!--  Gen Z Kommentar  -->
-          <!-- Quote -->
-          <div class="text quote-block-1">
-            «Honestly I miss how unpolished everything felt. Posts didn't have to educate,
-              convert or
-              "add value". People just posted vibes, blurry photos, inside jokes.» (@Visual-Sun-6018)<br><br>✦<br><br>
-              People
-              posted more frequently in 2016, in 2026 people don’t post a soften but consume just as much.
-              (@CharlesIntheWoods)<br><br>✦<br><br>Photo dumps were very common a decade ago. People were still
-              chronically
-              online, the only difference is that the influencer craze was just beginning. (@didozer10)
-          </div>
+
+            <div class="scroll-sections"></div>
 
           <section id="2016">
             <!--  1 Insta Post  -->
@@ -275,11 +277,11 @@
                 <img src="img/2019/post1/post2019-01 Kopie 2.png">
               </div>
 
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2019/post1/post2019-01 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2019/post1/post2019-01.png">
               </div>
             </div>
@@ -297,11 +299,11 @@
                 <img src="img/2019/post2/post2019-02 Kopie 2.png">
               </div>
 
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2019/post2/post2019-02 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2019/post2/post2019-02.png">
               </div>
             </div>
@@ -311,11 +313,11 @@
                 <img src="img/2019/post4/post2019-04 Kopie 2.png">
               </div>
 
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2019/post4/post2019-04 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2019/post4/post2019-04.png">
               </div>
             </div>
@@ -327,11 +329,11 @@
               <div class="insta-post">
                 <img src="img/2020/post1/post2020-01 Kopie 2.png">
               </div>
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-30" attr-float-speed-x="30" attr-scale="1.2">
                 <img src="img/2020/post1/post2020-01 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2020/post1/post2020-01.png">
               </div>
             </div>
@@ -349,11 +351,11 @@
                 <img src="img/2020/post2/post2020-02 Kopie 2.png">
               </div>
 
-              <div class="floater1" attr-float-speed-y="-30" attr-float-speed-x="30" attr-scale="1.2">
+              <div class="floater1 floater" attr-float-speed-y="-30" attr-float-speed-x="30" attr-scale="1.2">
                 <img src="img/2020/post2/post2020-02 Kopie.png">
               </div>
 
-              <div class="floater2" attr-float-speed-y="200" attr-float-speed-x="-20">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5" attr-float-speed-y="200" attr-float-speed-x="-20">
                 <img src="img/2020/post2/post2020-02.png">
               </div>
             </div>
@@ -363,11 +365,11 @@
                 <img src="img/2020/post3/post2020-03 Kopie 2.png">
               </div>
 
-              <div class="floater1" attr-float-speed-y="10" attr-float-speed-x="-50" attr-scale="0.5">
+              <div class="floater1 floater" attr-float-speed-y="10" attr-float-speed-x="-50" attr-scale="0.5">
                 <img src="img/2020/post3/post2020-03 Kopie.png">
               </div>
 
-              <div class="floater2" attr-float-speed-y="40" attr-float-speed-x="40" attr-scale="0.8">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5" attr-float-speed-y="40" attr-float-speed-x="40" attr-scale="0.8">
                 <img src="img/2020/post3/post2020-03.png">
               </div>
             </div>
@@ -378,11 +380,11 @@
               <div class="insta-post">
                 <img src="img/2021/post2/post2021-02 Kopie 2.png">
               </div>
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2021/post2/post2021-02 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2021/post2/post2021-02.png">
               </div>
             </div>
@@ -392,11 +394,11 @@
                 <img src="img/2021/post3/post2021-03 Kopie 2.png">
               </div>
 
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2021/post3/post2021-03 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2021/post3/post2021-03.png">
               </div>
             </div>
@@ -414,11 +416,11 @@
                 <img src="img/2021/post4/post2021-04 Kopie 2.png">
               </div>
 
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2021/post4/post2021-04 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2021/post4/post2021-04.png">
               </div>
             </div>
@@ -430,11 +432,11 @@
               <div class="insta-post">
                 <img src="img/2022/post3/post2022-03 Kopie 2.png">
               </div>
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2022/post3/post2022-03 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2022/post3/post2022-03.png">
               </div>
             </div>
@@ -444,11 +446,11 @@
                 <img src="img/2022/post4/post2022-04 Kopie 2.png">
               </div>
 
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2022/post4/post2022-04 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2022/post4/post2022-04.png">
               </div>
             </div>
@@ -466,11 +468,11 @@
                 <img src="img/2022/post5/post2022-05 Kopie 2.png">
               </div>
 
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2022/post5/post2022-05 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2022/post5/post2022-05.png">
               </div>
             </div>
@@ -494,11 +496,11 @@
               <div class="insta-post">
                 <img src="img/2023/post1/post2023-01 Kopie 2.png">
               </div>
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2023/post1/post2023-01 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2023/post1/post2023-01.png">
               </div>
             </div>
@@ -516,11 +518,11 @@
                 <img src="img/2023/post2/post2023-02 Kopie 2.png">
               </div>
 
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2023/post2/post2023-02 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2023/post2/post2023-02.png">
               </div>
             </div>
@@ -530,11 +532,11 @@
                 <img src="img/2023/post3/post2023-03 Kopie 2.png">
               </div>
 
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2023/post3/post2023-03 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2023/post3/post2023-03.png">
               </div>
             </div>
@@ -545,11 +547,11 @@
               <div class="insta-post">
                 <img src="img/2024/post1/post2024-01 Kopie 2.png">
               </div>
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2024/post1/post2024-01 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2024/post1/post2024-01.png">
               </div>
             </div>
@@ -564,11 +566,11 @@
               <div class="insta-post">
                 <img src="img/2024/post2/post2024-02 Kopie 2.png">
               </div>
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2024/post2/post2024-02 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2024/post2/post2024-02.png">
               </div>
             </div>
@@ -577,11 +579,11 @@
               <div class="insta-post">
                 <img src="img/2024/post4/post2024-04 Kopie 2.png">
               </div>
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2024/post4/post2024-04 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2024/post4/post2024-04.png">
               </div>
             </div>
@@ -592,11 +594,11 @@
               <div class="insta-post">
                 <img src="img/2025/post1/post2025-01 Kopie 2.png">
               </div>
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2025/post1/post2025-01 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2025/post1/post2025-01.png">
               </div>
             </div>
@@ -605,11 +607,11 @@
               <div class="insta-post">
                 <img src="img/2025/post2/post2025-02 Kopie 2.png">
               </div>
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2025/post2/post2025-02 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2025/post2/post2025-02.png">
               </div>
             </div>
@@ -618,11 +620,11 @@
               <div class="insta-post">
                 <img src="img/2025/post3/post2025-03 Kopie 2.png">
               </div>
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2025/post3/post2025-03 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2025/post3/post2025-03.png">
               </div>
             </div>
@@ -633,11 +635,11 @@
               <div class="insta-post">
                 <img src="img/2026/post1/post2026-01 Kopie 2.png">
               </div>
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2026/post1/post2026-01 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2026/post1/post2026-01.png">
               </div>
             </div>
@@ -646,11 +648,11 @@
               <div class="insta-post">
                 <img src="img/2026/post2/post2026-02 Kopie 2.png">
               </div>
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2026/post2/post2026-02 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2026/post2/post2026-02.png">
               </div>
             </div>
@@ -665,11 +667,11 @@
               <div class="insta-post">
                 <img src="img/2026/post3/post2026-03 Kopie 2.png">
               </div>
-              <div class="floater1">
+              <div class="floater1 floater" attr-float-speed-y="-1000" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2026/post3/post2026-03 Kopie.png">
               </div>
 
-              <div class="floater2">
+              <div class="floater2 floater" attr-float-speed-y="10" attr-float-speed-x="5" attr-scale="0.5">
                 <img src="img/2026/post3/post2026-03.png">
               </div>
             </div>
