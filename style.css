@@ -135,8 +135,16 @@ body {
    font-family: "Arizona Variable";
   font-variation-settings: "SRFF" 0, "wght" 500;
 }
-.menu-icon {
-  width: 30px;
+.menu-icon1 {
+  height: 30px;
+  margin: -5px;
+}
+.menu-icon2 {
+  height: 30px;
+  margin: -5px;
+}
+.menu-icon3 {
+  width: 40px;
   margin: -5px;
 }
 
