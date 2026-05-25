@@ -14,7 +14,7 @@ h1 {
   margin-right: 10%;
   margin-bottom: 300px;
   font-size: 80px;
-   z-index: 20;
+  z-index: 20;
   color: #5478ff;
   animation: serifTransition 2s ease-in-out infinite alternate;
 }
@@ -23,6 +23,7 @@ h1 {
   from {
     font-variation-settings: "SRFF" 100;
   }
+
   to {
     font-variation-settings: "SRFF" 0;
   }
@@ -65,12 +66,10 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    ellipse 130% 90% at 50% 42%,
-    #00000000 40%, 
-    #bbe002ff 75%,
-    #bbe002ff 100%
-    );
+  background: radial-gradient(ellipse 100% 70% at 50% 40%,
+      #ffffff01 40%,
+      #bbe002ff 75%,
+      #bbe002ff 110%);
   z-index: 100;
   pointer-events: none;
 }
@@ -130,19 +129,15 @@ body {
   font-family: "Arizona Variable";
   font-variation-settings: "SRFF" 100, "wght" 400;
   font-size: 30px;
-  line-height: 0.5;
-  color: #ffdefe;
-  -webkit-text-stroke: 1px #ea3336;
-  text-shadow:
-    0px 0px 0 #ea3336,
-    4px 4px 3px #ea3336;
+  line-height: 0.3;
+  color: #ea3336;
   box-sizing: border-box;
   padding: 5%;
   width: 80%;
-  margin:0 auto;
+  margin: 0 auto;
   text-align: center;
   perspective: 500px;
-  
+
 }
 
 .divider {
@@ -166,7 +161,8 @@ body {
   position: relative;
 }
 
-.floater1, .floater2 {
+.floater1,
+.floater2 {
   margin-left: 40px;
   margin-right: 40px;
   position: absolute;
@@ -179,7 +175,7 @@ body {
 }
 
 .floater {
-  z-index:10px;
+  z-index: 10px;
 }
 
 .floater1 img {
@@ -213,6 +209,7 @@ body {
   border-radius: 30px;
   position: relative;
 }
+
 .insta-update-header1 {
   font-family: "Arizona Variable";
   font-variation-settings: "SRFF" 100;
@@ -235,7 +232,7 @@ body {
   padding: 4px;
 }
 
-  .insta-update-header2 {
+.insta-update-header2 {
   font-family: "Arizona Variable";
   font-variation-settings: "SRFF" 50;
   color: #fff;
@@ -253,10 +250,10 @@ body {
   text-align: left;
   color: #ff0029;
   margin-top: 0px;
-  
+
 }
 
-  .insta-update-header3 {
+.insta-update-header3 {
   font-family: "Arizona Variable";
   font-variation-settings: "SRFF" 0;
   color: #fff;
@@ -274,5 +271,5 @@ body {
   text-align: left;
   color: #ff0029;
   margin-top: 0px;
-  
+
 }
