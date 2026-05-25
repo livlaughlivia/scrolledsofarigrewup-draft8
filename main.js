@@ -12,7 +12,7 @@ function setupQuotes() {
   const totalPages = Math.ceil(lines.length / linesPerPage);
 
   // Alle Zeilen verstecken
-  gsap.set(lines, { opacity: 0, display: "none" });
+  gsap.set(lines, { opacity: 1, display: "none" });
 
   // Scroll-Sektionen dynamisch erstellen
   const wrapper = document.querySelector(".scroll-sections");
