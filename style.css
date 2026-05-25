@@ -100,7 +100,7 @@ body {
 .side-bar {
   position: fixed;
   top: 0;
-  right: 10px;
+  right: 20px;
   width: 30px;
   height: 100%;
   z-index: 100;
