@@ -12,7 +12,7 @@ let smoother;
 
 
 
-function initDelayed(){
+function initDelayed() {
     delayed.forEach((card) => {
         const holdAttr = parseFloat(card.getAttribute('attr-delay-hold'));
         const holdVh = Number.isFinite(holdAttr) ? holdAttr : 0;
@@ -31,24 +31,24 @@ function initDelayed(){
                 markers: true
             }
         })
-        .to(card, {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.2,
-            ease: 'none'
-        }, 0)
-        .to(card, {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.55,
-            ease: 'none'
-        }, 0.2)
-        .to(card, {
-            autoAlpha: 0,
-            y: -20,
-            duration: 0.25,
-            ease: 'none'
-        }, 0.75);
+            .to(card, {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.2,
+                ease: 'none'
+            }, 0)
+            .to(card, {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.55,
+                ease: 'none'
+            }, 0.2)
+            .to(card, {
+                autoAlpha: 0,
+                y: -20,
+                duration: 0.25,
+                ease: 'none'
+            }, 0.75);
     });
 }
 
@@ -67,16 +67,24 @@ function initParallax() {
             const scaleAttr = parseFloat(floater.getAttribute('attr-scale'));
             const scale = Number.isFinite(scaleAttr) ? scaleAttr : 1;
 
+            const blurStartAttr = parseFloat(floater.getAttribute('attr-blur-start'));
+            const blurStart = Number.isFinite(blurStartAttr) ? blurStartAttr : 0;
+
+            const blurEndAttr = parseFloat(floater.getAttribute('attr-blur-end'));
+            const blurEnd = Number.isFinite(blurEndAttr) ? blurEndAttr : 0;
+
             gsap.set(floater, { y: 0, x: 0, force3D: true });
 
             gsap.fromTo(floater, {
                 y: 0,
                 x: 0,
-                scale: 1
+                scale: 1,
+                filter: `blur(${blurStart}px)` 
             }, {
-                y: () => speedY+"px",
-                x: () => speedX+"px",
+                y: () => speedY + "px",
+                x: () => speedX + "px",
                 scale: scale,
+                filter: `blur(${blurEnd}px)`,
                 scrollTrigger: {
                     trigger: slide,
                     scrub: true,
