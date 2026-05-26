@@ -37,7 +37,7 @@ h1 {
 
 .era1 {
   font-family: "Arizona Variable";
-  font-variation-settings: "SRFF" 100, "wght" 700;
+  font-variation-settings: "SRFF" 0, "wght" 700;
   text-align: center;
   font-size: 60px;
   margin-top: 10px;
@@ -64,7 +64,7 @@ h1 {
 
 .era2 {
   font-family: "Arizona Variable";
-  font-variation-settings: "SRFF" 50, "wght" 700;
+  font-variation-settings: "SRFF" 100, "wght" 700;
   text-align: center;
   font-size: 60px;
   color: #fff;
@@ -72,7 +72,7 @@ h1 {
 
 .era3 {
   font-family: "Arizona Variable";
-  font-variation-settings: "SRFF" 0, "wght" 700;
+  font-variation-settings: "SRFF" 50, "wght" 700;
   text-align: center;
   font-size: 60px;
   color: #fff;

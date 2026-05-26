@@ -45,6 +45,79 @@ function setupQuotes() {
   }
 }
 
+// Era Titles Animation
+function initEraTitles1() {
+  ScrollTrigger.getAll()
+    .filter(t => t.vars.id?.startsWith("era-title-1"))
+    .forEach(t => t.kill());
+
+  const era1Lines = document.querySelectorAll('.era1');
+  era1Lines.forEach((line, i) => {
+    gsap.fromTo(line,
+      { fontVariationSettings: '"SRFF" 0, "wght" 700' },
+      {
+        fontVariationSettings: '"SRFF" 100, "wght" 700',
+        ease: 'power2.inOut',
+        scrollTrigger: {
+          id: `era-title-1-${i}`,
+          trigger: line,
+          start: 'top 60%',
+          end: 'top 40%',
+          scrub: 1,
+        }
+      }
+    );
+  });
+}
+
+function initEraTitles2() {
+  ScrollTrigger.getAll()
+    .filter(t => t.vars.id?.startsWith("era-title-2"))
+    .forEach(t => t.kill());
+
+  const era2Lines = document.querySelectorAll('.era2');
+  era2Lines.forEach((line, i) => {
+    gsap.fromTo(line,
+      { fontVariationSettings: '"SRFF" 100, "wght" 700' },
+      {
+        fontVariationSettings: '"SRFF" 50, "wght" 700',
+        ease: 'power2.inOut',
+        scrollTrigger: {
+          id: `era-title-2-${i}`,
+          trigger: line,
+          start: 'top 60%',
+          end: 'top 40%',
+          scrub: 1,
+        }
+      }
+    );
+  });
+}
+
+function initEraTitles3() {
+  ScrollTrigger.getAll()
+    .filter(t => t.vars.id?.startsWith("era-title-3"))
+    .forEach(t => t.kill());
+
+  const era3Lines = document.querySelectorAll('.era3');
+  era3Lines.forEach((line, i) => {
+    gsap.fromTo(line,
+      { fontVariationSettings: '"SRFF" 50, "wght" 700' },
+      {
+        fontVariationSettings: '"SRFF" 0, "wght" 700',
+        ease: 'power2.inOut',
+        scrollTrigger: {
+          id: `era-title-3-${i}`,
+          trigger: line,
+          start: 'top 60%',
+          end: 'top 40%',
+          scrub: 1,
+        }
+      }
+    );
+  });
+}
+
 function setup() {
   // Intro Text (chars)
   splitIntro && splitIntro.revert();
@@ -64,9 +137,12 @@ function setup() {
   });
 
   setupQuotes();
+  initEraTitles1();
+  initEraTitles2();
+  initEraTitles3();// NEU — hier einfügen
 }
 
-document.fonts.ready.then (() => {
+document.fonts.ready.then(() => {
   setup();
 });
 
