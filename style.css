@@ -196,7 +196,7 @@ body {
 display: block;
 width: fit-content;
 margin: 0 auto 15px;
-padding: 0px 10px;
+padding: 0px 15px;
 position: relative;
   line-height: 1;
   box-decoration-break: clone;
@@ -209,13 +209,13 @@ position: relative;
 .quote-line::before {
   content: "";
   position: absolute;
-  inset: -4px;
+inset: 4px;
   background: #ff9ff2;
   box-shadow: 
-    0 0 5px 5px #ff9ff250,
+    0 0 5px 5px #ff9ff2ff,
     2px 2px #ff9ff280;
   border-radius: 50;
-  filter: blur(20px);
+  filter: blur(10px);
 z-index: -1;
 }
 
