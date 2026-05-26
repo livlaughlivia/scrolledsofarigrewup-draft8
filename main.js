@@ -71,3 +71,10 @@ document.fonts.ready.then (() => {
 });
 
 window.addEventListener("resize", setup);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'g' || e.key === 'G') {
+    const overlay = document.getElementById('gridOverlay');
+    overlay.style.opacity = overlay.style.opacity === '1' ? '0' : '1';
+  }
+});
