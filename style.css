@@ -89,7 +89,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(ellipse 115% 105% at 50% 33%,
+  background: radial-gradient(ellipse 115% 70% at 50% 45%,
       #ffffff01 40%,
       #bbe002ff 75%,
       #bbe002ff 110%);
@@ -436,9 +436,12 @@ width: 100%;
   height: 100svh;
   background: radial-gradient(ellipse 115% 105% at 50% 33%,
       #ffffff01 40%,
-      #afd4ffff 75%,
-      #afd4ffff 110%);
+      #afd4ffff 45%,
+      #afd4ffff 100%);
   z-index: 1000;
+      display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .headline-text-era1 {
