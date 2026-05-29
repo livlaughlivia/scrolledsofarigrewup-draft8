@@ -186,10 +186,44 @@ function setup() {
     }
   });
 
-  setupQuotes("era1"); // Start mit Era 1
   initEraTitles1();
   initEraTitles2();
-  initEraTitles3();// NEU — hier einfügen
+  initEraTitles3();
+
+  // Quote erst ab era-1
+  ScrollTrigger.create({
+    trigger: "#era-1",
+    start: "top 80%",
+    once: true, // nur einmal initialisieren
+    onEnter: () => {
+      gsap.set(".quote-wrapper", { opacity: 1, visibility: "visible" });
+      setupQuotes("era1");
+    }
+  });
+
+  // Era-Wechsel für Quotes
+  ScrollTrigger.create({
+    trigger: "#era-2",
+    start: "top center",
+    onEnter: () => setupQuotes("era2"),
+    onEnterBack: () => setupQuotes("era2")
+  });
+
+  ScrollTrigger.create({
+    trigger: "#era-3",
+    start: "top center",
+    onEnter: () => setupQuotes("era3"),
+    onEnterBack: () => setupQuotes("era3")
+  });
+
+  // Zurück zu intro — quotes verstecken
+  ScrollTrigger.create({
+    trigger: "#era-1",
+    start: "top 80%",
+    onLeaveBack: () => {
+      gsap.set(".quote-wrapper", { opacity: 0, visibility: "hidden" });
+    }
+  });
 }
 
 document.fonts.ready.then(() => {
@@ -203,25 +237,4 @@ document.addEventListener('keydown', (e) => {
     const overlay = document.getElementById('gridOverlay');
     overlay.style.opacity = overlay.style.opacity === '1' ? '0' : '1';
   }
-});
-
-ScrollTrigger.create({
-  trigger: "#era-1",
-  start: "top center",
-  onEnter: () => setupQuotes("era1"),
-  onEnterBack: () => setupQuotes("era1")
-});
-
-ScrollTrigger.create({
-  trigger: "#era-2",
-  start: "top center",
-  onEnter: () => setupQuotes("era2"),
-  onEnterBack: () => setupQuotes("era2")
-});
-
-ScrollTrigger.create({
-  trigger: "#era-3",
-  start: "top center",
-  onEnter: () => setupQuotes("era3"),
-  onEnterBack: () => setupQuotes("era3")
 });

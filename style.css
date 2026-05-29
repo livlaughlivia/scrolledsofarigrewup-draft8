@@ -9,14 +9,13 @@ h1 {
   font-variation-settings: "wght" 600;
   text-align: center;
   line-height: 0.9;
-  margin-top: 10px;
-  margin-left: 10%;
-  margin-right: 10%;
-  margin-bottom: 10px;
-  font-size: 80px;
+  font-size: 120px;
   z-index: 20;
   color: #5478ff;
   animation: serifTransition 2s ease-in-out infinite alternate;
+  margin: 0;
+  padding: 0;
+  position: relative;
 }
 
 
@@ -30,15 +29,50 @@ h1 {
   }
 }
 
+/* ── LOADING SCREEN ───────────────────────────────────── */
+.loading-screen{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100svh;
+  width: 100%;
+  background: #bee800;
+  z-index: 999;
+}
+
+.loading-icon {
+  width: 30%;
+  position: absolute;
+  top: 35%;
+  left: 35%;
+}
+
+/* ── TITLE SCREEN ───────────────────────────────────── */
 .title-wrapper {
   height: 100svh;
   width: 100%;
-  z-index: 200;
+  z-index: 1000;
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  position: relative;
+  overflow: hidden;
+}
+
+.title-top {
+  margin-top: 0;
+  align-self: center;
+}
+
+.title-far {
+  margin-top: auto;
+  align-self: center;
+}
+
+.title-bottom {
+  margin-top: 0;
+  align-self: center;
 }
 
 .era-title {
@@ -56,7 +90,7 @@ h1 {
 }
 
 .outline {
-  font-size: 60px;
+  font-size: 120px;
   position: relative;
   color: white;
   text-align: center;
@@ -183,7 +217,9 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
-  z-index: 999;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .quote-block-1 {
@@ -226,8 +262,6 @@ body {
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   border: none;
-
-
 }
 
 .quote-line::before {
