@@ -3,7 +3,7 @@ gsap.registerPlugin(SplitText, ScrollTrigger);
 let splitIntro, animationIntro, splitQuote;
 
 
-//--- verschiedene Quotes pro Era ---
+//--- MARK: QUOTES ---
 const eraQuotes = {
   era1: `
     <span class="quote-line">@Visual-Sun-6018:</span>
@@ -49,9 +49,9 @@ function setupQuotes(era = "era1") {
   wrapper.innerHTML = eraQuotes[era];
 
   // Alle neuen quote-line Spans stylen
-wrapper.querySelectorAll('.quote-line').forEach(span => {
-  span.style.display = 'block';
-});
+  wrapper.querySelectorAll('.quote-line').forEach(span => {
+    span.style.display = 'block';
+  });
 
   // 2. SplitText NEU ERSTELLEN
   splitQuote = SplitText.create(".quote-block-1", { type: "lines" });
@@ -95,7 +95,7 @@ wrapper.querySelectorAll('.quote-line').forEach(span => {
   }
 }
 
-// Era Titles Animation
+// MARK: Era Title-Animations
 function initEraTitles1() {
   ScrollTrigger.getAll()
     .filter(t => t.vars.id?.startsWith("era-title-1"))
@@ -169,7 +169,7 @@ function initEraTitles3() {
 }
 
 function setup() {
-  // Intro Text (chars)
+  // MARK: Intro Text
   splitIntro && splitIntro.revert();
   animationIntro && animationIntro.revert();
 
@@ -202,19 +202,19 @@ function setup() {
   });
 
   ScrollTrigger.create({
-  trigger: "#era-1",
-  start: "top 80%",
-  onEnter: () => gsap.to('.side-bar', { 
-    opacity: 1, 
-    visibility: 'visible',
-    duration: 0.5 
-  }),
-  onLeaveBack: () => gsap.to('.side-bar', { 
-    opacity: 0, 
-    visibility: 'hidden',
-    duration: 0.3 
-  })
-});
+    trigger: "#era-1",
+    start: "top 80%",
+    onEnter: () => gsap.to('.side-bar', {
+      opacity: 1,
+      visibility: 'visible',
+      duration: 0.5
+    }),
+    onLeaveBack: () => gsap.to('.side-bar', {
+      opacity: 0,
+      visibility: 'hidden',
+      duration: 0.3
+    })
+  });
 
   // Era-Wechsel für Quotes
   ScrollTrigger.create({
@@ -239,10 +239,61 @@ function setup() {
       gsap.set(".quote-wrapper", { opacity: 0, visibility: "hidden" });
     }
   });
+
+  // MARK: Headline
+  ScrollTrigger.create({
+    trigger: "#headline-trigger-2016",
+    start: "top 80%",
+    onEnter: () => {
+      gsap.to('.gradient-headline', {
+        opacity: 1,
+        visibility: 'visible',
+        duration: 0.5,
+        onComplete: () => {
+          // pointer-events erst nach Animation setzen
+          document.querySelector('.gradient-headline').style.pointerEvents = 'all';
+        }
+      });
+    },
+
+    onLeave: () => {
+      gsap.to('.gradient-headline', { opacity: 0, visibility: 'hidden', duration: 0.3 });
+      document.querySelector('.gradient-headline').style.pointerEvents = 'none';
+    },
+    onEnterBack: () => {
+      gsap.to('.gradient-headline', { opacity: 1, visibility: 'visible', duration: 0.5 }),
+        document.querySelector('.gradient-headline').style.pointerEvents = 'all';
+    },
+    onLeaveBack: () => {
+      gsap.to('.gradient-headline', { opacity: 0, visibility: 'hidden', duration: 0.3 });
+      document.querySelector('.gradient-headline').style.pointerEvents = 'none';
+    }
+
+  });
 }
+
+
 
 document.fonts.ready.then(() => {
   setup();
+  
+  // Einmalig — nicht in setup() damit es nicht bei resize doppelt angehängt wird
+  const closeBtn = document.querySelector('.close-headline-btn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      gsap.to('.gradient-headline', {
+        opacity: 0,
+        visibility: 'hidden',
+        duration: 0.3,
+        onComplete: () => {
+          document.querySelector('.gradient-headline').style.pointerEvents = 'none';
+        }
+      });
+    });
+  } else {
+    console.error('close-headline-btn nicht gefunden');
+  }
+
 });
 
 window.addEventListener("resize", setup);
