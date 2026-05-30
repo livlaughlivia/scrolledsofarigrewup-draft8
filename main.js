@@ -190,8 +190,6 @@ function setup() {
   initEraTitles2();
   initEraTitles3();
 
-  
-
   // Quote erst ab era-1
   ScrollTrigger.create({
     trigger: "#era-1",
@@ -202,6 +200,21 @@ function setup() {
       setupQuotes("era1");
     }
   });
+
+  ScrollTrigger.create({
+  trigger: "#era-1",
+  start: "top 80%",
+  onEnter: () => gsap.to('.side-bar', { 
+    opacity: 1, 
+    visibility: 'visible',
+    duration: 0.5 
+  }),
+  onLeaveBack: () => gsap.to('.side-bar', { 
+    opacity: 0, 
+    visibility: 'hidden',
+    duration: 0.3 
+  })
+});
 
   // Era-Wechsel für Quotes
   ScrollTrigger.create({
