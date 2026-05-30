@@ -16,6 +16,7 @@
   <script src="https://assets.codepen.io/16327/SplitText3-beta.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollToPlugin.min.js"></script>
   <script src="https://assets.codepen.io/16327/MorphSVGPlugin3.min.js"></script>
+  <script src="https://assets.codepen.io/16327/DrawSVGPlugin3.min.js"></script>
 </head>
 
 
@@ -99,8 +100,12 @@
     <div class="headline-wrapper">
       <div class="headline-menu">
         <div class="headline-lines">
-          <img src="img/SVGs/headline-line-03.svg" class="headline-line-constant">
-          <img src="img/SVGs/headline-line-03.svg" class="headline-line-timer">
+          <svg class="headline-line-constant" viewBox="0 0 100 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="1" x2="100" y2="1" stroke="#5c7fff" stroke-width="2" opacity="0.5"/>
+          </svg>
+          <svg class="headline-line-timer" viewBox="0 0 100 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <line id="headline-timer-line" x1="0" y1="1" x2="100" y2="1" stroke="#5c7fff" stroke-width="2"/>
+          </svg>
         </div>
         <div class="headline-info">
           <img src="img/SVGs/navigation-icon-17.svg" class="headline-menu-pb">
@@ -116,6 +121,7 @@
     </div>
   </div>
 
+  <!--MARK: Start -->
   <div id="smooth-wrapper">
     <div id="smooth-content">
       <div class="stage">

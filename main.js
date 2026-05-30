@@ -1,4 +1,7 @@
-gsap.registerPlugin(SplitText, ScrollTrigger);
+gsap.registerPlugin(SplitText, ScrollTrigger, DrawSVGPlugin);
+
+// Linie initial verstecken
+gsap.set('#headline-timer-line', { drawSVG: '0%' });
 
 let splitIntro, animationIntro, splitQuote;
 
@@ -254,6 +257,25 @@ function setup() {
           document.querySelector('.gradient-headline').style.pointerEvents = 'all';
         }
       });
+
+      gsap.fromTo('#headline-timer-line',
+        { drawSVG: '0%' },
+        {
+          drawSVG: '100%',
+          duration: 10,
+          ease: 'none',
+          onComplete: () => {
+            gsap.to('.gradient-headline', {
+              opacity: 0,
+              visibility: 'hidden',
+              duration: 0.5,
+              onComplete: () => {
+                document.querySelector('.gradient-headline').style.pointerEvents = 'none';
+              }
+            });
+          }
+        }
+      );
     },
 
     onLeave: () => {
@@ -263,6 +285,11 @@ function setup() {
     onEnterBack: () => {
       gsap.to('.gradient-headline', { opacity: 1, visibility: 'visible', duration: 0.5 }),
         document.querySelector('.gradient-headline').style.pointerEvents = 'all';
+      // Linie zurücksetzen und neu starten
+      gsap.fromTo('#headline-timer-line',
+        { drawSVG: '0%' },
+        { drawSVG: '100%', duration: 10, ease: 'none' }
+      );
     },
     onLeaveBack: () => {
       gsap.to('.gradient-headline', { opacity: 0, visibility: 'hidden', duration: 0.3 });
@@ -270,13 +297,15 @@ function setup() {
     }
 
   });
+  // Am Ende von setup(), nach allen ScrollTrigger Definitionen
+  gsap.set('#headline-timer-line', { drawSVG: '0%' });
 }
 
 
 
 document.fonts.ready.then(() => {
   setup();
-  
+
   // Einmalig — nicht in setup() damit es nicht bei resize doppelt angehängt wird
   const closeBtn = document.querySelector('.close-headline-btn');
   if (closeBtn) {
