@@ -9,7 +9,7 @@ h1 {
   font-variation-settings: "wght" 600;
   text-align: center;
   line-height: 0.9;
-  font-size: 120px;
+  font-size: 80px;
   z-index: 20;
   color: #5478ff;
   animation: serifTransition 2s ease-in-out infinite alternate;
@@ -69,7 +69,7 @@ body::after {
   opacity: 0;
 }
 
-/* ── LOADING SCREEN ───────────────────────────────────── */
+/* ── MARK: LOADING SCREEN  */
 .loading-screen{
   position: fixed;
   top: 0;
@@ -90,7 +90,7 @@ body::after {
 }
 
 
-/* ── TITLE SCREEN ───────────────────────────────────── */
+/* ── MARK: TITLE SCREEN */
 #title {
   position: absolute;
   top: 0;
@@ -147,22 +147,8 @@ margin-top: -40px;
   pointer-events: none;
 }
 
-.era-title {
-  position: relative;
-  margin: 300px auto;
-}
-
-.era1 {
-  font-family: "Arizona Variable";
-  font-variation-settings: "SRFF" 0, "wght" 700;
-  text-align: center;
-  font-size: 60px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 .outline {
-  font-size: 120px;
+  font-size: 80px;
   position: relative;
   color: #f9caf8;
   text-align: center;
@@ -181,6 +167,22 @@ margin-top: -40px;
   text-shadow: 0 0 10px #ea3336;
 }
 
+.era-title {
+  position: relative;
+  margin: 300px auto;
+}
+
+.era1 {
+  font-family: "Arizona Variable";
+  font-variation-settings: "SRFF" 0, "wght" 700;
+  text-align: center;
+  font-size: 60px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+
 .era2 {
   font-family: "Arizona Variable";
   font-variation-settings: "SRFF" 100, "wght" 700;
@@ -198,7 +200,7 @@ margin-top: -40px;
 }
 
 
-
+/* MARK: NAVIGATION */
 .side-bar {
   position: fixed;
   top: 0;
@@ -253,6 +255,7 @@ margin-top: -40px;
   margin: -5px;
 }
 
+/* ── MARK: INTRO TEXT  */
 .intro-text {
   font-family: "Arizona Variable";
   font-variation-settings: "SRFF" 100, "wght" 400;
@@ -267,7 +270,7 @@ margin-top: -40px;
 
 
 
-/* ── QUOTE BLOCK ───────────────────────────────────── */
+/* ── MARK: QUOTE BLOCK  */
 .quote-wrapper {
   position: fixed;
   bottom: 20px;
@@ -335,7 +338,7 @@ margin-top: -40px;
 }
 
 
-/* ── Insta Post ───────────────────────────────────── */
+/* ── MARK: Insta Post */
 .post-wrapper {
   position: relative;
   /* Referenzpunkt für die Floater */
@@ -447,7 +450,7 @@ margin-top: -40px;
 
 
 
-/* ── Instagram News ───────────────────────────────────── */
+/* ── MARK: Instagram News */
 .insta-update {
   z-index: 3;
   display: flex;
@@ -529,7 +532,7 @@ margin-top: -40px;
 
 }
 
-/* ── Headline ───────────────────────────────────── */
+/* ── MARK: Headline */
 .headline-wrapper {
   background: #bbe002;
   height: 100svh;
@@ -628,7 +631,7 @@ margin-top: -40px;
   z-index: 999;
 }
 
-/* ── Grid Overlay ───────────────────────────────────── */
+/* ── MARK: Grid Overlay ───────────────────────────────────── */
 .grid-overlay {
   position: fixed;
   top: 0;
