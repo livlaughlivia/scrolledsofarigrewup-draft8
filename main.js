@@ -173,7 +173,7 @@ function setup() {
   splitIntro && splitIntro.revert();
   animationIntro && animationIntro.revert();
 
-  splitIntro = SplitText.create(".intro-text", { type: "chars,words,lines" });
+  splitIntro = SplitText.create(".intro-block", { type: "chars,words,lines" });
   animationIntro = gsap.from(splitIntro.chars, {
     opacity: 0,
     duration: 0.1,
