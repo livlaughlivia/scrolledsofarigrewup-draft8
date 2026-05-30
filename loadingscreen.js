@@ -42,10 +42,6 @@ setTimeout(() => {
         document.querySelector('.loading-screen').style.display = 'none';
       }
     }, '-=0.2')
-    .to('.gradient-overlay', {
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power2.inOut'
-    }, '-=0.6');
+
 
 }, 5000);

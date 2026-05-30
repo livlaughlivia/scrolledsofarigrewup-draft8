@@ -190,6 +190,8 @@ function setup() {
   initEraTitles2();
   initEraTitles3();
 
+  
+
   // Quote erst ab era-1
   ScrollTrigger.create({
     trigger: "#era-1",
