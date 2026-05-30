@@ -50,7 +50,7 @@ h1 {
 }
 
 
-/* MARK: body */ 
+/* MARK: body */
 body {
   background: #a9ceff;
   overflow-x: hidden;
@@ -64,9 +64,9 @@ body::after {
   width: 100%;
   height: 100%;
   background: radial-gradient(ellipse 115% 70% at 50% 45%,
-    #ffffff01 40%,
-    #bbe002ff 75%,
-    #bbe002ff 110%);
+      #ffffff01 40%,
+      #bbe002ff 75%,
+      #bbe002ff 110%);
   pointer-events: none;
   z-index: 50;
 }
@@ -91,7 +91,7 @@ body::after {
 }
 
 /* ── MARK: LOADING SCREEN  */
-.loading-screen{
+.loading-screen {
   position: fixed;
   top: 0;
   left: 0;
@@ -157,12 +157,12 @@ body::after {
 
 /* MARK: wie kann sooo unter gradient stehen und evtl scrollen?*/
 .title-sooo {
-align-self: center;
-width: 100%;
-height: 90%;
-position: relative;
-z-index: 55;
-margin-top: -40px;
+  align-self: center;
+  width: 100%;
+  height: 90%;
+  position: relative;
+  z-index: 55;
+  margin-top: -40px;
 }
 
 .title-spacer {
@@ -268,9 +268,13 @@ margin-top: -40px;
   font-size: 25px;
   line-height: 1;
   text-align: left;
+  /* sollte hier auch center sein, damit genau gleich wie quotes?*/
   color: #ea3336;
   width: 80%;
   margin: 200px auto 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .intro-block {
@@ -324,15 +328,15 @@ margin-top: -40px;
 }
 
 .quote-block-1.q-era1 {
-  font-variation-settings: "SRFF" 100, "wght" 400;
+  font-variation-settings: "SRFF" 100, "wght" 600;
 }
 
 .quote-block-1.q-era2 {
-  font-variation-settings: "SRFF" 50, "wght" 400;
+  font-variation-settings: "SRFF" 50, "wght" 600;
 }
 
 .quote-block-1.q-era3 {
-  font-variation-settings: "SRFF" 0, "wght" 400;
+  font-variation-settings: "SRFF" 0, "wght" 600;
 }
 
 .divider {
@@ -478,86 +482,49 @@ margin-top: -40px;
 
 
 
-/* ── MARK: Instagram News */
+/* ── MARK: Insta Update */
 .insta-update {
   z-index: 3;
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  padding: 14px 14px;
+  align-items: center;
+  width: 80%;
   margin: 40px auto;
-  width: 300px;
-  background: radial-gradient(ellipse 80% 70% at 50% 50%,
-      #f9caf8 0%,
-      #ffffff00 100%);
-  border: 5px solid #ff0029;
+
+}
+
+.insta-update-content {
+  margin: 0px;
+  width: 100%;
+  background: #5c7fff;
+  border: 5px solid #f9caf8;
   text-align: justify;
   border-radius: 30px;
   position: relative;
 }
 
-.insta-update-header1 {
-  font-family: "Arizona Variable";
-  font-variation-settings: "SRFF" 100;
-  color: #f9caf8;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0px;
-  padding: 4px;
-
-}
-
-.insta-update-text1 {
-  font-family: "Arizona Variable";
-  font-variation-settings: "SRFF" 100;
-  font-size: 18px;
-  text-align: left;
-  color: #ff0029;
-  margin-top: 0px;
-  padding: 4px;
-}
-
-.insta-update-header2 {
-  font-family: "Arizona Variable";
-  font-variation-settings: "SRFF" 50;
-  color: #f9caf8;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0px;
-
-}
-
-.insta-update-text2 {
-  font-family: "Arizona Variable";
-  font-variation-settings: "SRFF" 50;
-  font-size: 18px;
-  text-align: left;
-  color: #ff0029;
-  margin-top: 0px;
-
-}
-
-.insta-update-header3 {
-  font-family: "Arizona Variable";
-  font-variation-settings: "SRFF" 0;
-  color: #f9caf8;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0px;
-
-}
-
-.insta-update-text3 {
+.insta-update-content p {
   font-family: "Arizona Variable";
   font-variation-settings: "SRFF" 0;
   font-size: 18px;
   text-align: left;
-  color: #ff0029;
-  margin-top: 0px;
+  color: #f9caf8;
+  margin: 5px;
+  padding: 10px;
+}
 
+.insta-update-date {
+  font-family: "Arizona Variable";
+  font-variation-settings: "SRFF" 0;
+  font-size: 18px;
+  text-align: left;
+  color: #5c7fff;
+  align-self: flex-start;
+  /* linksbündig im flex container */
+  width: 100%;
+  /* gleiche breite wie .insta-update-content */
+  margin: 5px;
+  padding: 10px;
 }
 
 /* ── MARK: Headline */
