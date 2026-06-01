@@ -81,8 +81,8 @@ function applyInvertedMask(el, shapeIds, frameW, frameH) {
     el.appendChild(svg);
 }
 
-// Wendet Clips auf einen einzelnen wrapper an
-function applyClipsToWrapper(wrapper) {
+// SVGs + GSAP-Animationen zusammen erstellen
+function initWrapper(wrapper) {
     const frameImg = wrapper.querySelector('.ig-frame img');
     if (!frameImg) return;
 
@@ -101,41 +101,82 @@ function applyClipsToWrapper(wrapper) {
         applyClipToElement(wrapper.querySelector('.floater1'), floater1Shape, w, h);
         applyClipToElement(wrapper.querySelector('.floater2'), floater2Shape, w, h);
         applyClipToElement(wrapper.querySelector('.floater3'), floater3Shape, w, h);
+
+        // GSAP Floater-Animationen
+        wrapper.querySelectorAll('.floater').forEach((floater) => {
+            const speedY = Number.isFinite(parseFloat(floater.getAttribute('attr-float-speed-y')))
+                ? parseFloat(floater.getAttribute('attr-float-speed-y')) : 0;
+            const speedX = Number.isFinite(parseFloat(floater.getAttribute('attr-float-speed-x')))
+                ? parseFloat(floater.getAttribute('attr-float-speed-x')) : 0;
+            const scale = Number.isFinite(parseFloat(floater.getAttribute('attr-scale')))
+                ? parseFloat(floater.getAttribute('attr-scale')) : 1;
+            const blurStart = Number.isFinite(parseFloat(floater.getAttribute('attr-blur-start')))
+                ? parseFloat(floater.getAttribute('attr-blur-start')) : 0;
+            const blurEnd = Number.isFinite(parseFloat(floater.getAttribute('attr-blur-end')))
+                ? parseFloat(floater.getAttribute('attr-blur-end')) : 0;
+
+            gsap.set(floater, { y: 0, x: 0, force3D: true });
+
+            gsap.fromTo(floater,
+                { y: 0, x: 0, scale: 1, filter: `blur(${blurStart}px)` },
+                {
+                    y: () => speedY + "px",
+                    x: () => speedX + "px",
+                    scale: scale,
+                    filter: `blur(${blurEnd}px)`,
+                    scrollTrigger: {
+                        trigger: wrapper,
+                        scrub: true,
+                        start: "20% 30%",
+                        end: "bottom top",
+                        invalidateOnRefresh: true,
+                    },
+                    immediateRender: false,
+                    ease: 'none'
+                }
+            );
+        });
+
+        // GSAP Hauptbild fade-in
+        const instaPost = wrapper.querySelector('.insta-post:not(.ig-frame)');
+        if (instaPost) {
+            gsap.set(instaPost, { opacity: 0 });
+            gsap.to(instaPost, {
+                opacity: 1,
+                duration: 1,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: wrapper,
+                    start: "top 50%",
+                    toggleActions: "play none none reverse",
+                    invalidateOnRefresh: true,
+                }
+            });
+        }
+
+        ScrollTrigger.refresh();
     };
 
     if (frameImg.complete && frameImg.naturalWidth) apply();
     else frameImg.addEventListener('load', apply);
 }
 
-// Entfernt alle SVGs aus einem wrapper (für Memory-Freigabe)
-function removeClipsFromWrapper(wrapper) {
-    wrapper.querySelectorAll('svg').forEach(svg => svg.remove());
-    wrapper.querySelectorAll('img').forEach(img => img.style.display = '');
-    wrapper._clipsApplied = false;
-    wrapper._gsapKilled = false;
-}
 
-
-// ── MARK: LAZY CLIP PATHS via IntersectionObserver ────────────
-function initClipPaths() {
+// ── MARK: LAZY INIT via IntersectionObserver ──────────────────
+function initLazy() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            const wrapper = entry.target;
-
             if (entry.isIntersecting) {
-                if (!wrapper._clipsApplied) {
-                    applyClipsToWrapper(wrapper);
-                    wrapper._clipsApplied = true;
-                }
-            } else {
-                // Nur entfernen wenn weit weg (rootMargin sorgt für Puffer)
-                if (wrapper._clipsApplied) {
-                    removeClipsFromWrapper(wrapper);
+                const wrapper = entry.target;
+                if (!wrapper._initialized) {
+                    wrapper._initialized = true;
+                    observer.unobserve(wrapper);
+                    initWrapper(wrapper);
                 }
             }
         });
     }, {
-        rootMargin: '600px 0px 600px 0px' // 600px Puffer vor/nach Viewport
+        rootMargin: '400px 0px 400px 0px'
     });
 
     document.querySelectorAll('.post-wrapper').forEach(wrapper => {
@@ -170,64 +211,6 @@ function initDelayed() {
 }
 
 
-// ── MARK: PARALLAX ────────────────────────────────────────────
-function initParallax() {
-    const slides = selectAll(".post-wrapper");
-
-    slides.forEach((slide) => {
-        slide.querySelectorAll('.floater').forEach((floater) => {
-            const speedY = Number.isFinite(parseFloat(floater.getAttribute('attr-float-speed-y')))
-                ? parseFloat(floater.getAttribute('attr-float-speed-y')) : 0;
-            const speedX = Number.isFinite(parseFloat(floater.getAttribute('attr-float-speed-x')))
-                ? parseFloat(floater.getAttribute('attr-float-speed-x')) : 0;
-            const scale = Number.isFinite(parseFloat(floater.getAttribute('attr-scale')))
-                ? parseFloat(floater.getAttribute('attr-scale')) : 1;
-            const blurStart = Number.isFinite(parseFloat(floater.getAttribute('attr-blur-start')))
-                ? parseFloat(floater.getAttribute('attr-blur-start')) : 0;
-            const blurEnd = Number.isFinite(parseFloat(floater.getAttribute('attr-blur-end')))
-                ? parseFloat(floater.getAttribute('attr-blur-end')) : 0;
-
-            gsap.set(floater, { y: 0, x: 0, force3D: true });
-
-            gsap.fromTo(floater,
-                { y: 0, x: 0, scale: 1, filter: `blur(${blurStart}px)` },
-                {
-                    y: () => speedY + "px",
-                    x: () => speedX + "px",
-                    scale: scale,
-                    filter: `blur(${blurEnd}px)`,
-                    scrollTrigger: {
-                        trigger: slide,
-                        scrub: true,
-                        start: "20% 30%",
-                        end: "bottom top",
-                        invalidateOnRefresh: true,
-                    },
-                    immediateRender: false,
-                    ease: 'none'
-                }
-            );
-        });
-
-        const instaPost = slide.querySelector('.insta-post:not(.ig-frame)');
-        if (instaPost) {
-            gsap.set(instaPost, { opacity: 0 });
-            gsap.to(instaPost, {
-                opacity: 1,
-                duration: 1,
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: slide,
-                    start: "top 50%",
-                    toggleActions: "play none none reverse",
-                    invalidateOnRefresh: true,
-                }
-            });
-        }
-    });
-}
-
-
 // ── MARK: INIT ────────────────────────────────────────────────
 function init() {
     smoother = ScrollSmoother.create({
@@ -240,43 +223,8 @@ function init() {
 
     gsap.set(stage, { autoAlpha: 1 });
 
-    initClipPaths();
-    initParallax();
-
-    document.querySelectorAll('.floater').forEach(f => {
-        gsap.set(f, { y: 0, x: 0 });
-    });
-
+    initLazy();
     initDelayed();
-    ScrollTrigger.refresh();
-}
-
-function initOnFirstScrollIntent() {
-    let hasInitialized = false;
-
-    const teardown = () => {
-        window.removeEventListener('scroll', onFirstIntent);
-        window.removeEventListener('wheel', onFirstIntent);
-        window.removeEventListener('touchmove', onFirstIntent);
-        window.removeEventListener('keydown', onFirstKeydown);
-    };
-
-    const onFirstIntent = () => {
-        if (hasInitialized) return;
-        hasInitialized = true;
-        teardown();
-        init();
-    };
-
-    const onFirstKeydown = (event) => {
-        const scrollKeys = ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '];
-        if (scrollKeys.includes(event.key)) onFirstIntent();
-    };
-
-    window.addEventListener('scroll', onFirstIntent, { passive: true });
-    window.addEventListener('wheel', onFirstIntent, { passive: true });
-    window.addEventListener('touchmove', onFirstIntent, { passive: true });
-    window.addEventListener('keydown', onFirstKeydown);
 }
 
 window.addEventListener('load', () => {
