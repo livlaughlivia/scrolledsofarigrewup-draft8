@@ -14,7 +14,12 @@ const SHAPES = {
     'shape-17': `<path d="M208.73,547.36c-12.21.44-19.66-6.27-22.66-14.84-3.11-8.89.92-19.08,6.29-24.43,7.28-7.24,10.36-13.35,10.36-21.16,0-13.56-14.74-29.59-29.59-29.59s-24.79,9.98-28.49,21.72c-3,9.52-7.63,16.12-17.09,22.83-12.17,8.63-21.43,9.88-43.67,9.88-23.96,0-43.67,17.56-43.67,43.67,0,13.8,6.28,26.64,16.83,34.77h169.52c4.81-4.99,7.24-11.76,7.24-17.76,0-8.06-6.43-25.75-25.08-25.08Z"/>`,
     'shape-18': `<path d="M577.64,226.82c-19.57-13.87-29.12-27.5-35.34-47.19-7.65-24.27-27.9-44.91-58.9-44.91s-61.17,33.14-61.17,61.17c0,16.15,6.38,28.79,21.42,43.75,11.11,11.05,19.44,32.12,13.01,50.5-6.2,17.72-21.59,31.58-46.84,30.67-38.56-1.38-51.85,35.19-51.85,51.85,0,23.15,17.46,51.85,51.85,51.85,5.03,0,11.4-1.28,17.02-3.02,7.41-2.28,16.85-.54,25.46,6.27,7.82,6.19,13.05,17.84,12.26,24.84-.54,4.79-.61,7.04-.61,10.01,0,23.38,14.46,41.56,41.56,41.56,17.07,0,41.56-11.4,41.56-41.56,0-20.39,12.89-33.11,25.08-41.56,11.97-8.31,34.77-13.14,53.94-3.52,4.46,2.24,9.3,4.13,14.23,5.66v-176.53c-27.39-1.42-43.24-6.09-62.68-19.87Z"/>`,
     'shape-19': `<path d="M155.39,496.52c-42.47,0-76.9,34.43-76.9,76.9,0,5.77.66,11.38,1.86,16.78h150.09c1.2-5.4,1.86-11.02,1.86-16.78,0-42.47-34.43-76.9-76.9-76.9Z"/>`,
-    'shape-20': `<path d="M526.85,161.77c-99.72,0-180.55,80.84-180.55,180.55s80.84,180.55,180.55,180.55c42.99,0,82.46-15.03,113.47-40.12V201.88c-31.01-25.08-70.48-40.12-113.47-40.12Z"/>`
+    'shape-20': `<path d="M526.85,161.77c-99.72,0-180.55,80.84-180.55,180.55s80.84,180.55,180.55,180.55c42.99,0,82.46-15.03,113.47-40.12V201.88c-31.01-25.08-70.48-40.12-113.47-40.12Z"/>`,
+    // ── Era 3 ──
+    // Floater 2: kleines Rechteck links-unten
+    'shape-21': `<rect x="82.74" y="489.19" width="115.01" height="101.01"/>`,
+    // Floater 1: grosses Rechteck rechts-mitte
+    'shape-22': `<rect x="390.37" y="190.28" width="249.95" height="304.08"/>`
 };
 
 const BASE_W = 640.32;
@@ -26,6 +31,15 @@ function getShapeContent(shapeId, frameW, frameH) {
     }
     if (shapeId === 'shape-18' || shapeId === 'shape-20') {
         return `<g transform="translate(${frameW - BASE_W}, 0)">${SHAPES[shapeId]}</g>`;
+    }
+    // Era 3: shape-21 unten-links, shape-22 rechts — beide mit Offsets
+    if (shapeId === 'shape-21') {
+        const offsetY = frameH - BASE_H;
+        return `<g transform="translate(0, ${offsetY})">${SHAPES[shapeId]}</g>`;
+    }
+    if (shapeId === 'shape-22') {
+        const offsetX = frameW - BASE_W;
+        return `<g transform="translate(${offsetX}, 0)">${SHAPES[shapeId]}</g>`;
     }
     return SHAPES[shapeId];
 }
@@ -87,9 +101,9 @@ function initWrapper(wrapper) {
     if (!frameImg) return;
 
     const era = wrapper.getAttribute('data-era') || '1';
-    const floater1Shape = era === '2' ? 'shape-20' : 'shape-18';
-    const floater2Shape = era === '2' ? 'shape-19' : 'shape-17';
-    const floater3Shape = era === '2' ? 'shape-19' : 'shape-17';
+    const floater1Shape = era === '3' ? 'shape-22' : era === '2' ? 'shape-20' : 'shape-18';
+    const floater2Shape = era === '3' ? 'shape-21' : era === '2' ? 'shape-19' : 'shape-17';
+    const floater3Shape = era === '3' ? 'shape-21' : era === '2' ? 'shape-19' : 'shape-17';
 
     const apply = () => {
         const w = frameImg.naturalWidth;
