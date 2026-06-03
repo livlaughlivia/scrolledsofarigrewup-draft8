@@ -54,15 +54,16 @@ h1 {
 body {
   background: #a9ceff;
   overflow-x: hidden;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 body::after {
   content: '';
   position: fixed;
-  top: -50px;
+  top: 0px;
   left: 0;
   width: 100%;
-  height: calc(100svh + 100px);
+  height: 100%;
   background: radial-gradient(ellipse 115% 70% at 50% 45%,
       #ffffff01 40%,
       #bbe002ff 75%,
@@ -767,10 +768,6 @@ h3 {
   opacity: 0;
   /* standardmässig unsichtbar */
   transition: opacity 0.2s;
-}
-
-html {
-  background-color: #ffffff;
 }
 
 .grid-overlay div {
