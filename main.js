@@ -316,12 +316,12 @@ scrollContent.addEventListener('touchend', (e) => {
 document.addEventListener('wheel', (e) => {
   if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
     e.preventDefault();
-  }
-  if (e.deltaX > 30) {
-    sideBar.classList.add('is-open');
+    if (e.deltaX > 30) {
+      sideBar.classList.add('is-open');
   }
   if (e.deltaX < -30 && sideBar.classList.contains('is-open')) {
     sideBar.classList.remove('is-open');
+    }
   }
 }, { passive: false }); // passive: false damit preventDefault funktioniert
 
