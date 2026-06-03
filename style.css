@@ -382,7 +382,7 @@ body::after {
   font-family: "Arizona Variable";
   font-variation-settings: "SRFF" 0, "wght" 600;
   font-size: 25px;
-  line-height: 1;
+  line-height: 1.3;
   text-align: left;
   /* sollte hier auch center sein, damit genau gleich wie quotes?*/
   color: #ea3336;
