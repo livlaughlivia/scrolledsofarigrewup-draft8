@@ -14,13 +14,15 @@ const eraQuotes = {
         convert or "add value". People just posted vibes, blurry photos, inside jokes.</span>
     <span class="divider">✦</span>
     <span class="quote-line">@CharlesIntheWoods:</span>
-      <span class="quote-line">People posted more frequently in 2016, in 2026 people don't post a soften but consume
+      <span class="quote-line">If anything, my life was more social media-centered than it is now. People posted more frequently in 2016, in 2026 people don't post a soften but consume
         just as much.</span>
       <span class="divider">✦</span>
       <span class="quote-line">@didozer10:</span>
       <span class="quote-line">Photo dumps were very common a decade ago. People were still chronically online, the only
-        difference is that
-        the influencer craze was just beginning.</span>
+        difference is that the influencer craze was just beginning.</span>
+        <span class="divider">✦</span>
+      <span class="quote-line">@ConsumerofToons:</span>
+      <span class="quote-line">It was just as social media centered. It’s just that pop culture was different.</span>
   `,
   era2: `
     <span class="quote-line">@CharlesIntheWoods:</span>
@@ -247,21 +249,18 @@ function setup() {
 
   // Quotes
   ScrollTrigger.create({
-    trigger: "#era-1",
+    trigger: "#j-2016",
     start: "top 80%",
-    once: true,
     onEnter: () => {
+      gsap.set(".quote-wrapper", { opacity: 1, visibility: "visible" });
+      setupQuotes("era1");
+    },
+    onEnterBack: () => {
       gsap.set(".quote-wrapper", { opacity: 1, visibility: "visible" });
       setupQuotes("era1");
     }
   });
 
-  ScrollTrigger.create({
-    trigger: "#era-1",
-    start: "top 80%",
-    onEnter: () => gsap.to('.side-bar', { opacity: 1, visibility: 'visible', duration: 0.5 }),
-    onLeaveBack: () => gsap.to('.side-bar', { opacity: 0, visibility: 'hidden', duration: 0.3 })
-  });
 
   ScrollTrigger.create({
     trigger: "#era-2",
@@ -278,7 +277,7 @@ function setup() {
   });
 
   ScrollTrigger.create({
-    trigger: "#era-1",
+    trigger: "#j-2016",
     start: "top 80%",
     onLeaveBack: () => {
       gsap.set(".quote-wrapper", { opacity: 0, visibility: "hidden" });
@@ -310,6 +309,31 @@ document.fonts.ready.then(() => {
   } else {
     console.error('close-headline-btn nicht gefunden');
   }
+
+  // Nav Toggle
+  const navToggle = document.getElementById('nav-toggle');
+  const sideBar = document.getElementById('side-bar');
+
+  if (navToggle && sideBar) {
+    navToggle.addEventListener('click', () => {
+      sideBar.classList.toggle('is-open');
+    });
+
+    // Schliessen beim Klick auf einen Link
+    sideBar.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        sideBar.classList.remove('is-open');
+      });
+    });
+
+    // Schliessen beim Klick ausserhalb
+    document.addEventListener('click', (e) => {
+      if (!sideBar.contains(e.target) && !navToggle.contains(e.target)) {
+        sideBar.classList.remove('is-open');
+      }
+    });
+  }
+
 });
 
 window.addEventListener("resize", setup);
