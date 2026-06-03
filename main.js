@@ -311,14 +311,13 @@ document.fonts.ready.then(() => {
   }
 
   // Nav Swipe
-  const sideBar = document.getElementById('side-bar');
-  let touchStartX = 0;
+  const sideBar = document.getElementById('smooth-content') || document;
 
-  document.addEventListener('touchstart', (e) => {
+  scrollContent.addEventListener('touchstart', (e) => {
     touchStartX = e.touches[0].clientX;
   });
 
-  document.addEventListener('touchend', (e) => {
+scrollContent.addEventListener('touchend', (e) => {
     const touchEndX = e.changedTouches[0].clientX;
     const diff = touchStartX - touchEndX;
     const startedNearRight = touchStartX > window.innerWidth - 60;
