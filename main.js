@@ -263,7 +263,7 @@ function initIntro() {
 
   ScrollTrigger.create({
     trigger: '#intro',
-    start: 'center center',
+    start: 'top center',
     end: `+=${blocks.length * 600}`,
     pin: true,
     pinSpacing: true,
