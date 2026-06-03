@@ -352,17 +352,26 @@ body::after {
   align-items: center;
   justify-content: center;
   position: relative;
+  margin: o auto;
 }
 
 .intro-block {
   position: absolute;
   top: 50%;
-  left: 0;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 10px 10px;
-  display: inline-block;
   width: 100%;
   opacity: 0;
+  hyphens: none;
+  -webkit-hyphens: none;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+.split-word {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .intro-block::before {

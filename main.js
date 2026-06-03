@@ -279,7 +279,7 @@ function initIntro() {
 
         currentBlock = clamped;
         const block = blocks[currentBlock];
-        const split = SplitText.create(block, { type: "chars" });
+        const split = SplitText.create(block, { type: "chars, words" });
 
         gsap.set(block, { opacity: 1 });
         gsap.from(split.chars, {
