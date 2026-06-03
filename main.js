@@ -255,6 +255,44 @@ if (closeBtn) {
 
 
 // ── MARK: Intro ───────────────────────────────────────────────
+function initIntro() {
+  const blocks = document.querySelectorAll('#intro .intro-block');
+  let currentBlock = -1;
+
+  gsap.set(blocks, { opacity: 0 });
+
+  ScrollTrigger.create({
+    trigger: '#intro',
+    start: 'center center',
+    end: `+=${blocks.length * 600}`,
+    pin: true,
+    pinSpacing: true,
+    onUpdate: (self) => {
+      const index = Math.floor(self.progress * blocks.length);
+      const clamped = Math.min(index, blocks.length - 1);
+
+      if (clamped !== currentBlock) {
+        // Vorherigen ausblenden
+        if (currentBlock >= 0) {
+          gsap.to(blocks[currentBlock], { opacity: 0, duration: 0.3 });
+        }
+
+        currentBlock = clamped;
+        const block = blocks[currentBlock];
+        const split = SplitText.create(block, { type: "chars" });
+
+        gsap.set(block, { opacity: 1 });
+        gsap.from(split.chars, {
+          opacity: 0,
+          duration: 0.05,
+          stagger: 0.03,
+          ease: "power2.out"
+        });
+      }
+    }
+  });
+}
+
 function setup() {
   splitIntro && splitIntro.revert();
   animationIntro && animationIntro.revert();
@@ -275,6 +313,7 @@ function setup() {
   initEraTitles1();
   initEraTitles2();
   initEraTitles3();
+  initIntro();
 
   // Quotes
   ScrollTrigger.create({

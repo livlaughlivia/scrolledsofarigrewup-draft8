@@ -329,6 +329,13 @@ body::after {
 }
 
 /* ── MARK: INTRO TEXT  */
+#intro {
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
 .intro-text {
   font-family: "Arizona Variable";
   font-variation-settings: "SRFF" 0, "wght" 600;
@@ -338,18 +345,24 @@ body::after {
   /* sollte hier auch center sein, damit genau gleich wie quotes?*/
   color: #ea3336;
   width: 80%;
-  margin: 200px auto 10px;
+  position: relative;
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .intro-block {
-  position: relative;
-  margin-bottom: 100px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
   padding: 10px 10px;
   display: inline-block;
   width: 100%;
+  opacity: 0;
 }
 
 .intro-block::before {
