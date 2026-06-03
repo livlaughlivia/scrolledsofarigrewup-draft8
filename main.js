@@ -23,6 +23,18 @@ const eraQuotes = {
         <span class="divider">✦</span>
       <span class="quote-line">@ConsumerofToons:</span>
       <span class="quote-line">It was just as social media centered. It’s just that pop culture was different.</span>
+ 
+      <span class="divider">✦</span>
+      <span class="quote-line">@imboredtho:</span>
+      <span class="quote-line">Very fun time…I was optimistic about the world and the music was fun (soundcloud era). I could would go to McDonalds after class and get Mcdouble combo plus an extra mcdouble for 6ish dollars. I miss 2017.</span>
+      <span class="divider">✦</span>
+      <span class="quote-line">@Cui17</span>
+      <span class="quote-line">I was a junior in high school in 2017. I remember the Nintendo Switch coming out and Snapchat being my main social media. I honestly really miss 2016-early 2020. Those were special times that I took for granted.</span>
+      <span class="divider">✦</span>
+      <span class="quote-line">@Trusteveryboody</span>
+      <span class="quote-line">Photos from this time are nostalgic.</span>
+      
+
   `,
   era2: `
     <span class="quote-line">@CharlesIntheWoods:</span>
@@ -341,7 +353,9 @@ sideBar.querySelectorAll('a').forEach(link => {
   });
 });
 
-
+document.fonts.ready.then(() => {
+  setup();
+}); 
 window.addEventListener("resize", setup);
 
 
