@@ -261,33 +261,40 @@ function initIntro() {
 
   gsap.set(blocks, { opacity: 0 });
 
+  function showBlock(index) {
+    const block = blocks[index];
+    const split = SplitText.create(block, { type: "chars,words" });
+    gsap.set(block, { opacity: 1 });
+    gsap.from(split.chars, {
+      opacity: 0,
+      duration: 0.05,
+      stagger: 0.03,
+      ease: "power2.out"
+    });
+  }
+
   ScrollTrigger.create({
     trigger: '#intro',
     start: 'top center',
-    end: `+=${blocks.length * 600}`,
+    end: `+=${blocks.length * 300}`,
     pin: true,
     pinSpacing: true,
+    onEnter: () => {
+      if (currentBlock === -1) {
+        currentBlock = 0;
+        showBlock(0);
+      }
+    },
     onUpdate: (self) => {
       const index = Math.floor(self.progress * blocks.length);
       const clamped = Math.min(index, blocks.length - 1);
 
       if (clamped !== currentBlock) {
-        // Vorherigen ausblenden
         if (currentBlock >= 0) {
           gsap.to(blocks[currentBlock], { opacity: 0, duration: 0.3 });
         }
-
         currentBlock = clamped;
-        const block = blocks[currentBlock];
-        const split = SplitText.create(block, { type: "chars, words" });
-
-        gsap.set(block, { opacity: 1 });
-        gsap.from(split.chars, {
-          opacity: 0,
-          duration: 0.05,
-          stagger: 0.03,
-          ease: "power2.out"
-        });
+        showBlock(currentBlock);
       }
     }
   });
