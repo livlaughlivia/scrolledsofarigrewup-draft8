@@ -210,7 +210,6 @@ body::after {
 }
 
 /* MARK: NAVIGATION */
-
 .nav-toggle {
   position: fixed;
   top: -20px;
@@ -256,7 +255,7 @@ body::after {
   text-align: left;
   color: #ea3336;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 60px;
   line-height: 0.5;
 }
 
