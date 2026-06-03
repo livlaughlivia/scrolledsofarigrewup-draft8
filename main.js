@@ -224,6 +224,20 @@ function initHeadlines() {
   });
 }
 
+const closeBtn = document.querySelector('.close-headline-btn');
+if (closeBtn) {
+  closeBtn.addEventListener('click', () => {
+    gsap.to('.gradient-headline', {
+      opacity: 0,
+      visibility: 'hidden',
+      duration: 0.3,
+      onComplete: () => {
+        document.querySelector('.gradient-headline').style.pointerEvents = 'none';
+      }
+    });
+  });
+}
+
 
 // ── MARK: SETUP ───────────────────────────────────────────────
 function setup() {
