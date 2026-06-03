@@ -310,29 +310,36 @@ document.fonts.ready.then(() => {
     console.error('close-headline-btn nicht gefunden');
   }
 
-  // Nav Toggle
-  const navToggle = document.getElementById('nav-toggle');
+  // Nav Swipe
   const sideBar = document.getElementById('side-bar');
+  let touchStartX = 0;
 
-  if (navToggle && sideBar) {
-    navToggle.addEventListener('click', () => {
-      sideBar.classList.toggle('is-open');
-    });
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  });
 
-    // Schliessen beim Klick auf einen Link
-    sideBar.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        sideBar.classList.remove('is-open');
-      });
-    });
+  document.addEventListener('touchend', (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+    const startedNearRight = touchStartX > window.innerWidth - 60;
 
-    // Schliessen beim Klick ausserhalb
-    document.addEventListener('click', (e) => {
-      if (!sideBar.contains(e.target) && !navToggle.contains(e.target)) {
-        sideBar.classList.remove('is-open');
-      }
+    // Nach links wischen am rechten Rand → öffnen
+    if (startedNearRight && diff > 30) {
+      sideBar.classList.add('is-open');
+    }
+
+    // Nach rechts wischen → schliessen
+    if (diff < -30 && sideBar.classList.contains('is-open')) {
+      sideBar.classList.remove('is-open');
+    }
+  });
+
+  // Schliessen beim Klick auf einen Link
+  sideBar.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      sideBar.classList.remove('is-open');
     });
-  }
+  });
 
 });
 
