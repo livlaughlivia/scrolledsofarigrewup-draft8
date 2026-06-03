@@ -51,6 +51,10 @@ h1 {
 
 
 /* MARK: body */
+html {
+  background: #a9ceff;
+}
+
 body {
   background: #a9ceff;
   overflow-x: hidden;
@@ -71,6 +75,8 @@ body::after {
   pointer-events: none;
   z-index: 50;
 }
+
+
 
 .gradient-overlay {
   position: fixed;
