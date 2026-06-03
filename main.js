@@ -290,60 +290,52 @@ function setup() {
 }
 
 
-// ── MARK: INIT ────────────────────────────────────────────────
-document.fonts.ready.then(() => {
-  setup();
+// ── MARK: Navigation ────────────────────────────────────────────────
+// Nav Swipe
+const sideBar = document.getElementById('side-bar');
+const scrollContent = document.getElementById('smooth-content') || document;
+let touchStartX = 0;
 
-  const closeBtn = document.querySelector('.close-headline-btn');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      gsap.to('.gradient-headline', {
-        opacity: 0,
-        visibility: 'hidden',
-        duration: 0.3,
-        onComplete: () => {
-          document.querySelector('.gradient-headline').style.pointerEvents = 'none';
-        }
-      });
-    });
-  } else {
-    console.error('close-headline-btn nicht gefunden');
-  }
-
-  // Nav Swipe
-  const sideBar = document.getElementById('smooth-content') || document;
-
-  scrollContent.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].clientX;
-  });
+scrollContent.addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+});
 
 scrollContent.addEventListener('touchend', (e) => {
-    const touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartX - touchEndX;
-    const startedNearRight = touchStartX > window.innerWidth - 60;
+  const touchEndX = e.changedTouches[0].clientX;
+  const diff = touchStartX - touchEndX;
+  const startedNearRight = touchStartX > window.innerWidth - 60;
 
-    // Nach links wischen am rechten Rand → öffnen
-    if (startedNearRight && diff > 30) {
-      sideBar.classList.add('is-open');
-    }
-
-    // Nach rechts wischen → schliessen
-    if (diff < -30 && sideBar.classList.contains('is-open')) {
-      sideBar.classList.remove('is-open');
-    }
-  });
-
-  // Schliessen beim Klick auf einen Link
-  sideBar.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      sideBar.classList.remove('is-open');
-    });
-  });
-
+  if (startedNearRight && diff > 30) {
+    sideBar.classList.add('is-open');
+  }
+  if (diff < -30 && sideBar.classList.contains('is-open')) {
+    sideBar.classList.remove('is-open');
+  }
 });
+
+document.addEventListener('wheel', (e) => {
+  if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+    e.preventDefault();
+  }
+  if (e.deltaX > 30) {
+    sideBar.classList.add('is-open');
+  }
+  if (e.deltaX < -30 && sideBar.classList.contains('is-open')) {
+    sideBar.classList.remove('is-open');
+  }
+}, { passive: false }); // passive: false damit preventDefault funktioniert
+
+sideBar.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    sideBar.classList.remove('is-open');
+  });
+});
+
 
 window.addEventListener("resize", setup);
 
+
+// MARK: GRID
 document.addEventListener('keydown', (e) => {
   if (e.key === 'g' || e.key === 'G') {
     const overlay = document.getElementById('gridOverlay');
