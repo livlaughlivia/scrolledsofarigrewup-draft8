@@ -359,7 +359,7 @@ body::after {
 
 /* ── MARK: INTRO TEXT  */
 #intro {
-  height: 100svh;
+  height: 50svh;
   display: flex;
   align-items: center;
   justify-content: center
