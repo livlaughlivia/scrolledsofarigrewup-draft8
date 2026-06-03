@@ -289,13 +289,13 @@ function setup() {
   gsap.set('#headline-timer-line', { drawSVG: '0%' });
 }
 
-
 // ── MARK: Navigation ────────────────────────────────────────────────
-// Nav Swipe
+// ── MARK: Navigation ────────────────────────────────────────────────
 const sideBar = document.getElementById('side-bar');
 const scrollContent = document.getElementById('smooth-content') || document;
 let touchStartX = 0;
 
+// Mobile: Touch-Swipe
 scrollContent.addEventListener('touchstart', (e) => {
   touchStartX = e.touches[0].clientX;
 });
@@ -313,18 +313,14 @@ scrollContent.addEventListener('touchend', (e) => {
   }
 });
 
-document.addEventListener('wheel', (e) => {
-  if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-    e.preventDefault();
-    if (e.deltaX > 30) {
-      sideBar.classList.add('is-open');
+// Desktop: Taste M
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'm' || e.key === 'M') {
+    sideBar.classList.toggle('is-open');
   }
-  if (e.deltaX < -30 && sideBar.classList.contains('is-open')) {
-    sideBar.classList.remove('is-open');
-    }
-  }
-}, { passive: false }); // passive: false damit preventDefault funktioniert
+});
 
+// Links schliessen Navigation
 sideBar.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => {
     sideBar.classList.remove('is-open');
