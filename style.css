@@ -30,7 +30,6 @@ h1 {
 }
 
 .outline {
-  font-size: 90px;
   position: relative;
   color: #f9caf8;
   text-align: center;
@@ -75,8 +74,6 @@ body::after {
   pointer-events: none;
   z-index: 50;
 }
-
-
 
 .gradient-overlay {
   position: fixed;
@@ -214,6 +211,51 @@ body::after {
   text-align: center;
   font-size: 60px;
   color: #f9caf8;
+}
+
+#era-1 {
+  margin-top: -900px;
+}
+
+/* MARK: year titles */
+.year-outline {
+  font-size: 60px;
+  position: relative;
+  color: #ea3336;
+  text-align: center;
+}
+
+.year-outline::before {
+  content: attr(data-text);
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+  color: transparent;
+  -webkit-text-stroke: 7px #f9caf8;  /* pink statt rot */
+  text-shadow: 0 0 10px #f9caf8;
+}
+
+.year-era1 {
+  font-family: "Arizona Variable";
+  font-variation-settings: "SRFF" 0, "wght" 700;
+  line-height: 0.9;
+  text-align: center;
+  font-size: 45px;  /* kleiner als era-titel */
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.year-title {
+  position: relative;
+  margin: 0;
+  height: 10svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* MARK: NAVIGATION */
@@ -602,6 +644,12 @@ body::after {
 }
 
 /* ── MARK: Headline */
+[id^="headline-trigger-"] {
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
 .gradient-headline {
   position: fixed;
   top: 0;
