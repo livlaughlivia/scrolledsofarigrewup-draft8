@@ -167,8 +167,6 @@ function initWrapper(wrapper) {
                 }
             });
         }
-
-        ScrollTrigger.refresh();
     };
 
     if (frameImg.complete && frameImg.naturalWidth) apply();

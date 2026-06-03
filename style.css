@@ -723,6 +723,13 @@ h3 {
   color: #f9caf8;
 }
 
+/* --MARK: Performance optimierung -- */
+.post-wrapper,
+.floater,
+.insta-update,
+.insta-post {
+  will-change: transform;
+}
 
 
 

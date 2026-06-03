@@ -194,8 +194,12 @@ function showHeadline(triggerId) {
   gsap.killTweensOf('#headline-timer-line');
   gsap.set('#headline-timer-line', { drawSVG: '0%' });
 
+  // Scrollen pausieren
+  const smoother = ScrollSmoother.get();
+  if (smoother) smoother.paused(true);
+
   gsap.to('.gradient-headline', {
-    opacity: 1, visibility: 'visible', duration: 0.5,
+    opacity: 1, visibility: 'visible', duration: 1,
     onComplete: () => {
       document.querySelector('.gradient-headline').style.pointerEvents = 'all';
     }
@@ -207,9 +211,12 @@ function showHeadline(triggerId) {
       drawSVG: '100%', duration: 10, ease: 'none',
       onComplete: () => {
         gsap.to('.gradient-headline', {
-          opacity: 0, visibility: 'hidden', duration: 0.5,
+          opacity: 0, visibility: 'hidden', duration: 1,
           onComplete: () => {
             document.querySelector('.gradient-headline').style.pointerEvents = 'none';
+            // Scrollen wieder aktivieren nach Timer
+            const smoother = ScrollSmoother.get();
+            if (smoother) smoother.paused(false);
           }
         });
       }
@@ -221,6 +228,9 @@ function hideHeadline() {
   gsap.killTweensOf('#headline-timer-line');
   gsap.to('.gradient-headline', { opacity: 0, visibility: 'hidden', duration: 0.3 });
   document.querySelector('.gradient-headline').style.pointerEvents = 'none';
+  // Scrollen wieder aktivieren
+  const smoother = ScrollSmoother.get();
+  if (smoother) smoother.paused(false);
 }
 
 function initHeadlines() {
@@ -239,19 +249,12 @@ function initHeadlines() {
 const closeBtn = document.querySelector('.close-headline-btn');
 if (closeBtn) {
   closeBtn.addEventListener('click', () => {
-    gsap.to('.gradient-headline', {
-      opacity: 0,
-      visibility: 'hidden',
-      duration: 0.3,
-      onComplete: () => {
-        document.querySelector('.gradient-headline').style.pointerEvents = 'none';
-      }
-    });
+    hideHeadline();
   });
 }
 
 
-// ── MARK: SETUP ───────────────────────────────────────────────
+// ── MARK: Intro ───────────────────────────────────────────────
 function setup() {
   splitIntro && splitIntro.revert();
   animationIntro && animationIntro.revert();
@@ -355,7 +358,7 @@ sideBar.querySelectorAll('a').forEach(link => {
 
 document.fonts.ready.then(() => {
   setup();
-}); 
+});
 window.addEventListener("resize", setup);
 
 
