@@ -257,6 +257,8 @@ if (closeBtn) {
 // ── MARK: Intro ───────────────────────────────────────────────
 function initIntro() {
   const blocks = document.querySelectorAll('#intro .intro-block');
+  console.log('initIntro läuft, blocks gefunden:', blocks.length);
+
   let currentBlock = -1;
 
   gsap.set(blocks, { opacity: 0 });
@@ -275,8 +277,8 @@ function initIntro() {
 
   ScrollTrigger.create({
     trigger: '#intro',
-    start: 'top center',
-    end: `+=${blocks.length * 300}`,
+    start: 'top top',
+    end: `+=${blocks.length * 400}`,
     pin: true,
     pinSpacing: true,
     onEnter: () => {
@@ -285,8 +287,13 @@ function initIntro() {
         showBlock(0);
       }
     },
+    onLeave: () => {
+      gsap.to(blocks[currentBlock], { opacity: 0, duration: 0.3 });
+      currentBlock = -1;
+    },
+
     onUpdate: (self) => {
-      const index = Math.floor(self.progress * blocks.length);
+      const index = Math.floor(self.progress * (blocks.length + 1));
       const clamped = Math.min(index, blocks.length - 1);
 
       if (clamped !== currentBlock) {
@@ -301,21 +308,6 @@ function initIntro() {
 }
 
 function setup() {
-  splitIntro && splitIntro.revert();
-  animationIntro && animationIntro.revert();
-
-  splitIntro = SplitText.create(".intro-block", { type: "chars,words,lines" });
-  animationIntro = gsap.from(splitIntro.chars, {
-    opacity: 0,
-    duration: 0.1,
-    ease: "power4",
-    stagger: 0.04,
-    scrollTrigger: {
-      trigger: ".intro-text",
-      start: "top 80%",
-      toggleActions: "play none none none"
-    }
-  });
 
   initEraTitles1();
   initEraTitles2();
@@ -364,54 +356,19 @@ function setup() {
   gsap.set('#headline-timer-line', { drawSVG: '0%' });
 }
 
-// ── MARK: Navigation ────────────────────────────────────────────────
-// ── MARK: Navigation ────────────────────────────────────────────────
-const sideBar = document.getElementById('side-bar');
-const scrollContent = document.getElementById('smooth-content') || document;
-let touchStartX = 0;
-
-// Mobile: Touch-Swipe
-scrollContent.addEventListener('touchstart', (e) => {
-  touchStartX = e.touches[0].clientX;
-});
-
-scrollContent.addEventListener('touchend', (e) => {
-  const touchEndX = e.changedTouches[0].clientX;
-  const diff = touchStartX - touchEndX;
-  const startedNearRight = touchStartX > window.innerWidth - 60;
-
-  if (startedNearRight && diff > 30) {
-    sideBar.classList.add('is-open');
-  }
-  if (diff < -30 && sideBar.classList.contains('is-open')) {
-    sideBar.classList.remove('is-open');
-  }
-});
-
-// Desktop: Taste M
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'm' || e.key === 'M') {
-    sideBar.classList.toggle('is-open');
-  }
-});
-
-// Links schliessen Navigation
-sideBar.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    sideBar.classList.remove('is-open');
-  });
-});
-
-document.fonts.ready.then(() => {
-  setup();
-});
-window.addEventListener("resize", setup);
-
-
 // MARK: GRID
 document.addEventListener('keydown', (e) => {
   if (e.key === 'g' || e.key === 'G') {
     const overlay = document.getElementById('gridOverlay');
     overlay.style.opacity = overlay.style.opacity === '1' ? '0' : '1';
   }
+});
+
+document.fonts.ready.then(() => {
+  window.scrollTo(0, 0);
+  setup();
+});
+
+window.addEventListener("resize", () => {
+  ScrollTrigger.refresh();
 });

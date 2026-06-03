@@ -58,3 +58,31 @@ sideBar.addEventListener('touchend', () => {
     }, 1500);
   }
 });
+
+// Swipe öffnen (rechter Rand)
+const scrollContent = document.getElementById('smooth-content') || document;
+let touchStartX = 0;
+
+scrollContent.addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+});
+
+scrollContent.addEventListener('touchend', (e) => {
+  const touchEndX = e.changedTouches[0].clientX;
+  const diff = touchStartX - touchEndX;
+  const startedNearRight = touchStartX > window.innerWidth - 60;
+
+  if (startedNearRight && diff > 30) {
+    sideBar.classList.add('is-open');
+  }
+  if (diff < -30 && sideBar.classList.contains('is-open')) {
+    sideBar.classList.remove('is-open');
+  }
+});
+
+// Taste M
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'm' || e.key === 'M') {
+    sideBar.classList.toggle('is-open');
+  }
+});
