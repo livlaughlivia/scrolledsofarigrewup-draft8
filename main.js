@@ -49,62 +49,38 @@ const eraQuotes = {
 
 let currentEra = "era1";
 
+let tickerAnimation = null;
+
 function setupQuotes(era = "era1") {
-  splitQuote && splitQuote.revert();
-
-  ScrollTrigger.getAll()
-    .filter(t => t.vars.id?.startsWith("quote-block"))
-    .forEach(t => t.kill());
-
   const wrapper = document.querySelector(".quote-block-1");
   if (!wrapper) return;
+
+  // Laufende Animation stoppen
+  if (tickerAnimation) tickerAnimation.kill();
 
   wrapper.classList.remove("q-era1", "q-era2", "q-era3");
   wrapper.classList.add(`q-${era}`);
 
-  wrapper.innerHTML = eraQuotes[era];
+  // Text als einzelne Zeile
+  const text = eraQuotes[era]
+    .replace(/<[^>]+>/g, '') // HTML-Tags entfernen
+    .replace(/\s+/g, ' ')
+    .trim();
 
-  wrapper.querySelectorAll('.quote-line').forEach(span => {
-    span.style.display = 'block';
+  // Zwei Kopien für nahtlosen Loop
+  wrapper.innerHTML = `<span class="ticker-inner">${text} &nbsp;&nbsp;&nbsp; ${text}</span>`;
+
+  const inner = wrapper.querySelector('.ticker-inner');
+  const fullWidth = inner.scrollWidth / 2;
+
+  gsap.set(inner, { x: 0 });
+
+  tickerAnimation = gsap.to(inner, {
+    x: -fullWidth,
+    duration: fullWidth / 80, // Geschwindigkeit anpassen
+    ease: 'none',
+    repeat: -1,
   });
-
-  splitQuote = SplitText.create(".quote-block-1", { type: "lines" });
-  const lines = splitQuote.lines;
-
-  const linesPerPage = 3;
-  const totalPages = Math.ceil(lines.length / linesPerPage);
-
-  gsap.set(lines, { opacity: 1, display: "none" });
-
-  const scrollWrapper = document.querySelector(".scroll-sections");
-  scrollWrapper.innerHTML = "";
-
-  for (let i = 0; i < totalPages; i++) {
-    const section = document.createElement("div");
-    section.classList.add("scroll-section");
-    section.style.minHeight = "100vh";
-    scrollWrapper.appendChild(section);
-
-    const pageLines = lines.slice(i * linesPerPage, (i + 1) * linesPerPage);
-    const prevLines = i > 0 ? lines.slice((i - 1) * linesPerPage, i * linesPerPage) : [];
-    const nextLines = lines.slice((i + 1) * linesPerPage, (i + 2) * linesPerPage);
-
-    ScrollTrigger.create({
-      id: `quote-block-${era}-${i}`,
-      trigger: section,
-      start: "top center",
-      onEnter: () => {
-        gsap.set(prevLines, { opacity: 0, display: "none" });
-        gsap.set(pageLines, { display: "block" });
-        gsap.from(pageLines, { opacity: 0, duration: 0.5, stagger: 0.1 });
-      },
-      onEnterBack: () => {
-        gsap.set(nextLines, { opacity: 0, display: "none" });
-        gsap.set(pageLines, { display: "block" });
-        gsap.from(pageLines, { opacity: 0, duration: 0.5, stagger: 0.1 });
-      }
-    });
-  }
 }
 
 
