@@ -20,7 +20,14 @@ function navigateTo(link) {
 
   const smoother = ScrollSmoother.get();
   if (smoother) {
-    const offset = target.getBoundingClientRect().top + smoother.scrollTop() - (window.innerHeight / 2) + (target.offsetHeight / 2);
+
+   // scrollTop() des Elements im smooth-content, nicht getBoundingClientRect
+    const contentEl = document.getElementById('smooth-content');
+    const contentTop = contentEl.getBoundingClientRect().top;
+    const targetTop = target.getBoundingClientRect().top;
+    const elementOffset = targetTop - contentTop + smoother.scrollTop();
+    const offset = elementOffset - (window.innerHeight / 2) + (target.offsetHeight / 2);
+    
     smoother.scrollTo(offset, true);
     setTimeout(() => { window.isNavigating = false; }, 800);
   } else {
