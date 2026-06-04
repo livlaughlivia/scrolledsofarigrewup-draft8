@@ -309,28 +309,28 @@ body::after {
 .menu-icon3,
 .menu-iconA,
 .menu-iconB {
-  width: 30svh;
+  width: 20svh;
   height: auto;
 }
 
 .menu-iconA {
-  margin-bottom: -10svh;
+  margin-bottom: -5svh;
 
 }
 
 .menu-icon1 {
-  margin: -10svh auto;
+  margin: -7svh auto;
 }
 
 .menu-icon2 {
-  margin: -10svh 0;
+  margin: -7svh 0;
 }
 
 .menu-icon3 {
-  margin: -10svh 0;
+  margin: -7svh 0;
 }
 .menu-iconB {
-  margin-top: -10svh;
+  margin-top: -7svh;
 }
 
 .side-bar:hover .nav-label,
