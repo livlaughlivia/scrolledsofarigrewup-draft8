@@ -340,6 +340,17 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+// Doppeltipp auf Mobile
+let lastTap = 0;
+document.addEventListener('touchend', (e) => {
+  const now = Date.now();
+  if (now - lastTap < 300) {
+    const overlay = document.getElementById('gridOverlay');
+    overlay.style.opacity = overlay.style.opacity === '1' ? '0' : '1';
+  }
+  lastTap = now;
+});
+
 document.fonts.ready.then(() => {
   window.scrollTo(0, 0);
   setup();
