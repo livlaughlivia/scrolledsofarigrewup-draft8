@@ -3,82 +3,105 @@ gsap.registerPlugin(ScrollToPlugin);
 const sideBar = document.querySelector('.side-bar');
 const links = [...document.querySelectorAll('.side-bar a[href]')];
 let activeLink = null;
+let isTouchScrolling = false;
+let swipeStartX = 0;
+let swipeStartY = 0;
 
 function navigateTo(link) {
   const hash = link.getAttribute('href');
   const target = hash ? document.querySelector(hash) : null;
   if (!target) return;
 
-
-  // Aktiven Link markieren
   links.forEach(l => l.classList.remove('nav-active'));
   link.classList.add('nav-active');
   activeLink = link;
 
-  // Scrollen
-  if (window.smoother) {
-    window.smoother.scrollTo(target, true);
+  window.isNavigating = true;
+
+  const smoother = ScrollSmoother.get();
+  if (smoother) {
+    const offset = target.getBoundingClientRect().top + smoother.scrollTop() - (window.innerHeight / 2) + (target.offsetHeight / 2);
+    smoother.scrollTo(offset, true);
+    setTimeout(() => { window.isNavigating = false; }, 800);
   } else {
-    gsap.to(window, { scrollTo: target, duration: 1, ease: 'power2.inOut' });
+    const offset = target.getBoundingClientRect().top + window.scrollY - (window.innerHeight / 2) + (target.offsetHeight / 2);
+    gsap.to(window, {
+      scrollTo: offset,
+      duration: 0.8,
+      ease: 'power2.inOut',
+      onComplete: () => { window.isNavigating = false; }
+    });
   }
 }
 
-// Click
+// Click (Desktop + Mobile)
 links.forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
     navigateTo(link);
+    // Delay damit Navigation erst nach dem Scroll schliesst
+    setTimeout(() => {
+      sideBar.classList.remove('is-open');
+    }, 100);
   });
 });
 
-// Touch slide — navigiert beim Berühren eines Links
+// Touch slide innerhalb Navigation
+let lastMoveTime = 0;
 sideBar.addEventListener('touchmove', e => {
   e.preventDefault();
+  const now = Date.now();
+  if (now - lastMoveTime < 300) return;
+  lastMoveTime = now;
+
+  if (isTouchScrolling) return;
+  isTouchScrolling = true;
+  setTimeout(() => { isTouchScrolling = false; }, 800);
+
   const touch = e.touches[0];
   const el = document.elementFromPoint(touch.clientX, touch.clientY);
   const link = el?.closest('a[href]');
   if (link && link !== activeLink) {
-    // Vorheriges zurücksetzen
-    if (activeLink && activeLink.dataset.short) {
-      activeLink.textContent = activeLink.dataset.short;
-    }
-    // Neues expandieren
-    if (link.dataset.full) {
-      link.dataset.short = link.textContent;
-      link.textContent = link.dataset.full;
-    }
     navigateTo(link);
   }
 }, { passive: false });
 
-sideBar.addEventListener('touchend', () => {
-  if (activeLink && activeLink.dataset.short) {
-    setTimeout(() => {
-      activeLink.textContent = activeLink.dataset.short;
-    }, 1500);
-  }
-});
+// Swipe öffnen/schliessen
+document.addEventListener('touchstart', (e) => {
+  swipeStartX = e.touches[0].clientX;
+  swipeStartY = e.touches[0].clientY;
+}, { passive: true });
 
-// Swipe öffnen (rechter Rand)
-const scrollContent = document.getElementById('smooth-content') || document;
-let touchStartX = 0;
+document.addEventListener('touchend', (e) => {
+  const endX = e.changedTouches[0].clientX;
+  const endY = e.changedTouches[0].clientY;
+  const diffX = swipeStartX - endX;
+  const diffY = Math.abs(swipeStartY - endY);
+  const startedNearRight = swipeStartX > window.innerWidth - 60;
 
-scrollContent.addEventListener('touchstart', (e) => {
-  touchStartX = e.touches[0].clientX;
-});
+  // Vertikales Scrollen ignorieren
+  if (diffY > 40) return;
 
-scrollContent.addEventListener('touchend', (e) => {
-  const touchEndX = e.changedTouches[0].clientX;
-  const diff = touchStartX - touchEndX;
-  const startedNearRight = touchStartX > window.innerWidth - 60;
-
-  if (startedNearRight && diff > 30) {
+  // Swipe von rechts rein → öffnen
+  if (startedNearRight && diffX > 30) {
     sideBar.classList.add('is-open');
+    return;
   }
-  if (diff < -30 && sideBar.classList.contains('is-open')) {
+
+  // Swipe nach rechts raus → schliessen
+  if (diffX < -30 && sideBar.classList.contains('is-open')) {
     sideBar.classList.remove('is-open');
+    return;
   }
-});
+
+  // Tap neben Navigation → schliessen
+  // Delay damit Link-Klick zuerst feuern kann
+  if (sideBar.classList.contains('is-open') && !sideBar.contains(e.target)) {
+    setTimeout(() => {
+      sideBar.classList.remove('is-open');
+    }, 150);
+  }
+}, { passive: true });
 
 // Taste M
 document.addEventListener('keydown', (e) => {

@@ -75,13 +75,12 @@ body::after {
   z-index: 50;
 }
 
-
-
+/* MARK: Sections */
 #smooth-wrapper {
   position: relative;
 }
 
-/* ── MARK: LOADING SCREEN  */
+/* MARK: LOADING SCREEN  */
 .loading-screen {
   position: fixed;
   top: 0;
@@ -201,7 +200,7 @@ body::after {
 }
 
 #era-1 {
-  margin-top: -900px;
+  margin-top: -70svh;
 }
 
 /* MARK: year titles */
@@ -282,7 +281,7 @@ body::after {
 .side-bar a {
   color: #ea3336;
   text-decoration: none;
-  font-size: 5svh;
+  font-size: 4.5svh;
   line-height: 0.7;
   text-align: center;
   margin: 0;
@@ -303,34 +302,37 @@ body::after {
   font-variation-settings: "SRFF" 0, "wght" 500;
 }
 
-.menu-icon1,
-.menu-icon2,
-.menu-icon3,
-.menu-icon3,
-.menu-iconA,
-.menu-iconB {
+.menu-iconA {
   width: 20svh;
   height: auto;
-}
-
-.menu-iconA {
+  margin-top: 12svh;
   margin-bottom: -5svh;
 
 }
 
 .menu-icon1 {
-  margin: -7svh auto;
+  width: 19vh;
+  height: auto;
+  margin: -6svh auto;
 }
 
 .menu-icon2 {
-  margin: -7svh 0;
+  width: 18svh;
+  height: auto;
+  margin: -6svh 0;
 }
 
 .menu-icon3 {
-  margin: -7svh 0;
+  width: 24svh;
+  height: auto;
+  margin: -9svh 0;
 }
+
 .menu-iconB {
+  width: 20svh;
+  height: auto;
   margin-top: -7svh;
+  margin-bottom: 7svh;
 }
 
 .side-bar:hover .nav-label,
@@ -340,7 +342,7 @@ body::after {
 
 .nav-active {
   font-weight: 700;
-  transform: scale(1.2);
+  color: #f9caf8 !important;
 }
 
 /* ── MARK: INTRO TEXT  */

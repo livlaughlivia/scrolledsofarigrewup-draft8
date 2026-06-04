@@ -1,10 +1,10 @@
 gsap.registerPlugin(SplitText, ScrollTrigger, DrawSVGPlugin);
 
-// Linie initial verstecken
 gsap.set('#headline-timer-line', { drawSVG: '0%' });
 
 let splitIntro, animationIntro, splitQuote;
 
+window.isNavigating = false; // ← NEU
 
 //--- MARK: QUOTES ---
 const eraQuotes = {
@@ -22,8 +22,7 @@ const eraQuotes = {
         difference is that the influencer craze was just beginning.</span>
         <span class="divider">✦</span>
       <span class="quote-line">@ConsumerofToons:</span>
-      <span class="quote-line">It was just as social media centered. It’s just that pop culture was different.</span>
- 
+      <span class="quote-line">It was just as social media centered. It's just that pop culture was different.</span>
       <span class="divider">✦</span>
       <span class="quote-line">@imboredtho:</span>
       <span class="quote-line">Very fun time…I was optimistic about the world and the music was fun (soundcloud era). I could would go to McDonalds after class and get Mcdouble combo plus an extra mcdouble for 6ish dollars. I miss 2017.</span>
@@ -33,8 +32,6 @@ const eraQuotes = {
       <span class="divider">✦</span>
       <span class="quote-line">@Trusteveryboody</span>
       <span class="quote-line">Photos from this time are nostalgic.</span>
-      
-
   `,
   era2: `
     <span class="quote-line">@CharlesIntheWoods:</span>
@@ -48,26 +45,22 @@ const eraQuotes = {
 };
 
 let currentEra = "era1";
-
 let tickerAnimation = null;
 
 function setupQuotes(era = "era1") {
   const wrapper = document.querySelector(".quote-block-1");
   if (!wrapper) return;
 
-  // Laufende Animation stoppen
   if (tickerAnimation) tickerAnimation.kill();
 
   wrapper.classList.remove("q-era1", "q-era2", "q-era3");
   wrapper.classList.add(`q-${era}`);
 
-  // Text als einzelne Zeile
   const text = eraQuotes[era]
-    .replace(/<[^>]+>/g, '') // HTML-Tags entfernen
+    .replace(/<[^>]+>/g, '')
     .replace(/\s+/g, ' ')
     .trim();
 
-  // Zwei Kopien für nahtlosen Loop
   wrapper.innerHTML = `<span class="ticker-inner">${text} &nbsp;&nbsp;&nbsp; ${text}</span>`;
 
   const inner = wrapper.querySelector('.ticker-inner');
@@ -77,7 +70,7 @@ function setupQuotes(era = "era1") {
 
   tickerAnimation = gsap.to(inner, {
     x: -fullWidth,
-    duration: fullWidth / 80, // Geschwindigkeit anpassen
+    duration: fullWidth / 80,
     ease: 'none',
     repeat: -1,
   });
@@ -157,6 +150,8 @@ function initEraTitles3() {
 
 // ── MARK: HEADLINE ────────────────────────────────────────────
 function showHeadline(triggerId) {
+  if (window.isNavigating) return; // ← NEU
+
   const trigger = document.getElementById(triggerId);
   if (!trigger) return;
 
@@ -170,7 +165,6 @@ function showHeadline(triggerId) {
   gsap.killTweensOf('#headline-timer-line');
   gsap.set('#headline-timer-line', { drawSVG: '0%' });
 
-  // Scrollen pausieren
   const smoother = ScrollSmoother.get();
   if (smoother) smoother.paused(true);
 
@@ -190,7 +184,6 @@ function showHeadline(triggerId) {
           opacity: 0, visibility: 'hidden', duration: 1,
           onComplete: () => {
             document.querySelector('.gradient-headline').style.pointerEvents = 'none';
-            // Scrollen wieder aktivieren nach Timer
             const smoother = ScrollSmoother.get();
             if (smoother) smoother.paused(false);
           }
@@ -204,7 +197,6 @@ function hideHeadline() {
   gsap.killTweensOf('#headline-timer-line');
   gsap.to('.gradient-headline', { opacity: 0, visibility: 'hidden', duration: 0.3 });
   document.querySelector('.gradient-headline').style.pointerEvents = 'none';
-  // Scrollen wieder aktivieren
   const smoother = ScrollSmoother.get();
   if (smoother) smoother.paused(false);
 }
@@ -254,7 +246,7 @@ function initIntro() {
   ScrollTrigger.create({
     trigger: '#intro',
     start: 'top top',
-    end: `+=${blocks.length * 400}`,
+    end: `+=${blocks.length * 550}`,
     pin: true,
     pinSpacing: true,
     onEnter: () => {
@@ -264,10 +256,9 @@ function initIntro() {
       }
     },
     onLeave: () => {
-      gsap.to(blocks[currentBlock], { opacity: 0, duration: 0.3 });
+      gsap.to(blocks[currentBlock], { opacity: 0, duration: 0.1 });
       currentBlock = -1;
     },
-
     onUpdate: (self) => {
       const index = Math.floor(self.progress * (blocks.length + 1));
       const clamped = Math.min(index, blocks.length - 1);
@@ -284,26 +275,23 @@ function initIntro() {
 }
 
 function setup() {
-
   initEraTitles1();
   initEraTitles2();
   initEraTitles3();
   initIntro();
 
-  // Quotes
-  ScrollTrigger.create({
-    trigger: "#j-2016",
-    start: "top 80%",
-    onEnter: () => {
-      gsap.set(".quote-wrapper", { opacity: 1, visibility: "visible" });
-      setupQuotes("era1");
-    },
-    onEnterBack: () => {
-      gsap.set(".quote-wrapper", { opacity: 1, visibility: "visible" });
-      setupQuotes("era1");
-    }
-  });
-
+ScrollTrigger.create({
+  trigger: '#j-2016 .post-wrapper',
+  start: 'top 80%',
+  onEnter: () => {
+    const sideBar = document.getElementById('side-bar');
+    sideBar.classList.add('is-open');
+    setTimeout(() => {
+      sideBar.classList.remove('is-open');
+    }, 2000);
+  },
+  once: true
+});
 
   ScrollTrigger.create({
     trigger: "#era-2",
@@ -327,7 +315,6 @@ function setup() {
     }
   });
 
-  // Headlines
   initHeadlines();
   gsap.set('#headline-timer-line', { drawSVG: '0%' });
 }
@@ -340,7 +327,6 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Doppeltipp auf Mobile
 let lastTap = 0;
 document.addEventListener('touchend', (e) => {
   const now = Date.now();
@@ -352,8 +338,10 @@ document.addEventListener('touchend', (e) => {
 });
 
 document.fonts.ready.then(() => {
-  window.scrollTo(0, 0);
-  setup();
+  setTimeout(() => {
+    window.scrollTo(0, 0);
+    setup();
+  }, 100);
 });
 
 window.addEventListener("resize", () => {
