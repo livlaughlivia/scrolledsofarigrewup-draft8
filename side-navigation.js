@@ -20,15 +20,8 @@ function navigateTo(link) {
 
   const smoother = ScrollSmoother.get();
   if (smoother) {
-
-   // scrollTop() des Elements im smooth-content, nicht getBoundingClientRect
-    const contentEl = document.getElementById('smooth-content');
-    const contentTop = contentEl.getBoundingClientRect().top;
-    const targetTop = target.getBoundingClientRect().top;
-    const elementOffset = targetTop - contentTop + smoother.scrollTop();
-    const offset = elementOffset - (window.innerHeight / 2) + (target.offsetHeight / 2);
-    
-    smoother.scrollTo(offset, true);
+    const scrollPos = smoother.offset(target, "center center");
+    smoother.scrollTo(scrollPos, true);
     setTimeout(() => { window.isNavigating = false; }, 800);
   } else {
     const offset = target.getBoundingClientRect().top + window.scrollY - (window.innerHeight / 2) + (target.offsetHeight / 2);
@@ -41,19 +34,17 @@ function navigateTo(link) {
   }
 }
 
-// Click (Desktop + Mobile)
+// Rest bleibt gleich
 links.forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
     navigateTo(link);
-    // Delay damit Navigation erst nach dem Scroll schliesst
     setTimeout(() => {
       sideBar.classList.remove('is-open');
     }, 100);
   });
 });
 
-// Touch slide innerhalb Navigation
 let lastMoveTime = 0;
 sideBar.addEventListener('touchmove', e => {
   e.preventDefault();
@@ -73,7 +64,6 @@ sideBar.addEventListener('touchmove', e => {
   }
 }, { passive: false });
 
-// Swipe öffnen/schliessen
 document.addEventListener('touchstart', (e) => {
   swipeStartX = e.touches[0].clientX;
   swipeStartY = e.touches[0].clientY;
@@ -86,23 +76,18 @@ document.addEventListener('touchend', (e) => {
   const diffY = Math.abs(swipeStartY - endY);
   const startedNearRight = swipeStartX > window.innerWidth - 60;
 
-  // Vertikales Scrollen ignorieren
   if (diffY > 40) return;
 
-  // Swipe von rechts rein → öffnen
   if (startedNearRight && diffX > 30) {
     sideBar.classList.add('is-open');
     return;
   }
 
-  // Swipe nach rechts raus → schliessen
   if (diffX < -30 && sideBar.classList.contains('is-open')) {
     sideBar.classList.remove('is-open');
     return;
   }
 
-  // Tap neben Navigation → schliessen
-  // Delay damit Link-Klick zuerst feuern kann
   if (sideBar.classList.contains('is-open') && !sideBar.contains(e.target)) {
     setTimeout(() => {
       sideBar.classList.remove('is-open');
@@ -110,7 +95,6 @@ document.addEventListener('touchend', (e) => {
   }
 }, { passive: true });
 
-// Taste M
 document.addEventListener('keydown', (e) => {
   if (e.key === 'm' || e.key === 'M') {
     sideBar.classList.toggle('is-open');
