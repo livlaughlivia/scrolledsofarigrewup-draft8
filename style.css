@@ -417,12 +417,12 @@ body::after {
 }
 
 .quote-block-1 {
-  display: flex;
-  white-space: nowrap;
   font-family: "Arizona Variable";
   font-variation-settings: "SRFF" 100, "wght" 600;
   font-size: 25px;
   color: #ea3336;
+  display: flex;
+  white-space: nowrap;
 }
 
 .quote-block-1.q-era1 {
@@ -725,7 +725,6 @@ body::after {
   text-align: center;
   font-size: 60px;
   color: #5c7fff;
-  transform: rotate(-20deg);
   line-height: 1;
   z-index: 201;
 }
@@ -757,7 +756,7 @@ h3 {
 .floater,
 .insta-update,
 .insta-post {
-  will-change: transform;
+  will-change: auto;
 }
 
 /* ── MARK: Grid Overlay ───────────────────────────────────── */

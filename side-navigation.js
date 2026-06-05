@@ -1,4 +1,4 @@
-gsap.registerPlugin(ScrollToPlugin);
+gsap.registerPlugin(ScrollSmoother);
 
 const sideBar = document.querySelector('.side-bar');
 const links = [...document.querySelectorAll('.side-bar a[href]')];
@@ -20,17 +20,11 @@ function navigateTo(link) {
 
   const smoother = ScrollSmoother.get();
   if (smoother) {
-    const scrollPos = smoother.offset(target, "center center");
-    smoother.scrollTo(scrollPos, true);
+    smoother.scrollTo(target, true, "center center");
     setTimeout(() => { window.isNavigating = false; }, 800);
   } else {
-    const offset = target.getBoundingClientRect().top + window.scrollY - (window.innerHeight / 2) + (target.offsetHeight / 2);
-    gsap.to(window, {
-      scrollTo: offset,
-      duration: 0.8,
-      ease: 'power2.inOut',
-      onComplete: () => { window.isNavigating = false; }
-    });
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => { window.isNavigating = false; }, 800);
   }
 }
 
