@@ -342,7 +342,7 @@ function initDelayed() {
                 end: () => "+=" + holdVh + "px",
                 scrub: true,
                 pin: true,
-                pinSpacing: true,
+                pinSpacing: false,
                 invalidateOnRefresh: true,
             }
         })

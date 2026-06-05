@@ -20,11 +20,28 @@ function navigateTo(link) {
 
   const smoother = ScrollSmoother.get();
   if (smoother) {
-    smoother.scrollTo(target, true, "center center");
-    setTimeout(() => { window.isNavigating = false; }, 800);
+    // Alle gepinnten ScrollTrigger kurz deaktivieren
+    ScrollTrigger.getAll().forEach(st => {
+      if (st.pin) st.disable(false);
+    });
+
+    // Ohne Animation direkt springen — Element in der Mitte des Screens
+    const targetOffset = smoother.offset(target, "center center");
+    smoother.scrollTo(targetOffset, false);
+
+    // Kurz warten, dann ScrollTrigger neu aufsetzen
+    requestAnimationFrame(() => {
+      ScrollTrigger.getAll().forEach(st => {
+        if (st.pin) st.enable(false);
+      });
+      ScrollTrigger.refresh();
+      setTimeout(() => {
+        window.isNavigating = false;
+      }, 300);
+    });
   } else {
-    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(() => { window.isNavigating = false; }, 800);
+    target.scrollIntoView({ behavior: 'instant', block: 'center' });
+    setTimeout(() => { window.isNavigating = false; }, 300);
   }
 }
 

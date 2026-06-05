@@ -545,18 +545,20 @@ body::after {
 }
 
 .position8 {
-  width: 100;
-  margin: auto;
+  width: 100vw;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 /* ── MARK: Insta Update */
 .insta-update {
-  z-index: 3;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 80%;
   margin: 10px auto;
+  margin-bottom: 200px;
 }
 
 .insta-update-content {
