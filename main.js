@@ -366,6 +366,10 @@ function showHeadline(triggerId) {
   const smoother = ScrollSmoother.get();
   if (smoother) smoother.paused(true);
 
+  document.body.classList.add('headline-active');
+  document.body.classList.add('headline-active');
+  document.documentElement.classList.add('headline-active')
+
   gsap.to('.gradient-headline', {
     opacity: 1, visibility: 'visible', duration: 1,
     onComplete: () => {
@@ -382,6 +386,7 @@ function showHeadline(triggerId) {
           opacity: 0, visibility: 'hidden', duration: 1,
           onComplete: () => {
             document.querySelector('.gradient-headline').style.pointerEvents = 'none';
+            document.body.classList.remove('headline-active');
             const smoother = ScrollSmoother.get();
             if (smoother) smoother.paused(false);
           }
@@ -393,8 +398,12 @@ function showHeadline(triggerId) {
 
 function hideHeadline() {
   gsap.killTweensOf('#headline-timer-line');
+  document.body.classList.remove('headline-active');
   gsap.to('.gradient-headline', { opacity: 0, visibility: 'hidden', duration: 0.3 });
   document.querySelector('.gradient-headline').style.pointerEvents = 'none';
+
+  document.body.classList.remove('headline-active');
+  document.documentElement.classList.remove('headline-active');
   const smoother = ScrollSmoother.get();
   if (smoother) smoother.paused(false);
 }
@@ -504,28 +513,28 @@ function setup() {
     once: true
   });
 
-// Erster Text beim Eintreten in den Feed
-ScrollTrigger.create({
-  trigger: '#j-2016',
-  start: 'top 80%',
-  onEnter: () => {
-    gsap.set('.quote-wrapper', { opacity: 1, visibility: 'visible' });
-    setupTicker(tickerSegments[0].text);
-  },
-  onEnterBack: () => setupTicker(tickerSegments[0].text)
-});
-
-// Ticker-Wechsel bei weiteren Segmenten
-tickerSegments.slice(1).forEach(segment => {
-  const triggerEl = document.getElementById(segment.triggerId);
-  if (!triggerEl) return;
+  // Erster Text beim Eintreten in den Feed
   ScrollTrigger.create({
-    trigger: triggerEl,
+    trigger: '#j-2016',
     start: 'top 80%',
-    onEnter: () => setupTicker(segment.text),
-    onEnterBack: () => setupTicker(segment.text),
+    onEnter: () => {
+      gsap.set('.quote-wrapper', { opacity: 1, visibility: 'visible' });
+      setupTicker(tickerSegments[0].text);
+    },
+    onEnterBack: () => setupTicker(tickerSegments[0].text)
   });
-});
+
+  // Ticker-Wechsel bei weiteren Segmenten
+  tickerSegments.slice(1).forEach(segment => {
+    const triggerEl = document.getElementById(segment.triggerId);
+    if (!triggerEl) return;
+    ScrollTrigger.create({
+      trigger: triggerEl,
+      start: 'top 80%',
+      onEnter: () => setupTicker(segment.text),
+      onEnterBack: () => setupTicker(segment.text),
+    });
+  });
 
   // Quote-Triggers (Gen Z Kommentare als grosse Headlines)
   initHeadlines();
