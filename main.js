@@ -427,6 +427,7 @@ function initIntro() {
 
   let currentBlock = -1;
 
+  const splits = [...blocks].map(block => SplitText.create(block, { type: "chars,words" }));
   gsap.set(blocks, { opacity: 0 });
 
   function showBlock(index) {
@@ -556,6 +557,8 @@ document.fonts.ready.then(() => {
   }, 100);
 });
 
+let resizeTimer;
 window.addEventListener("resize", () => {
-  ScrollTrigger.refresh();
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => ScrollTrigger.refresh(), 250);
 });

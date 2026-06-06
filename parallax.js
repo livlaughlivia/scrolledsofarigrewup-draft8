@@ -317,13 +317,14 @@ function initWrapper(wrapper) {
             const blurEnd = parseFloat(floater.getAttribute('attr-blur-end')) || 0;
 
             gsap.set(floater, { y: 0, x: 0, force3D: true });
+            const floaterImg = floater.querySelector('img, svg');
+            if (floaterImg) gsap.set(floaterImg, { force3D: true });
             gsap.fromTo(floater,
                 { y: 0, x: 0, scale: 1, filter: `blur(${blurStart}px)` },
                 {
                     y: () => speedY + "px",
                     x: () => speedX + "px",
                     scale: scale,
-                    filter: `blur(${blurEnd}px)`,
                     scrollTrigger: {
                         trigger: wrapper,
                         scrub: true,
@@ -413,7 +414,7 @@ function initDelayed() {
 function init() {
     smoother = ScrollSmoother.create({
         smooth: 1,
-        smoothTouch: 0.1,
+        smoothTouch: 0,
         wrapper: '#smooth-wrapper',
         content: '#smooth-content'
     });

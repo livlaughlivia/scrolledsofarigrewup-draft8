@@ -1,6 +1,5 @@
-gsap.registerPlugin(ScrollSmoother);
-
 const sideBar = document.querySelector('.side-bar');
+sideBar.style.display = '';
 const links = [...document.querySelectorAll('.side-bar a[href]')];
 let activeLink = null;
 let isTouchScrolling = false;
@@ -17,28 +16,10 @@ function navigateTo(link) {
   activeLink = link;
 
   window.isNavigating = true;
-
   const smoother = ScrollSmoother.get();
   if (smoother) {
-    // Alle gepinnten ScrollTrigger kurz deaktivieren
-    ScrollTrigger.getAll().forEach(st => {
-      if (st.pin) st.disable(false);
-    });
-
-    // Ohne Animation direkt springen — Element in der Mitte des Screens
-    const targetOffset = smoother.offset(target, "center center");
-    smoother.scrollTo(targetOffset, false);
-
-    // Kurz warten, dann ScrollTrigger neu aufsetzen
-    requestAnimationFrame(() => {
-      ScrollTrigger.getAll().forEach(st => {
-        if (st.pin) st.enable(false);
-      });
-      ScrollTrigger.refresh();
-      setTimeout(() => {
-        window.isNavigating = false;
-      }, 300);
-    });
+    smoother.scrollTo(target, false, "center center");
+    setTimeout(() => { window.isNavigating = false; }, 500);
   } else {
     target.scrollIntoView({ behavior: 'instant', block: 'center' });
     setTimeout(() => { window.isNavigating = false; }, 300);
