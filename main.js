@@ -392,12 +392,11 @@ function showHeadline(triggerId) {
   headlineActive = true; // ← setzen
 
   const era = trigger.dataset.era || '1';
-  const textEl = document.querySelector('.headline-text-era1');
-  const authorEl = document.querySelector('.headline-author1');
-  const contextEl = document.querySelector('.headline-context');
+  const textEl = document.querySelector('[class^="headline-text-era"]');
+  const authorEl = document.querySelector('[class^="headline-author"]');
 
   // Null-Checks: wenn Elemente nicht existieren, breche ab
-  if (!textEl || !authorEl || !contextEl) {
+  if (!textEl || !authorEl ) {
     headlineActive = false;
     return;
   }
@@ -406,8 +405,7 @@ function showHeadline(triggerId) {
   authorEl.className = `headline-author${era}`;
 
   textEl.textContent = trigger.dataset.quoteText;
-  authorEl.textContent = trigger.dataset.quoteAuthor;
-  contextEl.textContent = trigger.dataset.quoteContext || '';
+  authorEl.textContent = trigger.dataset.quoteAuthor || '';
 
   gsap.killTweensOf('#headline-timer-line');
   gsap.set('#headline-timer-line', { drawSVG: '0%' });
@@ -466,11 +464,9 @@ function initHeadlines() {
   document.querySelectorAll('[id^="quote-trigger-"]').forEach(triggerEl => {
     ScrollTrigger.create({
       trigger: triggerEl,
-      start: "top 80%",
+      start: "top 90%",
       onEnter: () => showHeadline(triggerEl.id),
-      onLeave: () => hideHeadline(),
-      onEnterBack: () => showHeadline(triggerEl.id),
-      onLeaveBack: () => hideHeadline()
+      onEnterBack: () => showHeadline(triggerEl.id)
     });
   });
 }

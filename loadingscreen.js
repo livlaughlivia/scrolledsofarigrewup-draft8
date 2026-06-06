@@ -24,8 +24,21 @@ morphTl.to("#icon-morph", {
     delay: 0.3
   });
 
-// Nach 5 Sekunden ausblenden
-setTimeout(() => {
+  // Statt setTimeout mit fester Zeit:
+Promise.all([
+  document.fonts.ready,
+  new Promise(resolve => {
+    const imgs = document.querySelectorAll('.post-wrapper img');
+    const first10 = [...imgs].slice(0, 10); // erste 10 Bilder abwarten
+    let loaded = 0;
+    first10.forEach(img => {
+      if (img.complete) { loaded++; if (loaded === first10.length) resolve(); }
+      else img.addEventListener('load', () => { loaded++; if (loaded === first10.length) resolve(); });
+    });
+    setTimeout(resolve, 3000); // max 3 Sekunden warten
+  })
+  
+]).then(() => {
   morphTl.kill();
   
   gsap.timeline()
@@ -41,7 +54,5 @@ setTimeout(() => {
       onComplete: () => {
         document.querySelector('.loading-screen').style.display = 'none';
       }
-    }, '-=0.2')
-
-
-}, 1000);
+    }, '-=0.2');
+});

@@ -165,17 +165,17 @@ function initWrapper(wrapper) {
             triggerEnd: "bottom top",
             fadeInStart: "top 60%",
             floaters: [
-                { speedY: -1000, speedX: 5, scale: 1 },
+                { speedY: -1000, speedX: 5, scale: 2 },
                 { speedY: -300, speedX: 5, scale: 1.5 },
             ]
         },
 
         '1B': {
-            triggerStart: "top 40%",
+            triggerStart: "top 46%",
             triggerEnd: "bottom top",
             fadeInStart: "top 80%",
             floaters: [
-                { speedY: -2000, speedX: -5, scale: 2 },
+                { speedY: -2000, speedX: -5, scale: 3 },
             ],
         },
 
@@ -195,22 +195,22 @@ function initWrapper(wrapper) {
             triggerEnd: "bottom top",
             fadeInStart: "top 60%",
             floaters: [
-                { speedY: -1000, speedX: 15, scale: 1.5 },
-                { speedY: -300, speedX: 5, scale: 1 },
+                { speedY: -1000, speedX: 10, scale: 1.5 },
+                { speedY: -300, speedX: -5, scale: 2 },
             ],
         },
 
         '2B': {
-            triggerStart: "top 40%",
+            triggerStart: "top 60%",
             triggerEnd: "bottom top",
             fadeInStart: "top 60%",
             floaters: [
-                { speedY: -800, speedX: -5, scale: 1 },
+                { speedY: -2000, speedX: -5, scale: 3 },
             ],
         },
 
         '2C': {
-            triggerStart: "top 40%",
+            triggerStart: "top 60%",
             triggerEnd: "bottom top",
             fadeInStart: "top 60%",
             floaters: [
@@ -226,7 +226,7 @@ function initWrapper(wrapper) {
             fadeInStart: "top 60%",
             floaters: [
                 { speedY: -1000, speedX: 15, scale: 1.5 },
-                { speedY: -300, speedX: 5, scale: 1 },
+                { speedY: -300, speedX: -5, scale: 2 },
             ],
         },
 
@@ -235,7 +235,7 @@ function initWrapper(wrapper) {
             triggerEnd: "bottom top",
             fadeInStart: "top 60%",
             floaters: [
-                { speedY: -800, speedX: -5, scale: 1 },
+                { speedY: -800, speedX: -5, scale: 3 },
             ],
         },
         '3C': {
@@ -393,7 +393,7 @@ function initDelayed() {
 
 // Prüfe ob vorheriges Element auch ein insta-update ist
     const prevCard = delayed[index - 1];
-    const prevHold = prevCard ? parseFloat(prevCard.getAttribute('attr-delay-hold')) || 400 : 0;
+    const prevHold = prevCard ? parseFloat(prevCard.getAttribute('attr-delay-hold')) || 500 : 0;
     const startOffset = prevCard ? `+=${prevHold}` : "top 80%";
 
         gsap.timeline({
