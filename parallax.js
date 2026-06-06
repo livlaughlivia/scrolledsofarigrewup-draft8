@@ -159,42 +159,94 @@ function initWrapper(wrapper) {
     }
 
     const floaterConfigs = {
-        '1A': [
-            { speedY: -1000, speedX: 5,  scale: 0.5 },
-            { speedY: -300,  speedX: 5,  scale: 0.5 },
-        ],
-        '1B': [
-            { speedY: -600,  speedX: -5, scale: 0.8 },
-        ],
-        '1C': [
-            { speedY: -400,  speedX: -8, scale: 1   },
-            { speedY: -600,  speedX: 5,  scale: 0.9 },
-            { speedY: -800,  speedX: 10, scale: 1.1 },
-        ],
-        '2A': [
-            { speedY: -1000, speedX: 15, scale: 1.5 },
-            { speedY: -300,  speedX: 5,  scale: 1   },
-        ],
-        '2B': [
-            { speedY: -800,  speedX: -5, scale: 1   },
-        ],
-        '2C': [
-            { speedY: -400,  speedX: -5, scale: 1   },
-            { speedY: -600,  speedX: 5,  scale: 0.9 },
-            { speedY: -900,  speedX: 10, scale: 1.1 },
-        ],
-        '3A': [
-            { speedY: -1000, speedX: 15, scale: 1.5 },
-            { speedY: -300,  speedX: 5,  scale: 1   },
-        ],
-        '3B': [
-            { speedY: -800,  speedX: -5, scale: 1   },
-        ],
-        '3C': [
-            { speedY: -400,  speedX: -5, scale: 1   },
-            { speedY: -600,  speedX: 5,  scale: 0.9 },
-            { speedY: -900,  speedX: 10, scale: 1.1 },
-        ],
+        '1A': {
+            triggerStart: "top 20%",
+            triggerEnd: "bottom top",
+            fadeInStart: "top 60%",
+            floaters: [
+                { speedY: -1000, speedX: 5, scale: 1 },
+                { speedY: -300, speedX: 5, scale: 1.5 },
+            ]
+        },
+
+        '1B': {
+            triggerStart: "top 40%",
+            triggerEnd: "bottom top",
+            fadeInStart: "top 80%",
+            floaters: [
+                { speedY: -2000, speedX: -5, scale: 2 },
+            ],
+        },
+
+        '1C': {
+            triggerStart: "top 80%",
+            triggerEnd: "bottom top",
+            fadeInStart: "top 90%",
+            floaters: [
+                { speedY: -1000, speedX: -8, scale: 1 },
+                { speedY: -600, speedX: 5, scale: 2 },
+                { speedY: -2000, speedX: 10, scale: 1.5 },
+            ],
+        },
+
+        '2A': {
+            triggerStart: "top 40%",
+            triggerEnd: "bottom top",
+            fadeInStart: "top 60%",
+            floaters: [
+                { speedY: -1000, speedX: 15, scale: 1.5 },
+                { speedY: -300, speedX: 5, scale: 1 },
+            ],
+        },
+
+        '2B': {
+            triggerStart: "top 40%",
+            triggerEnd: "bottom top",
+            fadeInStart: "top 60%",
+            floaters: [
+                { speedY: -800, speedX: -5, scale: 1 },
+            ],
+        },
+
+        '2C': {
+            triggerStart: "top 40%",
+            triggerEnd: "bottom top",
+            fadeInStart: "top 60%",
+            floaters: [
+                { speedY: -400, speedX: -5, scale: 1 },
+                { speedY: -600, speedX: 5, scale: 0.9 },
+                { speedY: -900, speedX: 10, scale: 1.1 },
+            ],
+        },
+
+        '3A': {
+            triggerStart: "top 40%",
+            triggerEnd: "bottom top",
+            fadeInStart: "top 60%",
+            floaters: [
+                { speedY: -1000, speedX: 15, scale: 1.5 },
+                { speedY: -300, speedX: 5, scale: 1 },
+            ],
+        },
+
+        '3B': {
+            triggerStart: "top 40%",
+            triggerEnd: "bottom top",
+            fadeInStart: "top 60%",
+            floaters: [
+                { speedY: -800, speedX: -5, scale: 1 },
+            ],
+        },
+        '3C': {
+            triggerStart: "top 40%",
+            triggerEnd: "bottom top",
+            fadeInStart: "top 60%",
+            floaters: [
+                { speedY: -400, speedX: -5, scale: 1 },
+                { speedY: -600, speedX: 5, scale: 0.9 },
+                { speedY: -900, speedX: 10, scale: 1.1 },
+            ],
+        }
     };
 
     const apply = () => {
@@ -208,7 +260,11 @@ function initWrapper(wrapper) {
         const imgSrc = mainImg ? mainImg.src : '';
 
         const shapes = [floater1Shape, floater2Shape, floater3Shape].filter(Boolean);
-        const configs = floaterConfigs[era + variant] || [];
+        const configs = floaterConfigs[era + variant] || { triggerStart: "20% 30%", triggerEnd: "bottom top", floaters: [] };
+        const triggerStart = wrapper.getAttribute('data-trigger-start') || configs.triggerStart;
+        const fadeInStart = wrapper.getAttribute('data-fade-start') || configs.fadeInStart || "top 80%";
+        const triggerEnd = wrapper.getAttribute('data-trigger-end') || configs.triggerEnd;
+        const floaterList = configs.floaters;
         const floaterClasses = ['floater1', 'floater2', 'floater3'];
         const igFrame = wrapper.querySelector('.ig-frame');
 
@@ -224,12 +280,12 @@ function initWrapper(wrapper) {
         shapes.forEach((shape, i) => {
             const cls = floaterClasses[i];
             const n = i + 1;
-            const defaultCfg = configs[i] || { speedY: -500, speedX: 0, scale: 1 };
+            const defaultCfg = floaterList[i] || { speedY: -500, speedX: 0, scale: 1 };
 
             const cfg = {
                 speedY: parseFloat(wrapper.getAttribute(`data-floater${n}-speed-y`)) || defaultCfg.speedY,
                 speedX: parseFloat(wrapper.getAttribute(`data-floater${n}-speed-x`)) || defaultCfg.speedX,
-                scale:  parseFloat(wrapper.getAttribute(`data-floater${n}-scale`))   || defaultCfg.scale,
+                scale: parseFloat(wrapper.getAttribute(`data-floater${n}-scale`)) || defaultCfg.scale,
             };
 
             if (!wrapper.querySelector('.' + cls)) {
@@ -254,11 +310,11 @@ function initWrapper(wrapper) {
 
         // GSAP Floater-Animationen
         wrapper.querySelectorAll('.floater').forEach((floater) => {
-            const speedY    = parseFloat(floater.getAttribute('attr-float-speed-y')) || 0;
-            const speedX    = parseFloat(floater.getAttribute('attr-float-speed-x')) || 0;
-            const scale     = parseFloat(floater.getAttribute('attr-scale'))          || 1;
-            const blurStart = parseFloat(floater.getAttribute('attr-blur-start'))     || 0;
-            const blurEnd   = parseFloat(floater.getAttribute('attr-blur-end'))       || 0;
+            const speedY = parseFloat(floater.getAttribute('attr-float-speed-y')) || 0;
+            const speedX = parseFloat(floater.getAttribute('attr-float-speed-x')) || 0;
+            const scale = parseFloat(floater.getAttribute('attr-scale')) || 1;
+            const blurStart = parseFloat(floater.getAttribute('attr-blur-start')) || 0;
+            const blurEnd = parseFloat(floater.getAttribute('attr-blur-end')) || 0;
 
             gsap.set(floater, { y: 0, x: 0, force3D: true });
             gsap.fromTo(floater,
@@ -271,8 +327,8 @@ function initWrapper(wrapper) {
                     scrollTrigger: {
                         trigger: wrapper,
                         scrub: true,
-                        start: "20% 30%",
-                        end: "bottom top",
+                        start: triggerStart,
+                        end: triggerEnd,
                         invalidateOnRefresh: true,
                     },
                     immediateRender: false,
@@ -292,7 +348,7 @@ function initWrapper(wrapper) {
                 ease: 'power2.out',
                 scrollTrigger: {
                     trigger: wrapper,
-                    start: "top 50%",
+                    start: fadeInStart,
                     toggleActions: "play none none reverse",
                     invalidateOnRefresh: true,
                 }
