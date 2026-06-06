@@ -1,0 +1,887 @@
+@font-face {
+    font-family: "Arizona Variable";
+    src: url("ABCArizonaVariableEdu.woff2") format("woff2");
+    font-display: swap;
+}
+
+h3 {
+    margin: 0;
+}
+
+.outline {
+    position: relative;
+    -webkit-text-stroke: 7px #ea3336;
+    text-shadow: 0 0 10px #ea3336;
+    text-align: center;
+}
+
+.outline::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: #f9caf8;
+    -webkit-text-stroke: 0px transparent;
+    text-shadow: none;
+    z-index: 1;
+}
+
+html {
+    background: #bbe002;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: #a9ceff;
+    overflow-x: hidden;
+    padding-bottom: env(safe-area-inset-bottom);
+    margin: 0;
+    transition: background-color 0.8s ease;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse 115% 70% at 50% 45%, #ffffff01 40%, #bbe002ff 75%, #bbe002ff 100%);
+    pointer-events: none;
+    z-index: 50;
+    transition: background 0.8s ease;
+}
+
+#smooth-wrapper {
+    position: relative;
+}
+
+#smooth-content {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 80px);
+}
+
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100svh;
+    width: 100%;
+    background: #bee800;
+    z-index: 999;
+}
+
+.loading-icon {
+    width: 33.333%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    font-family: "Arizona Variable";
+    font-variation-settings: "wght" 700;
+    text-align: center;
+    line-height: 0.9;
+    font-size: 90px;
+    color: #5478ff;
+    animation: serifTransition 1s ease-in-out infinite alternate;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+@keyframes serifTransition {
+    from {
+        font-variation-settings: "SRFF" 100;
+    }
+
+    to {
+        font-variation-settings: "SRFF" 0;
+    }
+}
+
+#title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100svh;
+    z-index: 60;
+}
+
+.title-wrapper {
+    height: 100svh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+}
+
+.title-top {
+    margin-top: 20px;
+    align-self: center;
+    position: relative;
+    z-index: 70;
+}
+
+.title-far {
+    margin-top: -170px;
+    align-self: center;
+    position: relative;
+    z-index: 70;
+}
+
+.title-bottom {
+    margin-bottom: 0px;
+    align-self: center;
+    position: relative;
+    z-index: 70;
+}
+
+.title-sooo {
+    align-self: center;
+    width: 100%;
+    height: 90%;
+    position: relative;
+    z-index: 55;
+    margin-top: -40px;
+}
+
+.title-spacer {
+    height: 100svh;
+    pointer-events: none;
+}
+
+.era-title {
+    position: relative;
+    margin: 0;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.era1 {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 100, "wght" 700;
+    line-height: 0.9;
+    text-align: center;
+    font-size: 70px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.era2 {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 100, "wght" 700;
+    line-height: 0.9;
+    text-align: center;
+    font-size: 70px;
+    color: #f9caf8;
+}
+
+.era3 {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 50, "wght" 700;
+    line-height: 0.9;
+    text-align: center;
+    font-size: 70px;
+    color: #f9caf8;
+}
+
+#era-1 {
+    margin-top: -70svh;
+}
+
+.year-outline {
+    font-size: 60px;
+    position: relative;
+    color: transparent;
+    -webkit-text-stroke: 7px #f9caf8;
+    text-shadow: 0 0 10px #f9caf8;
+    text-align: center;
+}
+
+.year-outline::before {
+    content: attr(data-text);
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: #ea3336;
+    -webkit-text-stroke: 0px transparent;
+    text-shadow: none;
+}
+
+.year-era1 {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 100, "wght" 700;
+    line-height: 0.9;
+    text-align: center;
+    font-size: 45px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.year-title {
+    position: relative;
+    margin: 0;
+    height: 10svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.side-bar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 33.332%;
+    height: 100svh;
+    padding-top: 5%;
+    padding-right: 5%;
+    padding-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    box-sizing: border-box;
+    padding: 0;
+    z-index: 150;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(100%);
+    transition: transform 0.4s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.side-bar.is-open {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+.side-bar a {
+    color: #ea3336;
+    text-decoration: none;
+    font-size: 25px;
+    line-height: 0.7;
+    text-align: center;
+    margin: 0;
+}
+
+.era1-menu {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 100, "wght" 500;
+}
+
+.era2-menu {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 50, "wght" 500;
+}
+
+.era3-menu {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 0, "wght" 500;
+}
+
+.menu-iconA {
+    width: 20svh;
+    height: auto;
+    margin-top: 12svh;
+    margin-bottom: -5svh;
+}
+
+.menu-icon1 {
+    width: 19vh;
+    height: auto;
+    margin: -6svh auto;
+}
+
+.menu-icon2 {
+    width: 18svh;
+    height: auto;
+    margin: -6svh 0;
+}
+
+.menu-icon3 {
+    width: 24svh;
+    height: auto;
+    margin: -9svh 0;
+}
+
+.menu-iconB {
+    width: 20svh;
+    height: auto;
+    margin-top: -7svh;
+    margin-bottom: 7svh;
+}
+
+.side-bar:hover .nav-label,
+.side-bar:focus-within .nav-label {
+    opacity: 1;
+}
+
+.nav-active {
+    font-weight: 700;
+    color: #f9caf8 !important;
+}
+
+#intro {
+    height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.intro-text {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 0, "wght" 600;
+    font-size: 25px;
+    line-height: 1.3;
+    text-align: left;
+    color: #ea3336;
+    width: 80%;
+    position: relative;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0 auto;
+}
+
+.intro-block {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 10px;
+    width: 100%;
+    opacity: 0;
+    hyphens: none;
+    -webkit-hyphens: none;
+    word-break: keep-all;
+    overflow-wrap: normal;
+}
+
+.split-word {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.intro-block::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    background: #f9caf8;
+    box-shadow: 0 0 5px 5px #f9caf8ff, 2px 2px #f9caf880;
+    border-radius: 50;
+    filter: blur(10px);
+    z-index: -1;
+}
+
+.quote-wrapper {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.quote-block-1 {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 100, "wght" 600;
+    font-size: 25px;
+    color: #ea3336;
+    display: flex;
+    white-space: nowrap;
+}
+
+.quote-block-1.q-era1 {
+    font-variation-settings: "SRFF" 100, "wght" 600;
+}
+
+.quote-block-1.q-era2 {
+    font-variation-settings: "SRFF" 50, "wght" 600;
+}
+
+.quote-block-1.q-era3 {
+    font-variation-settings: "SRFF" 0, "wght" 600;
+}
+
+.ticker-inner {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.post-wrapper {
+    position: relative;
+    width: 640px;
+    margin: 40px;
+    overflow: visible;
+}
+
+.insta-post {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+}
+
+.floater {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    overflow: visible;
+    will-change: transform;
+}
+
+.insta-post img,
+.floater img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.ig-frame {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+}
+
+.ig-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    z-index: 2;
+}
+
+.position1 {
+    width: 83.33%;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.position2 {
+    width: 83.33%;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.position3 {
+    width: 66.66%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.position4 {
+    width: 50%;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.position5 {
+    width: 50%;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.position6 {
+    width: 50%;
+    margin-left: 33.33%;
+    margin-right: auto;
+}
+
+.position7 {
+    width: 50%;
+    margin-right: 33.33%;
+    margin-left: auto;
+}
+
+.position8 {
+    width: 100vw;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.insta-update {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin: 10px auto;
+    margin-bottom: 200px;
+}
+
+.insta-update-content {
+    margin: 0px;
+    width: 100%;
+    background: #5c7fff;
+    border: 5px solid #f9caf8;
+    text-align: justify;
+    border-radius: 30px;
+    position: relative;
+}
+
+.insta-update-content p {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 0, "wght" 400;
+    font-size: 25px;
+    text-align: left;
+    color: #f9caf8;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 7px;
+    padding: 10px;
+}
+
+.insta-update-date {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 0, "wght" 400;
+    font-size: 25px;
+    text-align: left;
+    color: #5c7fff;
+    align-self: flex-start;
+    width: 100%;
+    margin-left: 5px;
+    margin-top: 0px;
+    padding: 10px;
+}
+
+[id^="headline-trigger-"] {
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.gradient-headline {
+    position: fixed;
+    background-color: #bbe002;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 500;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.gradient-headline.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+.headline-wrapper {
+    height: 100%;
+    width: 100%;
+    background: radial-gradient(ellipse 115% 70% at 50% 45%, #ffffff01 40%, #afd4ffff 75%, #afd4ffff 100%);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    position: relative;
+}
+
+.headline-menu {
+    width: 90%;
+    padding: 0 25px;
+    flex-shrink: 0;
+}
+
+.headline-lines {
+    width: 100%;
+    position: relative;
+    height: 2px;
+    margin-top: 40px;
+}
+
+.headline-line-constant {
+    width: 100%;
+    display: block;
+}
+
+.headline-line-timer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: block;
+}
+
+.headline-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    margin-top: -10px;
+}
+
+.close-headline {
+    margin-top: -10px;
+    width: 30px;
+    flex-shrink: 0;
+}
+
+.close-headline-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.headline-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.headline-author1 {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 100, "wght" 400;
+    color: #5c7fff;
+    font-size: 25px;
+    flex: 1;
+    padding: 2px;
+    margin-top: 20px;
+}
+
+.headline-author2 {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 50, "wght" 400;
+    color: #5c7fff;
+    font-size: 25px;
+    flex: 1;
+    padding: 2px;
+    margin-top: 20px;
+}
+
+.headline-author3 {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 0, "wght" 400;
+    color: #5c7fff;
+    font-size: 25px;
+    flex: 1;
+    padding: 2px;
+    margin-top: 20px;
+}
+
+.headline-text-era1 {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 100, "wght" 700;
+    text-align: center;
+    font-size: 45px;
+    color: #5c7fff;
+    line-height: 1;
+    z-index: 201;
+}
+
+.headline-text-era2 {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 50, "wght" 700;
+    text-align: center;
+    font-size: 45px;
+    color: #5c7fff;
+    line-height: 1;
+    z-index: 201;
+}
+
+.headline-text-era3 {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 0, "wght" 700;
+    text-align: center;
+    font-size: 45px;
+    color: #5c7fff;
+    line-height: 1;
+    z-index: 201;
+}
+
+.insta-ad {
+    position: absolute;
+    width: 66.66%;
+    aspect-ratio: 1 / 1;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.001);
+    z-index: 100;
+}
+
+h3 {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 0, "wght" 700;
+    text-align: right;
+    font-size: 70px;
+    color: #f9caf8;
+}
+
+#outro h2 {
+    font-family: "Arizona Variable";
+    font-variation-settings: "wght" 700;
+    color: #f9caf8;
+    animation: serifTransition 1s ease-in-out infinite alternate;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    line-height: 0.9;
+    text-align: center;
+    font-size: 60px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+@keyframes serifTransition {
+    from {
+        font-variation-settings: "SRFF" 100;
+    }
+
+    to {
+        font-variation-settings: "SRFF" 0;
+    }
+}
+
+#outro {
+    width: 100%;
+    height: 100svh;
+    position: relative;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.outro-wrapper {
+    height: 100svh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+}
+
+.outro-top {
+    margin-top: 0px;
+    align-self: center;
+    position: relative;
+    z-index: 70;
+}
+
+.outro-middle {
+    margin-top: -170px;
+    align-self: center;
+    position: relative;
+    z-index: 70;
+}
+
+.outro-bottom {
+    margin-bottom: 0px;
+    align-self: center;
+    position: relative;
+    z-index: 70;
+}
+
+.outro-sooo {
+    align-self: center;
+    width: 100%;
+    height: 50%;
+    position: relative;
+    z-index: 55;
+    margin-top: -40px;
+}
+
+#impressum {
+    position: relative;
+    width: 100%;
+}
+
+.impressum {
+    margin: 0;
+    height: 100svh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.impressum-group {
+    margin-bottom: 1.2em;
+}
+
+.impressum-text {
+    font-size: 25px;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.post-wrapper,
+.floater,
+.insta-update,
+.insta-post {
+    will-change: auto;
+}
+
+.grid-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0px;
+    padding: 0 0px;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.grid-overlay div {
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+}

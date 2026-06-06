@@ -6,6 +6,9 @@
 
 /* MARK: Fonts */
 
+h3 {
+  margin: 0;
+}
 
 .outline {
   position: relative;
@@ -804,7 +807,7 @@ h3 {
   position: relative;
   line-height: 0.9;
   text-align: center;
-  font-size: 45px;
+  font-size: 60px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -822,6 +825,7 @@ h3 {
 #outro {
   width: 100%;
   height: 100svh;
+  position: relative;
   z-index: 60;
   display: flex;
   align-items: center;
@@ -873,14 +877,30 @@ h3 {
 }
 
 /* MARK: IMPRESSUM */
+#impressum {
+  position: relative;
+  width: 100%;
+}
 
 .impressum {
   margin: 0;
-  height: 10svh;
+  height: 100svh;
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 20px;
+}
+
+.impressum-group {
+  margin-bottom: 1.2em;
+}
+
+.impressum-text {
+  font-size: 25px;
+  margin: 0;
+  line-height: 1.2;
 }
 
 /* --MARK: Performance optimierung -- */

@@ -257,20 +257,53 @@ let tickerAnimation = null;
 function setupTicker(text) {
   const wrapper = document.querySelector('.quote-block-1');
   if (!wrapper) return;
-  if (tickerAnimation) tickerAnimation.kill();
 
-  const doubled = `${text}   ${text}`;
-  wrapper.innerHTML = `<span class="ticker-inner">${doubled}</span>`;
+  if (!tickerAnimation) {
+    // Erster Aufruf: normal starten
+    const doubled = `${text}   ${text}`;
+    wrapper.innerHTML = `<span class="ticker-inner">${doubled}</span>`;
+    const inner = wrapper.querySelector('.ticker-inner');
+    const fullWidth = inner.scrollWidth / 2;
+    gsap.set(inner, { x: 0 });
+    tickerAnimation = gsap.to(inner, {
+      x: -fullWidth,
+      duration: fullWidth / 80,
+      ease: 'none',
+      repeat: -1,
+    });
+    return;
+  }
 
+// Folgeaufrufe: Text anhängen ohne Animation zu unterbrechen
   const inner = wrapper.querySelector('.ticker-inner');
+  if (!inner) return;
+
+  // Aktuellen X-Fortschritt merken
+  const currentX = gsap.getProperty(inner, 'x');
+
+  // Neuen Text setzen
+  const doubled = `${text}   ${text}`;
+  inner.textContent = doubled;
+
+  // Neue Breite berechnen
   const fullWidth = inner.scrollWidth / 2;
 
-  gsap.set(inner, { x: 0 });
+  // Animation mit gleicher Geschwindigkeit neu starten ab aktuellem X
+  tickerAnimation.kill();
+  gsap.set(inner, { x: currentX });
   tickerAnimation = gsap.to(inner, {
     x: -fullWidth,
-    duration: fullWidth / 80,
+    duration: (fullWidth + currentX) / 80, // restliche Distanz
     ease: 'none',
-    repeat: -1,
+    onComplete: () => {
+      gsap.set(inner, { x: 0 });
+      tickerAnimation = gsap.to(inner, {
+        x: -fullWidth,
+        duration: fullWidth / 80,
+        ease: 'none',
+        repeat: -1,
+      });
+    }
   });
 }
 
@@ -347,24 +380,34 @@ function initEraTitles3() {
 
 
 // ── MARK: Storys mit Quotes ────────────────────────────────────────────
+let headlineActive = false;
+
 function showHeadline(triggerId) {
   if (window.isNavigating) return;
+  if (headlineActive) return; // ← verhindert doppeltes Auslösen
 
   const trigger = document.getElementById(triggerId);
   if (!trigger) return;
 
-  const era = trigger.dataset.era || '1';
+  headlineActive = true; // ← setzen
 
+  const era = trigger.dataset.era || '1';
   const textEl = document.querySelector('.headline-text-era1');
   const authorEl = document.querySelector('.headline-author1');
+  const contextEl = document.querySelector('.headline-context');
+
+  // Null-Checks: wenn Elemente nicht existieren, breche ab
+  if (!textEl || !authorEl || !contextEl) {
+    headlineActive = false;
+    return;
+  }
 
   textEl.className = `headline-text-era${era}`;
   authorEl.className = `headline-author${era}`;
 
   textEl.textContent = trigger.dataset.quoteText;
   authorEl.textContent = trigger.dataset.quoteAuthor;
-  document.querySelector('.headline-context').textContent =
-    trigger.dataset.quoteContext || '';
+  contextEl.textContent = trigger.dataset.quoteContext || '';
 
   gsap.killTweensOf('#headline-timer-line');
   gsap.set('#headline-timer-line', { drawSVG: '0%' });
@@ -378,7 +421,8 @@ function showHeadline(triggerId) {
   gsap.to('.gradient-headline', {
     opacity: 1, visibility: 'visible', duration: 1,
     onComplete: () => {
-      document.querySelector('.gradient-headline').style.pointerEvents = 'all';
+      const gradEl = document.querySelector('.gradient-headline');
+      if (gradEl) gradEl.style.pointerEvents = 'all';
     }
   });
 
@@ -393,6 +437,7 @@ function showHeadline(triggerId) {
             document.querySelector('.gradient-headline').style.pointerEvents = 'none';
             document.body.classList.remove('headline-active');
             document.documentElement.classList.remove('headline-active');
+            headlineActive = false; // ← zurücksetzen
             const smoother = ScrollSmoother.get();
             if (smoother) smoother.paused(false);
           }
@@ -403,13 +448,16 @@ function showHeadline(triggerId) {
 }
 
 function hideHeadline() {
-  gsap.killTweensOf('#headline-timer-line');
-  document.body.classList.remove('headline-active');
-  gsap.to('.gradient-headline', { opacity: 0, visibility: 'hidden', duration: 0.3 });
-  document.querySelector('.gradient-headline').style.pointerEvents = 'none';
+  if (!headlineActive) return; // ← nichts tun wenn keine Headline aktiv
+  headlineActive = false; // ← zurücksetzen
 
+  gsap.killTweensOf('#headline-timer-line');
+  gsap.killTweensOf('.gradient-headline');
   document.body.classList.remove('headline-active');
   document.documentElement.classList.remove('headline-active');
+  gsap.to('.gradient-headline', { opacity: 0, visibility: 'hidden', duration: 0.3 });
+  const gradEl = document.querySelector('.gradient-headline');
+  if (gradEl) gradEl.style.pointerEvents = 'none';
   const smoother = ScrollSmoother.get();
   if (smoother) smoother.paused(false);
 }
@@ -429,9 +477,7 @@ function initHeadlines() {
 
 const closeBtn = document.querySelector('.close-headline-btn');
 if (closeBtn) {
-  closeBtn.addEventListener('click', () => {
-    hideHeadline();
-  });
+  closeBtn.addEventListener('click', hideHeadline);
 }
 
 
@@ -442,12 +488,14 @@ function initIntro() {
 
   let currentBlock = -1;
 
+  // SplitText-Ergebnisse einmalig erzeugen (vermeidet mehrfaches Parsen)
   const splits = [...blocks].map(block => SplitText.create(block, { type: "chars,words" }));
   gsap.set(blocks, { opacity: 0 });
 
   function showBlock(index) {
     const block = blocks[index];
-    const split = SplitText.create(block, { type: "chars,words" });
+    const split = splits[index];
+    if (!block || !split) return;
     gsap.set(block, { opacity: 1 });
     gsap.from(split.chars, {
       opacity: 0,
@@ -514,7 +562,7 @@ function setup() {
       sideBar.classList.add('is-open');
       setTimeout(() => {
         sideBar.classList.remove('is-open');
-      }, 2000);
+      }, 1000);
     },
     once: true
   });
@@ -530,50 +578,146 @@ function setup() {
     onEnterBack: () => setupTicker(tickerSegments[0].text)
   });
 
-  // Ticker-Wechsel bei weiteren Segmenten
-  tickerSegments.slice(1).forEach(segment => {
-    const triggerEl = document.getElementById(segment.triggerId);
-    if (!triggerEl) return;
-    ScrollTrigger.create({
-      trigger: triggerEl,
-      start: 'top 80%',
-      onEnter: () => setupTicker(segment.text),
-      onEnterBack: () => setupTicker(segment.text),
-    });
-  });
+  // Ticker-Wechsel bei weiteren Segmenten (ASYNC/BATCHED)
+  // Batch ScrollTrigger creation to avoid long blocking tasks
+  const tickersToCreate = tickerSegments.slice(1);
+  const batchSize = 5; // Create 5 triggers per batch
+  
+  function createTickerBatch(startIndex) {
+    const endIndex = Math.min(startIndex + batchSize, tickersToCreate.length);
+    
+    for (let i = startIndex; i < endIndex; i++) {
+      const segment = tickersToCreate[i];
+      const triggerEl = document.getElementById(segment.triggerId);
+      if (!triggerEl) continue;
+      
+      ScrollTrigger.create({
+        trigger: triggerEl,
+        start: 'top 80%',
+        onEnter: () => setupTicker(segment.text),
+        onEnterBack: () => setupTicker(segment.text),
+      });
+    }
+    
+    // Schedule next batch if more remain
+    if (endIndex < tickersToCreate.length) {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => createTickerBatch(endIndex));
+      } else {
+        setTimeout(() => createTickerBatch(endIndex), 50);
+      }
+    }
+  }
+  
+  // Delay ticker batch creation to after initial setup
+  setTimeout(() => {
+    createTickerBatch(0);
+  }, 100);
 
   // Quote-Triggers (Gen Z Kommentare als grosse Headlines)
   initHeadlines();
   gsap.set('#headline-timer-line', { drawSVG: '0%' });
 }
 
-// ── MARK: GRID ────────────────────────────────────────────────
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'g' || e.key === 'G') {
-    const overlay = document.getElementById('gridOverlay');
-    overlay.style.opacity = overlay.style.opacity === '1' ? '0' : '1';
-  }
+// Ticker ausblenden am Ende jedes Jahres
+['#era-1', '#era-2', '#era-3'].forEach(id => {
+  const section = document.querySelector(id);
+  if (!section) return;
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'bottom 80%',
+    onLeave: () => {
+      gsap.to('.quote-wrapper', { opacity: 0, visibility: 'hidden', duration: 0.5 });
+    },
+    onEnterBack: () => {
+      gsap.to('.quote-wrapper', { opacity: 1, visibility: 'visible', duration: 0.5 });
+    }
+  });
 });
 
+// ── MARK: GRID ────────────────────────────────────────────────
+
+// Benannte Handler, damit sie später sauber entfernt werden können
+function toggleGridHandler(e) {
+  if (e.key === 'g' || e.key === 'G') {
+    const overlay = document.getElementById('gridOverlay');
+    if (!overlay) return;
+    overlay.style.opacity = overlay.style.opacity === '1' ? '0' : '1';
+  }
+}
+document.addEventListener('keydown', toggleGridHandler);
+
 let lastTap = 0;
-document.addEventListener('touchend', (e) => {
+function touchHandler(e) {
   const now = Date.now();
   if (now - lastTap < 300) {
     const overlay = document.getElementById('gridOverlay');
+    if (!overlay) return;
     overlay.style.opacity = overlay.style.opacity === '1' ? '0' : '1';
   }
   lastTap = now;
-});
+}
+document.addEventListener('touchend', touchHandler, { passive: true });
 
 document.fonts.ready.then(() => {
-  setTimeout(() => {
-    window.scrollTo(0, 0);
-    setup();
-  }, 100);
+  // Defer heavy initialization to avoid blocking main thread
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        setup();
+      }, 100);
+    });
+  } else {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      setup();
+    }, 100);
+  }
 });
 
 let resizeTimer;
-window.addEventListener("resize", () => {
+function resizeHandler() {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => ScrollTrigger.refresh(), 250);
+}
+window.addEventListener("resize", resizeHandler);
+
+// Cleanup: zerstört ScrollTrigger/ScrollSmoother/GSAP-Animationen und entfernt globale Listener
+function destroyAll() {
+  try {
+    // Kill ScrollTrigger instances
+    ScrollTrigger.getAll().forEach(t => t.kill());
+
+    // Kill global GSAP tweens
+    if (tickerAnimation) {
+      try { tickerAnimation.kill(); } catch (e) {}
+      tickerAnimation = null;
+    }
+    gsap.globalTimeline.clear();
+    gsap.killTweensOf('*');
+
+    // Kill ScrollSmoother
+    const smoother = ScrollSmoother.get();
+    if (smoother) {
+      try { smoother.kill(); } catch (e) {}
+    }
+
+    // Remove listeners
+    document.removeEventListener('keydown', toggleGridHandler);
+    document.removeEventListener('touchend', touchHandler);
+    window.removeEventListener('resize', resizeHandler);
+    if (closeBtn) closeBtn.removeEventListener('click', hideHeadline);
+
+    // Clear timers
+    clearTimeout(resizeTimer);
+  } catch (err) {
+    console.warn('destroyAll error', err);
+  }
+}
+
+window.addEventListener('pagehide', destroyAll);
+window.addEventListener('beforeunload', destroyAll);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') destroyAll();
 });

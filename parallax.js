@@ -7,6 +7,7 @@ const selectAll = (e) => document.querySelectorAll(e);
 const delayed = selectAll(".insta-update");
 const stage = select('.stage');
 let smoother;
+let lazyObserver;
 
 
 // ── MARK: CLIP PATH SHAPES ────────────────────────────────────
@@ -358,18 +359,18 @@ function initWrapper(wrapper) {
     };
 
     if (frameImg.complete && frameImg.naturalWidth) apply();
-    else frameImg.addEventListener('load', apply);
+    else frameImg.addEventListener('load', apply, { once: true });
 }
 
 // ── MARK: LAZY INIT via IntersectionObserver ──────────────────
 function initLazy() {
-    const observer = new IntersectionObserver((entries) => {
+    lazyObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const wrapper = entry.target;
                 if (!wrapper._initialized) {
                     wrapper._initialized = true;
-                    observer.unobserve(wrapper);
+                    lazyObserver.unobserve(wrapper);
                     initWrapper(wrapper);
                 }
             }
@@ -379,16 +380,21 @@ function initLazy() {
     });
 
     document.querySelectorAll('.post-wrapper').forEach(wrapper => {
-        observer.observe(wrapper);
+        lazyObserver.observe(wrapper);
     });
 }
 
 
 // ── MARK: INSTA UPDATES ────────────────────────────
 function initDelayed() {
-    delayed.forEach((card) => {
+    delayed.forEach((card, index) => {
         const holdAttr = parseFloat(card.getAttribute('attr-delay-hold'));
         const holdVh = Number.isFinite(holdAttr) ? holdAttr : 0;
+
+// Prüfe ob vorheriges Element auch ein insta-update ist
+    const prevCard = delayed[index - 1];
+    const prevHold = prevCard ? parseFloat(prevCard.getAttribute('attr-delay-hold')) || 400 : 0;
+    const startOffset = prevCard ? `+=${prevHold}` : "top 80%";
 
         gsap.timeline({
             scrollTrigger: {
@@ -397,7 +403,7 @@ function initDelayed() {
                 end: () => "+=" + holdVh + "px",
                 scrub: true,
                 pin: true,
-                pinSpacing: false,
+                pinSpacing: true,
                 invalidateOnRefresh: true,
             }
         })
@@ -424,5 +430,30 @@ function init() {
 }
 
 window.addEventListener('load', () => {
-    init();
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+            init();
+        });
+    } else {
+        setTimeout(() => {
+            init();
+        }, 500);
+    }
+});
+
+// Cleanup on pagehide to avoid leaks when navigating away
+window.addEventListener('pagehide', () => {
+    try {
+        if (lazyObserver) {
+            lazyObserver.disconnect();
+            lazyObserver = null;
+        }
+        if (smoother) {
+            try { smoother.kill(); } catch (e) {}
+            window.smoother = null;
+        }
+        ScrollTrigger.getAll().forEach(t => t.kill());
+    } catch (err) {
+        console.warn('parallax cleanup error', err);
+    }
 });

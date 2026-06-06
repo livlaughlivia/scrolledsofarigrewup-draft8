@@ -10,14 +10,15 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollSmoother.min.js"></script>
-  <script src="https://assets.codepen.io/16327/SplitText3-beta.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollToPlugin.min.js"></script>
-  <script src="https://assets.codepen.io/16327/MorphSVGPlugin3.min.js"></script>
-  <script src="https://assets.codepen.io/16327/DrawSVGPlugin3.min.js"></script>
+  <link rel="stylesheet" href="style.min.css">
+  <!-- Load GSAP first with defer to avoid render-blocking -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollSmoother.min.js" defer></script>
+  <script src="https://assets.codepen.io/16327/SplitText3-beta.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollToPlugin.min.js" defer></script>
+  <script src="https://assets.codepen.io/16327/MorphSVGPlugin3.min.js" defer></script>
+  <script src="https://assets.codepen.io/16327/DrawSVGPlugin3.min.js" defer></script>
 </head>
 
 <body>
@@ -120,8 +121,8 @@
           <p class="headline-author1">SRF News am 24. Juni 2016</p>
           <button class="close-headline-btn">
             <svg class="close-headline" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <line x1="2" y1="2" x2="18" y2="18" stroke="#5c7fff" stroke-width="2" stroke-linecap="square"/>
-              <line x1="18" y1="2" x2="2" y2="18" stroke="#5c7fff" stroke-width="2" stroke-linecap="square"/>
+              <line x1="2" y1="2" x2="18" y2="18" stroke="#5c7fff" stroke-width="2" stroke-linecap="square" />
+              <line x1="18" y1="2" x2="2" y2="18" stroke="#5c7fff" stroke-width="2" stroke-linecap="square" />
             </svg>
           </button>
         </div>
@@ -285,7 +286,7 @@
               </div>
             </div>
 
-            <div id="quote-trigger-2016-1" data-era="1" 
+            <div id="quote-trigger-2016-1" data-era="1"
               data-quote-text="I miss how unpolished everything felt. Posts didn't have to educate, convert or add value. People just posted vibes, blurry photos, inside jokes. Social felt more human back then."
               data-quote-author="@Visual-Sun-6018">
             </div>
@@ -716,8 +717,7 @@
               </div>
             </div>
 
-            <div id="quote-trigger-2017-3" data-era="1"
-              data-quote-text="back when i had my ariana grande fanpage 😍"
+            <div id="quote-trigger-2017-3" data-era="1" data-quote-text="back when i had my ariana grande fanpage 😍"
               data-quote-author="@barbiesbloodline">
             </div>
 
@@ -780,8 +780,7 @@
               </div>
             </div>
 
-            <div id="quote-trigger-2017-4" data-era="1"
-            data-quote-text="Photos from this time are nostalgic."
+            <div id="quote-trigger-2017-4" data-era="1" data-quote-text="Photos from this time are nostalgic."
               data-quote-author="@Trusteveryboody">
             </div>
 
@@ -864,8 +863,7 @@
               </div>
             </div>
 
-            <div id="quote-trigger-2018-1" data-era="1"
-            data-quote-text="I miss tf out of 2016–2018."
+            <div id="quote-trigger-2018-1" data-era="1" data-quote-text="I miss tf out of 2016–2018."
               data-quote-author="@Halfdeadbeaner420">
             </div>
 
@@ -1140,6 +1138,7 @@
               </div>
             </div>
           </section>
+         </section>
 
           <!-- MARK:  ERA 2  -->
           <section id="era-2">
@@ -1633,8 +1632,7 @@
               </div>
 
               <div id="quote-trigger-2020-2" data-era="2"
-               data-quote-text="2020 I think was the best era of social media."
-                data-quote-author="@Lost-Spirit-3819">
+                data-quote-text="2020 I think was the best era of social media." data-quote-author="@Lost-Spirit-3819">
               </div>
 
               <div class="insta-update" attr-delay-hold="500">
@@ -1761,7 +1759,7 @@
               </div>
 
               <div id="quote-trigger-2020-4" data-era="2"
-              data-quote-text="throwing my thoughts into the abyss and then logging off"
+                data-quote-text="throwing my thoughts into the abyss and then logging off"
                 data-quote-author="@urfavscorpio">
               </div>
 
@@ -2357,7 +2355,7 @@
                 </div>
               </div>
 
-             <div id="quote-trigger-2022-2" data-era="2"
+              <div id="quote-trigger-2022-2" data-era="2"
                 data-quote-text="A lot of people don't know what else to do with their free time."
                 data-quote-author="[deleted user]">
               </div>
@@ -3624,8 +3622,7 @@
 
               <div id="quote-trigger-2026-2" data-era="3"
                 data-quote-text="Attention spans, media literacy, politics, everyone's sanity…"
-                data-quote-author="@SprayArtist"
-                data-quote-context="what's something social media ruined?">
+                data-quote-author="@SprayArtist" data-quote-context="what's something social media ruined?">
               </div>
 
               <div class="post-wrapper position6" data-era="3" data-variant="C">
@@ -3652,11 +3649,9 @@
                 </div>
               </div>
 
-             <div id="quote-trigger-2026-3" data-era="3"
-                data-quote-text="Mostly dopamine."
-                data-quote-author="@TopDry9250"
-                data-quote-context="Why do you like social media?">
-              </div> 
+              <div id="quote-trigger-2026-3" data-era="3" data-quote-text="Mostly dopamine."
+                data-quote-author="@TopDry9250" data-quote-context="Why do you like social media?">
+              </div>
 
               <div id="headline-ticker-2026-6"></div>
 
@@ -3695,10 +3690,8 @@
                 </div>
               </div>
 
-              <div id="quote-trigger-2026-4" data-era="3"
-                data-quote-text="Escape from reality."
-                data-quote-author="@Proud_Blood9949"
-                data-quote-context="Why do you like social media?">
+              <div id="quote-trigger-2026-4" data-era="3" data-quote-text="Escape from reality."
+                data-quote-author="@Proud_Blood9949" data-quote-context="Why do you like social media?">
               </div>
 
               <div class="insta-update" attr-delay-hold="500">
@@ -3747,10 +3740,8 @@
                 </div>
               </div>
 
-              <div id="quote-trigger-2026-5" data-era="3"
-                data-quote-text="I don't like it. I'm addicted to it."
-                data-quote-author="@little_flix"
-                data-quote-context="Why do you like social media?">
+              <div id="quote-trigger-2026-5" data-era="3" data-quote-text="I don't like it. I'm addicted to it."
+                data-quote-author="@little_flix" data-quote-context="Why do you like social media?">
               </div>
 
               <div class="post-wrapper position2" data-era="3" data-variant="C">
@@ -3788,12 +3779,12 @@
                 </div>
               </div>
 
-              <div id="quote-trigger-2026-6" data-era="3"
-                data-quote-text="I like interacting with people."
-                data-quote-author="@GentleSummerRainfall"
-                data-quote-context="Why do you like social media?">
+              <div id="quote-trigger-2026-6" data-era="3" data-quote-text="I like interacting with people."
+                data-quote-author="@GentleSummerRainfall" data-quote-context="Why do you like social media?">
               </div>
             </section>
+
+          </section>
 
             <!-- ── MARK: Outro ─────────────── -->
 
@@ -3808,22 +3799,34 @@
 
             <section id="impressum">
               <div class="impressum">
-                <h3 class="impressum-text year-outline" data-text="Die gezeigten Bilder stammen von den jeweiligen Instagram-Accounts.">Die gezeigten Bilder stammen von den jeweiligen Instagram-Accounts.</h3>
-                  <h3 class="impressum-text year-outline" data-text="Typeface: ABC Arizona Variable">Typeface: ABC Arizona Variable</h3>
-                  <h3 class="impressum-text year-outline" data-text="Gestaltung: Livia Antonia Dietsche">Gestaltung: Livia Antonia Dietsche</h3>
-                  <h3 class="impressum-text year-outline" data-text="BA Arbeit HSLU DFK 2026">BA Arbeit HSLU DFK 2026</h3>
-                  <h3 class="impressum-text year-outline" data-text="Mentorat: Ivan Weiss, Hanna Züllig">Mentorat: Ivan Weiss, Hanna Züllig</h3>
+                <div class="impressum-group">
+                  <h3 class="impressum-text year-outline" data-text="Die Bilder stammen von den erwähnten Instagram-Accounts.">Die Bilder stammen von den erwähnten Instagram-Accounts.</h3>
+                </div>
+                  <div class="impressum-group">
+                  <h3 class="impressum-text year-outline" data-text="Typeface:">Typeface:</h3>
+                  <h3 class="impressum-text year-outline" data-text="ABC Arizona Variable">ABC Arizona Variable</h3>
+                </div>
+                <div class="impressum-group">
+                  <h3 class="impressum-text year-outline" data-text="Gestaltung:">Gestaltung:</h3>
+                  <h3 class="impressum-text year-outline" data-text="Livia Antonia Dietsche">Livia Antonia Dietsche</h3>
+                </div>
+                <div class="impressum-group">
+                  <h3 class="impressum-text year-outline" data-text="BA Arbeit HSLU DFK 2026">BA Arbeit HSLU DFK 2026
+                  </h3>
+                </div>
+                <div class="impressum-group">
+                  <h3 class="impressum-text year-outline" data-text="Mentorat:">Mentorat:</h3>
+                  <h3 class="impressum-text year-outline" data-text="Ivan Weiss, Hanna Züllig">Ivan Weiss, Hanna Züllig
+                  </h3>
+                </div>
               </div>
             </section>
-
-          </section>
-
       </div>
     </div>
   </div>
 
-  <script src="main.js"></script>
-  <script src="parallax.js"></script>
-  <script src="side-navigation.js"></script>
-  <script src="loadingscreen.js"></script>
+  <script src="main.js" defer></script>
+  <script src="parallax.js" defer></script>
+  <script src="side-navigation.js" defer></script>
+  <script src="loadingscreen.js" defer></script>
 </body>
