@@ -353,10 +353,16 @@ function showHeadline(triggerId) {
   const trigger = document.getElementById(triggerId);
   if (!trigger) return;
 
-  document.querySelector('.headline-text-era1').textContent =
-    trigger.dataset.quoteText;
-  document.querySelector('.headline-author1').textContent =
-    trigger.dataset.quoteAuthor;
+  const era = trigger.dataset.era || '1';
+
+  const textEl = document.querySelector('.headline-text-era1');
+  const authorEl = document.querySelector('.headline-author1');
+
+  textEl.className = `headline-text-era${era}`;
+  authorEl.className = `headline-author${era}`;
+
+  textEl.textContent = trigger.dataset.quoteText;
+  authorEl.textContent = trigger.dataset.quoteAuthor;
   document.querySelector('.headline-context').textContent =
     trigger.dataset.quoteContext || '';
 
@@ -367,8 +373,7 @@ function showHeadline(triggerId) {
   if (smoother) smoother.paused(true);
 
   document.body.classList.add('headline-active');
-  document.body.classList.add('headline-active');
-  document.documentElement.classList.add('headline-active')
+  document.documentElement.classList.add('headline-active');
 
   gsap.to('.gradient-headline', {
     opacity: 1, visibility: 'visible', duration: 1,
@@ -387,6 +392,7 @@ function showHeadline(triggerId) {
           onComplete: () => {
             document.querySelector('.gradient-headline').style.pointerEvents = 'none';
             document.body.classList.remove('headline-active');
+            document.documentElement.classList.remove('headline-active');
             const smoother = ScrollSmoother.get();
             if (smoother) smoother.paused(false);
           }

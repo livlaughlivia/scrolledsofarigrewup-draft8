@@ -5,28 +5,7 @@
 }
 
 /* MARK: Fonts */
-h1 {
-  font-family: "Arizona Variable";
-  font-variation-settings: "wght" 700;
-  text-align: center;
-  line-height: 0.9;
-  font-size: 90px;
-  color: #5478ff;
-  animation: serifTransition 2s ease-in-out infinite alternate;
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
 
-@keyframes serifTransition {
-  from {
-    font-variation-settings: "SRFF" 100;
-  }
-
-  to {
-    font-variation-settings: "SRFF" 0;
-  }
-}
 
 .outline {
   position: relative;
@@ -111,6 +90,28 @@ body::after {
 
 
 /* ── MARK: TITLE SCREEN */
+h1 {
+  font-family: "Arizona Variable";
+  font-variation-settings: "wght" 700;
+  text-align: center;
+  line-height: 0.9;
+  font-size: 90px;
+  color: #5478ff;
+  animation: serifTransition 1s ease-in-out infinite alternate;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+@keyframes serifTransition {
+  from {
+    font-variation-settings: "SRFF" 100;
+  }
+
+  to {
+    font-variation-settings: "SRFF" 0;
+  }
+}
 #title {
   position: absolute;
   top: 0;
@@ -182,10 +183,10 @@ body::after {
 
 .era1 {
   font-family: "Arizona Variable";
-  font-variation-settings: "SRFF" 0, "wght" 700;
+  font-variation-settings: "SRFF" 100, "wght" 700;
   line-height: 0.9;
   text-align: center;
-  font-size: 60px;
+  font-size: 70px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -195,7 +196,7 @@ body::after {
   font-variation-settings: "SRFF" 100, "wght" 700;
   line-height: 0.9;
   text-align: center;
-  font-size: 60px;
+  font-size: 70px;
   color: #f9caf8;
 }
 
@@ -204,7 +205,7 @@ body::after {
   font-variation-settings: "SRFF" 50, "wght" 700;
   line-height: 0.9;
   text-align: center;
-  font-size: 60px;
+  font-size: 70px;
   color: #f9caf8;
 }
 
@@ -237,7 +238,7 @@ body::after {
 
 .year-era1 {
   font-family: "Arizona Variable";
-  font-variation-settings: "SRFF" 0, "wght" 700;
+  font-variation-settings: "SRFF" 100, "wght" 700;
   line-height: 0.9;
   text-align: center;
   font-size: 45px;
@@ -291,7 +292,7 @@ body::after {
 .side-bar a {
   color: #ea3336;
   text-decoration: none;
-  font-size: 4.5svh;
+  font-size: 25px;
   line-height: 0.7;
   text-align: center;
   margin: 0;
@@ -584,19 +585,21 @@ body::after {
 
 .insta-update-content p {
   font-family: "Arizona Variable";
-  font-variation-settings: "SRFF" 0;
-  font-size: 18px;
+  font-variation-settings: "SRFF" 0, "wght" 400;
+  font-size: 25px;
   text-align: left;
   color: #f9caf8;
-  margin: 5px;
-  margin-bottom: 0px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  margin-right: 7px;
   padding: 10px;
 }
 
 .insta-update-date {
   font-family: "Arizona Variable";
-  font-variation-settings: "SRFF" 0;
-  font-size: 18px;
+  font-variation-settings: "SRFF" 0, "wght" 400;
+  font-size: 25px;
   text-align: left;
   color: #5c7fff;
   align-self: flex-start;
@@ -645,7 +648,7 @@ body::after {
   z-index: 200;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: stretch;
   position: relative;
 }
@@ -719,15 +722,56 @@ body::after {
   margin-top: 20px;
 }
 
+.headline-author2 {
+  font-family: "Arizona Variable";
+  font-variation-settings: "SRFF" 50, "wght" 400;
+  color: #5c7fff;
+  font-size: 25px;
+  flex: 1;
+  padding: 2px;
+  margin-top: 20px;
+}
+
+.headline-author3 {
+  font-family: "Arizona Variable";
+  font-variation-settings: "SRFF" 0, "wght" 400;
+  color: #5c7fff;
+  font-size: 25px;
+  flex: 1;
+  padding: 2px;
+  margin-top: 20px;
+}
+
 .headline-text-era1 {
   font-family: "Arizona Variable";
   font-variation-settings: "SRFF" 100, "wght" 700;
   text-align: center;
-  font-size: 50px;
+  font-size: 45px;
   color: #5c7fff;
   line-height: 1;
   z-index: 201;
 }
+
+.headline-text-era2 {
+  font-family: "Arizona Variable";
+  font-variation-settings: "SRFF" 50, "wght" 700;
+  text-align: center;
+  font-size: 45px;
+  color: #5c7fff;
+  line-height: 1;
+  z-index: 201;
+}
+
+.headline-text-era3 {
+  font-family: "Arizona Variable";
+  font-variation-settings: "SRFF" 0, "wght" 700;
+  text-align: center;
+  font-size: 45px;
+  color: #5c7fff;
+  line-height: 1;
+  z-index: 201;
+}
+
 
 /* MARK: Insta Ad */
 .insta-ad {
@@ -745,7 +789,7 @@ h3 {
   font-family: "Arizona Variable";
   font-variation-settings: "SRFF" 0, "wght" 700;
   text-align: right;
-  font-size: 80px;
+  font-size: 70px;
   color: #f9caf8;
 }
 
