@@ -384,13 +384,11 @@ function initLazy() {
 }
 
 
-// ── MARK: DELAYED (Insta Updates) ────────────────────────────
+// ── MARK: INSTA UPDATES ────────────────────────────
 function initDelayed() {
     delayed.forEach((card) => {
         const holdAttr = parseFloat(card.getAttribute('attr-delay-hold'));
         const holdVh = Number.isFinite(holdAttr) ? holdAttr : 0;
-
-        gsap.set(card, { autoAlpha: 0, y: 20 });
 
         gsap.timeline({
             scrollTrigger: {
@@ -403,8 +401,7 @@ function initDelayed() {
                 invalidateOnRefresh: true,
             }
         })
-            .to(card, { autoAlpha: 1, y: 0, duration: 0.2, ease: 'none' }, 0)
-            .to(card, { autoAlpha: 1, y: 0, duration: 0.55, ease: 'none' }, 0.2)
+            .to(card, { autoAlpha: 1, y: 0, duration: 0.75, ease: 'none' }, 0)
             .to(card, { autoAlpha: 0, y: -20, duration: 0.25, ease: 'none' }, 0.75);
     });
 }
