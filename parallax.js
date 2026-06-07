@@ -165,28 +165,28 @@ function initWrapper(wrapper) {
             triggerEnd: "bottom top",
             fadeInStart: "top 60%",
             floaters: [
-                { speedY: -1000, speedX: 5, scale: 2 },
-                { speedY: -300, speedX: 5, scale: 1.5 },
+                { speedY: -1000, speedX: -10, scale: 2 },
+                { speedY: -400, speedX: 20, scale: 3 },
             ]
         },
 
         '1B': {
-            triggerStart: "top 46%",
+            triggerStart: "top 60%",
             triggerEnd: "bottom top",
             fadeInStart: "top 80%",
             floaters: [
-                { speedY: -2000, speedX: -5, scale: 3 },
+                { speedY: -1500, speedX: -20, scale: 3 },
             ],
         },
 
         '1C': {
             triggerStart: "top 80%",
             triggerEnd: "bottom top",
-            fadeInStart: "top 90%",
+            fadeInStart: "top 70%",
             floaters: [
-                { speedY: -1000, speedX: -8, scale: 1 },
-                { speedY: -600, speedX: 5, scale: 2 },
-                { speedY: -2000, speedX: 10, scale: 1.5 },
+                { speedY: -1000, speedX: -20, scale: 2 },
+                { speedY: -600, speedX: 15, scale: 1.5 },
+                { speedY: -2000, speedX: 10, scale: 3 },
             ],
         },
 
@@ -196,7 +196,7 @@ function initWrapper(wrapper) {
             fadeInStart: "top 60%",
             floaters: [
                 { speedY: -1000, speedX: 10, scale: 1.5 },
-                { speedY: -300, speedX: -5, scale: 2 },
+                { speedY: -300, speedX: -50, scale: 3 },
             ],
         },
 
@@ -205,7 +205,7 @@ function initWrapper(wrapper) {
             triggerEnd: "bottom top",
             fadeInStart: "top 60%",
             floaters: [
-                { speedY: -2000, speedX: -5, scale: 3 },
+                { speedY: -2000, speedX: -50, scale: 3 },
             ],
         },
 
@@ -214,9 +214,9 @@ function initWrapper(wrapper) {
             triggerEnd: "bottom top",
             fadeInStart: "top 60%",
             floaters: [
-                { speedY: -400, speedX: -5, scale: 1 },
-                { speedY: -600, speedX: 5, scale: 0.9 },
-                { speedY: -900, speedX: 10, scale: 1.1 },
+                { speedY: -400, speedX: -15, scale: 3 },
+                { speedY: -600, speedX: 15, scale: 2 },
+                { speedY: -900, speedX: 10, scale: 2.5 },
             ],
         },
 
@@ -225,8 +225,8 @@ function initWrapper(wrapper) {
             triggerEnd: "bottom top",
             fadeInStart: "top 60%",
             floaters: [
-                { speedY: -1000, speedX: 15, scale: 1.5 },
-                { speedY: -300, speedX: -5, scale: 2 },
+                { speedY: -1000, speedX: 20, scale: 2 },
+                { speedY: -300, speedX: -15, scale: 3 },
             ],
         },
 
@@ -235,7 +235,7 @@ function initWrapper(wrapper) {
             triggerEnd: "bottom top",
             fadeInStart: "top 60%",
             floaters: [
-                { speedY: -800, speedX: -5, scale: 3 },
+                { speedY: -800, speedX: -50, scale: 3 },
             ],
         },
         '3C': {
@@ -243,9 +243,9 @@ function initWrapper(wrapper) {
             triggerEnd: "bottom top",
             fadeInStart: "top 60%",
             floaters: [
-                { speedY: -400, speedX: -5, scale: 1 },
-                { speedY: -600, speedX: 5, scale: 0.9 },
-                { speedY: -900, speedX: 10, scale: 1.1 },
+                { speedY: -400, speedX: -20, scale: 3 },
+                { speedY: -600, speedX: 15, scale: 2 },
+                { speedY: -900, speedX: 20, scale: 2.5 },
             ],
         }
     };
@@ -423,6 +423,7 @@ function init() {
     setTimeout(() => {
         if (typeof initHeadlines === 'function') initHeadlines();
         if (typeof initInstAds === 'function') initInstAds();
+        if (typeof initTickerObserver === 'function') initTickerObserver();
         ScrollTrigger.refresh();
     }, 2000);
 }

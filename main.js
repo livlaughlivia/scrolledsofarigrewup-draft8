@@ -627,16 +627,27 @@ function setup() {
   const batchSize = 5;
 
   // Ersetze createTickerBatch + setTimeout komplett durch:
-  tickersToCreate.forEach(segment => {
-    const triggerEl = document.getElementById(segment.triggerId);
-    if (!triggerEl) return;
-    ScrollTrigger.create({
-      trigger: triggerEl,
-      start: 'top 80%',
-      onEnter: () => setupTicker(segment.text),
-      onEnterBack: () => setupTicker(segment.text),
+  function initTickerObserver() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const segment = tickerSegments.find(s => s.triggerId === entry.target.id);
+          if (segment) setupTicker(segment.text);
+        }
+      });
+    }, {
+      threshold: 0,
+      rootMargin: '0px 0px -20% 0px'
     });
-  });
+
+    tickerSegments.forEach(segment => {
+      if (!segment.triggerId) return;
+      const el = document.getElementById(segment.triggerId);
+      if (el) observer.observe(el);
+    });
+  }
+
+  initTickerObserver();
 
   gsap.set('#headline-timer-line', { drawSVG: '0%' });
 
@@ -763,15 +774,4 @@ window.addEventListener('pagehide', destroyAll);
 window.addEventListener('beforeunload', destroyAll);
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') destroyAll();
-});
-
-// BUTTON STORYS
-const allTriggers = [...document.querySelectorAll('[id^="quote-trigger-"]')];
-let debugIndex = 0;
-document.getElementById('debug-next').addEventListener('click', () => {
-  hideHeadline();
-  setTimeout(() => {
-    showHeadline(allTriggers[debugIndex % allTriggers.length].id);
-    debugIndex++;
-  }, 400);
 });

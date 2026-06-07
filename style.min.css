@@ -785,6 +785,12 @@ h1 {
     top: 10%;
 }
 
+.insta-ad-left-top-widee {
+    width: 83.333%;
+    left: 0;
+    top: 10%;
+}
+
 .insta-ad-left-bottom {
     width: 50%;
     left: 0;
@@ -792,6 +798,12 @@ h1 {
 }
 .insta-ad-left-bottom-wide {
      width: 66.666%;
+    left: 0;
+    bottom: 20%;
+}
+
+.insta-ad-left-bottom-widee {
+     width: 83.333%;
     left: 0;
     bottom: 20%;
 }
@@ -807,6 +819,12 @@ h1 {
     top: 40%;
 }
 
+.insta-ad-right-top-widee {
+    width: 83.333%;
+    right: 0;
+    top: 40%;
+}
+
 .insta-ad-right-bottom {
     width: 50%;
     right: 0;
@@ -815,6 +833,12 @@ h1 {
 
 .insta-ad-right-bottom-wide {
     width: 66.666%;
+    right: 0;
+    bottom: 30%;
+}
+
+.insta-ad-right-bottom-wide {
+    width: 83.333%;
     right: 0;
     bottom: 30%;
 }
