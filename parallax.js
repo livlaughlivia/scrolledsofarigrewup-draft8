@@ -422,6 +422,7 @@ function init() {
     // Headlines erst nach ScrollSmoother initialisieren
     setTimeout(() => {
         if (typeof initHeadlines === 'function') initHeadlines();
+        if (typeof initInstAds === 'function') initInstAds();
         ScrollTrigger.refresh();
     }, 2000);
 }

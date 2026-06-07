@@ -249,6 +249,7 @@ const tickerSegments = [
     triggerId: 'headline-ticker-2026-9',
     text: `«Schock nach israelischen Bombardierungen» SRF News, 9. April 2026 ✦`
   },
+
 ];
 
 let currentEra = "era1";
@@ -274,7 +275,7 @@ function setupTicker(text) {
     return;
   }
 
-// Folgeaufrufe: Text anhängen ohne Animation zu unterbrechen
+  // Folgeaufrufe: Text anhängen ohne Animation zu unterbrechen
   const inner = wrapper.querySelector('.ticker-inner');
   if (!inner) return;
 
@@ -397,7 +398,7 @@ function showHeadline(triggerId) {
   const authorEl = document.querySelector('[class^="headline-author"]');
 
   // Null-Checks: wenn Elemente nicht existieren, breche ab
-  if (!textEl || !authorEl ) {
+  if (!textEl || !authorEl) {
     headlineActive = false;
     return;
   }
@@ -477,10 +478,29 @@ function initHeadlines() {
   });
 }
 
-const closeBtn = document.querySelector('.close-headline-btn');
-if (closeBtn) {
-  closeBtn.addEventListener('click', hideHeadline);
+function initInstAds() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const triggerId = entry.target.id;
+        const ad = document.querySelector(`[data-trigger="${triggerId}"]`);
+        if (!ad) return;
+        gsap.to(ad, { autoAlpha: 1, duration: 0.4 });
+        setTimeout(() => {
+          gsap.to(ad, { autoAlpha: 0, duration: 0.4 });
+        }, 5000);
+      }
+    });
+  }, {
+    threshold: 0.5
+  });
+
+  document.querySelectorAll('[id^="ad-trigger-"]').forEach(triggerEl => {
+    observer.observe(triggerEl);
+  });
 }
+
+
 
 
 // ── MARK: Intro ───────────────────────────────────────────────
@@ -569,7 +589,7 @@ function setup() {
     once: true
   });
 
-  // Erster Text beim Eintreten in den Feed
+  // Ticker einblenden beim Feed, ausblenden wenn zurück zur Titelseite
   ScrollTrigger.create({
     trigger: '#j-2016',
     start: 'top 80%',
@@ -577,64 +597,86 @@ function setup() {
       gsap.set('.quote-wrapper', { opacity: 1, visibility: 'visible' });
       setupTicker(tickerSegments[0].text);
     },
-    onEnterBack: () => setupTicker(tickerSegments[0].text)
+    onEnterBack: () => {
+      gsap.set('.quote-wrapper', { opacity: 1, visibility: 'visible' });
+      setupTicker(tickerSegments[0].text);
+    },
+    onLeaveBack: () => gsap.to('.quote-wrapper', { opacity: 0, visibility: 'hidden', duration: 0.5 }),
   });
 
-  // Ticker-Wechsel bei weiteren Segmenten (ASYNC/BATCHED)
-  // Batch ScrollTrigger creation to avoid long blocking tasks
+  // Ticker ausblenden beim Outro
+  ScrollTrigger.create({
+    trigger: '#outro',
+    start: 'top 80%',
+    onEnter: () => gsap.to('.quote-wrapper', { opacity: 0, visibility: 'hidden', duration: 0.5 }),
+    onLeaveBack: () => gsap.to('.quote-wrapper', { opacity: 1, visibility: 'visible', duration: 0.5 }),
+  });
+
+  // Ticker im Impressum wieder einblenden
+  ScrollTrigger.create({
+    trigger: '#impressum',
+    start: 'top 80%',
+    onEnter: () => gsap.to('.quote-wrapper', { opacity: 1, visibility: 'visible', duration: 0.5 }),
+    onLeaveBack: () => gsap.to('.quote-wrapper', { opacity: 0, visibility: 'hidden', duration: 0.5 }),
+  });
+
+
+
+  // Ticker-Wechsel bei weiteren Segmenten
   const tickersToCreate = tickerSegments.slice(1);
-  const batchSize = 5; // Create 5 triggers per batch
-  
-  function createTickerBatch(startIndex) {
-    const endIndex = Math.min(startIndex + batchSize, tickersToCreate.length);
-    
-    for (let i = startIndex; i < endIndex; i++) {
-      const segment = tickersToCreate[i];
-      const triggerEl = document.getElementById(segment.triggerId);
-      if (!triggerEl) continue;
-      
-      ScrollTrigger.create({
-        trigger: triggerEl,
-        start: 'top 80%',
-        onEnter: () => setupTicker(segment.text),
-        onEnterBack: () => setupTicker(segment.text),
-      });
+  const batchSize = 5;
+
+  // Ersetze createTickerBatch + setTimeout komplett durch:
+  tickersToCreate.forEach(segment => {
+    const triggerEl = document.getElementById(segment.triggerId);
+    if (!triggerEl) return;
+    ScrollTrigger.create({
+      trigger: triggerEl,
+      start: 'top 80%',
+      onEnter: () => setupTicker(segment.text),
+      onEnterBack: () => setupTicker(segment.text),
+    });
+  });
+
+  gsap.set('#headline-timer-line', { drawSVG: '0%' });
+
+  window.updateTickerForCurrentPosition = function () {
+    // Warte bis Navigation abgeschlossen ist
+    if (window.isNavigating) {
+      setTimeout(() => window.updateTickerForCurrentPosition(), 100);
+      return;
     }
-    
-    // Schedule next batch if more remain
-    if (endIndex < tickersToCreate.length) {
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => createTickerBatch(endIndex));
-      } else {
-        setTimeout(() => createTickerBatch(endIndex), 50);
+
+    const smoother = ScrollSmoother.get();
+    const scrollY = smoother ? smoother.scrollTop() : window.scrollY;
+
+    let activeSegment = tickerSegments[0];
+
+    for (const segment of tickerSegments) {
+      if (!segment.triggerId) continue;
+      const el = document.getElementById(segment.triggerId);
+      if (!el) continue;
+      const elScrollY = el.getBoundingClientRect().top + scrollY;
+      if (elScrollY < scrollY + window.innerHeight * 0.8) {
+        activeSegment = segment;
       }
     }
-  }
-  
-  // Delay ticker batch creation to after initial setup
-  setTimeout(() => {
-    createTickerBatch(0);
-  }, 100);
 
-  // Quote-Triggers (Gen Z Kommentare als grosse Headlines)
-  gsap.set('#headline-timer-line', { drawSVG: '0%' });
+    gsap.set('.quote-wrapper', { opacity: 1, visibility: 'visible' });
+    setupTicker(activeSegment.text);
+  };
+
+  const closeBtn = document.querySelector('.close-headline-btn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', hideHeadline);
+  }
+
+
+
 }
 
-// Ticker ausblenden am Ende jedes Jahres
-['#era-1', '#era-2', '#era-3'].forEach(id => {
-  const section = document.querySelector(id);
-  if (!section) return;
-  ScrollTrigger.create({
-    trigger: section,
-    start: 'bottom 80%',
-    onLeave: () => {
-      gsap.to('.quote-wrapper', { opacity: 0, visibility: 'hidden', duration: 0.5 });
-    },
-    onEnterBack: () => {
-      gsap.to('.quote-wrapper', { opacity: 1, visibility: 'visible', duration: 0.5 });
-    }
-  });
-});
+
+
 
 // ── MARK: GRID ────────────────────────────────────────────────
 
@@ -692,7 +734,7 @@ function destroyAll() {
 
     // Kill global GSAP tweens
     if (tickerAnimation) {
-      try { tickerAnimation.kill(); } catch (e) {}
+      try { tickerAnimation.kill(); } catch (e) { }
       tickerAnimation = null;
     }
     gsap.globalTimeline.clear();
@@ -701,7 +743,7 @@ function destroyAll() {
     // Kill ScrollSmoother
     const smoother = ScrollSmoother.get();
     if (smoother) {
-      try { smoother.kill(); } catch (e) {}
+      try { smoother.kill(); } catch (e) { }
     }
 
     // Remove listeners
@@ -721,4 +763,15 @@ window.addEventListener('pagehide', destroyAll);
 window.addEventListener('beforeunload', destroyAll);
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') destroyAll();
+});
+
+// BUTTON STORYS
+const allTriggers = [...document.querySelectorAll('[id^="quote-trigger-"]')];
+let debugIndex = 0;
+document.getElementById('debug-next').addEventListener('click', () => {
+  hideHeadline();
+  setTimeout(() => {
+    showHeadline(allTriggers[debugIndex % allTriggers.length].id);
+    debugIndex++;
+  }, 400);
 });
