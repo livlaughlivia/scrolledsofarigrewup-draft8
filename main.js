@@ -383,6 +383,7 @@ function initEraTitles3() {
 let headlineActive = false;
 
 function showHeadline(triggerId) {
+  console.log('showHeadline aufgerufen:', triggerId);
   if (window.isNavigating) return;
   if (headlineActive) return; // ← verhindert doppeltes Auslösen
 
@@ -461,13 +462,18 @@ function hideHeadline() {
 }
 
 function initHeadlines() {
-  document.querySelectorAll('[id^="quote-trigger-"]').forEach(triggerEl => {
-    ScrollTrigger.create({
-      trigger: triggerEl,
-      start: "top 90%",
-      onEnter: () => showHeadline(triggerEl.id),
-      onEnterBack: () => showHeadline(triggerEl.id)
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        showHeadline(entry.target.id);
+      }
     });
+  }, {
+    threshold: 0.5 // Element muss 50% sichtbar sein
+  });
+
+  document.querySelectorAll('[id^="quote-trigger-"]').forEach(triggerEl => {
+    observer.observe(triggerEl);
   });
 }
 
@@ -611,7 +617,6 @@ function setup() {
   }, 100);
 
   // Quote-Triggers (Gen Z Kommentare als grosse Headlines)
-  initHeadlines();
   gsap.set('#headline-timer-line', { drawSVG: '0%' });
 }
 

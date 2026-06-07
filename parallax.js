@@ -376,7 +376,7 @@ function initLazy() {
             }
         });
     }, {
-        rootMargin: '400px 0px 400px 0px'
+        rootMargin: '200px 0px 200px 0px'
     });
 
     document.querySelectorAll('.post-wrapper').forEach(wrapper => {
@@ -387,36 +387,27 @@ function initLazy() {
 
 // ── MARK: INSTA UPDATES ────────────────────────────
 function initDelayed() {
-    delayed.forEach((card, index) => {
-        const holdAttr = parseFloat(card.getAttribute('attr-delay-hold'));
-        const holdVh = Number.isFinite(holdAttr) ? holdAttr : 0;
-
-// Prüfe ob vorheriges Element auch ein insta-update ist
-    const prevCard = delayed[index - 1];
-    const prevHold = prevCard ? parseFloat(prevCard.getAttribute('attr-delay-hold')) || 500 : 0;
-    const startOffset = prevCard ? `+=${prevHold}` : "top 80%";
-
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: card,
-                start: "top 20%",
-                end: () => "+=" + holdVh + "px",
-                scrub: true,
-                pin: true,
-                pinSpacing: true,
-                invalidateOnRefresh: true,
-            }
-        })
-            .to(card, { autoAlpha: 1, y: 0, duration: 0.75, ease: 'none' }, 0)
-            .to(card, { autoAlpha: 0, y: -20, duration: 0.25, ease: 'none' }, 0.75);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        gsap.to(entry.target, { autoAlpha: 1, y: 0, scale: 1, duration: 0.9, ease: 'power2.out' });
+      } else {
+        gsap.to(entry.target, { autoAlpha: 0, y: 80, scale: 0.90,  duration: 0.3 });
+      }
     });
+  }, { threshold: 0.1 });
+
+  delayed.forEach(card => {
+    gsap.set(card, { autoAlpha: 0, y: 80, scale: 0.90 });
+    observer.observe(card);
+  });
 }
 
 
 // ── MARK: INIT ────────────────────────────────────────────────
 function init() {
     smoother = ScrollSmoother.create({
-        smooth: 1,
+        smooth: 0.5,
         smoothTouch: 0,
         wrapper: '#smooth-wrapper',
         content: '#smooth-content'
@@ -427,18 +418,40 @@ function init() {
 
     initLazy();
     initDelayed();
+
+    // Headlines erst nach ScrollSmoother initialisieren
+    setTimeout(() => {
+        if (typeof initHeadlines === 'function') initHeadlines();
+        ScrollTrigger.refresh();
+    }, 2000);
 }
 
 window.addEventListener('load', () => {
-    if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => {
-            init();
-        });
-    } else {
-        setTimeout(() => {
-            init();
-        }, 500);
+    init();
+    setTimeout(() => {
+        window.scrollTo(0, 0); // ← sicherstellen dass Seite oben ist
+        ScrollTrigger.refresh();
+    }, 1000);
+
+    /// Warte bis alle Bilder geladen und Layout stabil ist
+    const images = document.querySelectorAll('img');
+    let loaded = 0;
+    const total = images.length;
+
+    function onImageLoad() {
+        loaded++;
+        if (loaded === total) {
+            ScrollTrigger.refresh();
+        }
     }
+
+    images.forEach(img => {
+        if (img.complete) onImageLoad();
+        else img.addEventListener('load', onImageLoad);
+    });
+
+    // Fallback nach 3 Sekunden
+    setTimeout(() => ScrollTrigger.refresh(), 3500);
 });
 
 // Cleanup on pagehide to avoid leaks when navigating away
@@ -449,7 +462,7 @@ window.addEventListener('pagehide', () => {
             lazyObserver = null;
         }
         if (smoother) {
-            try { smoother.kill(); } catch (e) {}
+            try { smoother.kill(); } catch (e) { }
             window.smoother = null;
         }
         ScrollTrigger.getAll().forEach(t => t.kill());
