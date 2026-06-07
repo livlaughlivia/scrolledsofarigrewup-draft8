@@ -771,6 +771,8 @@ h1 {
     font-size: 60px;
     line-height: 1;
     color: #5c7fff90;
+    width: fit-content;
+    margin: 0 auto;
 }
 
 .insta-ad-left-top {

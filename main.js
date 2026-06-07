@@ -775,3 +775,20 @@ window.addEventListener('beforeunload', destroyAll);
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') destroyAll();
 });
+
+let inactivityTimer;
+
+function resetInactivityTimer() {
+  clearTimeout(inactivityTimer);
+  inactivityTimer = setTimeout(() => {
+    window.location.reload();
+  }, 2 * 60 * 1000); // 2 Minuten
+}
+
+// Bei jeder Interaktion Timer zurücksetzen
+['scroll', 'touchstart', 'touchmove', 'click', 'mousemove', 'keydown'].forEach(event => {
+  window.addEventListener(event, resetInactivityTimer, { passive: true });
+});
+
+// Timer starten
+resetInactivityTimer();
