@@ -51,7 +51,7 @@ body::after {
     bottom: 0;
     background: radial-gradient(ellipse 115% 70% at 50% 45%, #ffffff01 40%, #bbe002ff 75%, #bbe002ff 100%);
     pointer-events: none;
-    z-index: 50;
+    z-index: 210;
     transition: background 0.8s ease;
 }
 
@@ -112,7 +112,7 @@ h1 {
     left: 0;
     width: 100%;
     height: 100svh;
-    z-index: 60;
+    z-index: 250;
 }
 
 .title-wrapper {
@@ -159,7 +159,7 @@ h1 {
 }
 
 .title-spacer {
-    height: 100svh;
+    height: 70svh;
     pointer-events: none;
 }
 
@@ -235,7 +235,6 @@ h1 {
     text-align: center;
     font-size: 45px;
     margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 .year-title {
@@ -246,6 +245,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .side-bar {
@@ -264,7 +264,7 @@ h1 {
     gap: 16px;
     box-sizing: border-box;
     padding: 0;
-    z-index: 150;
+    z-index: 350;
     pointer-events: none;
     opacity: 0;
     visibility: hidden;
@@ -344,45 +344,94 @@ h1 {
     font-size: 30px;
 }
 
+
 /* MARK: INTRO */
-#intro {
-    height: 100svh;
-    display: flex;
-    align-items: center;
-    justify-content: center
+
+.title-spacer {
+    height: -svh;
 }
 
-.intro-text {
+.intro-block {
     font-family: "Arizona Variable";
     font-variation-settings: "SRFF" 0, "wght" 600;
     font-size: 30px;
     line-height: 1.2;
     text-align: left;
     color: #ea3336;
-    width: 80%;
-    position: relative;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    margin: 0 auto;
-}
-
-.intro-block {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 10px 10px;
     width: 100%;
-    opacity: 0;
+    margin: 0;
+    padding: 0;
     hyphens: none;
     -webkit-hyphens: none;
-    word-break: keep-all;
-    overflow-wrap: normal;
+    position: relative;
+    pointer-events: none;
 }
+#intro {
+    height: 650svh;
+    position: relative;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.intro-block-wrapper {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 10%;
+    padding-right: 10%;
+    box-sizing: border-box;
+    background: #afd4ff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    transform: translateY(100vh);
+    pointer-events: none;
+}
+
+#intro-block1 {
+    animation: block1 linear both;
+    animation-timeline: scroll(root);
+    margin-bottom: -50svh;
+}
+
+#intro-block2 {
+    animation: block2 linear both;
+    animation-timeline: scroll(root);
+}
+
+#intro-block3 {
+    animation: block3 linear both;
+    animation-timeline: scroll(root);
+}
+
+@keyframes block1 {
+    0%   { transform: translateY(100vh); }
+    3%   { transform: translateY(0); }
+    5%   { transform: translateY(0); }
+    10%  { transform: translateY(-100vh); }
+    100% { transform: translateY(-100vh); }
+}
+
+@keyframes block2 {
+    0%    { transform: translateY(100vh); }
+    4%    { transform: translateY(100vh); }
+    9%    { transform: translateY(0); }
+    11%   { transform: translateY(0); }
+    16%   { transform: translateY(-100vh); }
+    100%  { transform: translateY(-100vh); }
+}
+
+@keyframes block3 {
+    0%    { transform: translateY(100vh); }
+    10%   { transform: translateY(100vh); }
+    15%   { transform: translateY(0); }
+    17%   { transform: translateY(0); }
+    22%   { transform: translateY(-100vh); }
+    100%  { transform: translateY(-100vh); }
+}
+
 
 .split-word {
     display: inline-block;
@@ -405,7 +454,7 @@ h1 {
     bottom: 50px;
     left: 0;
     width: 100%;
-    z-index: 100;
+    z-index: 300;
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
@@ -576,6 +625,10 @@ h1 {
     margin-left: 5px;
     margin-top: 0px;
     padding: 10px;
+}
+
+.insta-update-date p {
+    font-variation-settings: "SRFF" 0, "wght" 500;
 }
 
 [id^="quote-trigger-"] {
@@ -798,14 +851,15 @@ h1 {
     left: 0;
     bottom: 20%;
 }
+
 .insta-ad-left-bottom-wide {
-     width: 66.666%;
+    width: 66.666%;
     left: 0;
     bottom: 20%;
 }
 
 .insta-ad-left-bottom-widee {
-     width: 83.333%;
+    width: 83.333%;
     left: 0;
     bottom: 20%;
 }
@@ -815,6 +869,7 @@ h1 {
     right: 0;
     top: 40%;
 }
+
 .insta-ad-right-top-wide {
     width: 66.666%;
     right: 0;

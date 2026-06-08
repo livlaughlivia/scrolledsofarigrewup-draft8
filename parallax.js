@@ -384,23 +384,22 @@ function initLazy() {
     });
 }
 
-
 // ── MARK: INSTA UPDATES ────────────────────────────
 function initDelayed() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        gsap.to(entry.target, { autoAlpha: 1, y: 0, scale: 1, duration: 0.9, ease: 'power2.out' });
-      } else {
-        gsap.to(entry.target, { autoAlpha: 0, y: 80, scale: 0.90,  duration: 0.3 });
-      }
-    });
-  }, { threshold: 0.1 });
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                gsap.to(entry.target, { autoAlpha: 1, y: 0, scale: 1, duration: 0.9, ease: 'power2.out' });
+            } else {
+                gsap.to(entry.target, { autoAlpha: 0, y: 80, scale: 0.90, duration: 0.3 });
+            }
+        });
+    }, { threshold: 0.1 });
 
-  delayed.forEach(card => {
-    gsap.set(card, { autoAlpha: 0, y: 80, scale: 0.90 });
-    observer.observe(card);
-  });
+    delayed.forEach(card => {
+        gsap.set(card, { autoAlpha: 0, y: 80, scale: 0.90 });
+        observer.observe(card);
+    });
 }
 
 
@@ -410,7 +409,11 @@ function init() {
         smooth: 0.5,
         smoothTouch: 0,
         wrapper: '#smooth-wrapper',
-        content: '#smooth-content'
+        content: '#smooth-content',
+        // sticky elements innerhalb smooth-content erlauben:
+        normalizeScroll: false,
+        ignoreMobileResize: true,
+        effects: false,  /* ← wichtig */
     });
     window.smoother = smoother;
 

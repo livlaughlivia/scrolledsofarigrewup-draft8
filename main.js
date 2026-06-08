@@ -1,3 +1,5 @@
+console.log('main.js geladen');
+
 gsap.registerPlugin(SplitText, ScrollTrigger, DrawSVGPlugin);
 
 gsap.set('#headline-timer-line', { drawSVG: '0%' });
@@ -504,59 +506,65 @@ function initInstAds() {
 
 
 // ── MARK: Intro ───────────────────────────────────────────────
-function initIntro() {
-  const blocks = document.querySelectorAll('#intro .intro-block');
-  console.log('initIntro läuft, blocks gefunden:', blocks.length);
+function initIntroTyping() {
+  const blocks = [...document.querySelectorAll('.intro-block')];
+  
+  blocks.forEach(block => {
+    block.dataset.fullText = block.textContent.trim();
+    block.textContent = '';
+  });
 
-  let currentBlock = -1;
+  function checkAndType() {
+    blocks.forEach((block) => {
+      const wrapper = block.closest('.intro-block-wrapper');
+      const matrix = new DOMMatrix(getComputedStyle(wrapper).transform);
+      const y = matrix.m42;
 
-  // SplitText-Ergebnisse einmalig erzeugen (vermeidet mehrfaches Parsen)
-  const splits = [...blocks].map(block => SplitText.create(block, { type: "chars,words" }));
-  gsap.set(blocks, { opacity: 0 });
+      if (Math.abs(y) < 50 && !block._typed && !block._typing) {
+        block._typed = true;
+        block._typing = true;
+        const text = block.dataset.fullText;
+        let i = 0;
+        const interval = setInterval(() => {
+          block.textContent += text[i];
+          i++;
+          if (i >= text.length) {
+            clearInterval(interval);
+            block._typing = false;
+          }
+        }, 30);
+      }
 
-  function showBlock(index) {
-    const block = blocks[index];
-    const split = splits[index];
-    if (!block || !split) return;
-    gsap.set(block, { opacity: 1 });
-    gsap.from(split.chars, {
-      opacity: 0,
-      duration: 0.05,
-      stagger: 0.03,
-      ease: "power2.out"
+      if (y < -window.innerHeight * 0.5 || y > window.innerHeight * 0.5) {
+        if (!block._typing) {
+          block._typed = false;
+          block.textContent = '';
+        }
+      }
     });
+    requestAnimationFrame(checkAndType);
   }
 
-  ScrollTrigger.create({
-    trigger: '#intro',
-    start: 'top top',
-    end: `+=${blocks.length * 550}`,
-    pin: true,
-    pinSpacing: true,
-    onEnter: () => {
-      if (currentBlock === -1) {
-        currentBlock = 0;
-        showBlock(0);
-      }
-    },
-    onLeave: () => {
-      gsap.to(blocks[currentBlock], { opacity: 0, duration: 0.1 });
-      currentBlock = -1;
-    },
-    onUpdate: (self) => {
-      const index = Math.floor(self.progress * (blocks.length + 1));
-      const clamped = Math.min(index, blocks.length - 1);
-
-      if (clamped !== currentBlock) {
-        if (currentBlock >= 0) {
-          gsap.to(blocks[currentBlock], { opacity: 0, duration: 0.3 });
-        }
-        currentBlock = clamped;
-        showBlock(currentBlock);
-      }
-    }
-  });
+  requestAnimationFrame(checkAndType);
 }
+
+/*
+ function initEraTitleSnap() {
+  const titles = [...document.querySelectorAll('.era-title')];
+  
+  titles.forEach((title) => {
+    ScrollTrigger.create({
+      trigger: title,
+      start: 'top top',
+      end: '+=100%',
+      pin: true,
+      pinSpacing: false,
+      anticipatePin: 1,
+      scroller: window.smoother ? window.smoother.scrollerProxy : undefined,
+    });
+  });
+} 
+*/
 
 function setup() {
   // Titel ausblenden
@@ -573,7 +581,8 @@ function setup() {
   initEraTitles1();
   initEraTitles2();
   initEraTitles3();
-  initIntro();
+  // initEraTitleSnap();
+  initIntroTyping();
 
   // ── Sidebar einblenden beim ersten Post
   ScrollTrigger.create({
@@ -713,21 +722,11 @@ function touchHandler(e) {
 }
 document.addEventListener('touchend', touchHandler, { passive: true });
 
-document.fonts.ready.then(() => {
-  // Defer heavy initialization to avoid blocking main thread
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(() => {
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        setup();
-      }, 100);
-    });
-  } else {
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-      setup();
-    }, 100);
-  }
+// SO:
+window.addEventListener('load', () => {
+  console.log('load fired');
+  window.scrollTo(0, 0);
+  setup();
 });
 
 let resizeTimer;
@@ -792,3 +791,5 @@ function resetInactivityTimer() {
 
 // Timer starten
 resetInactivityTimer();
+
+console.log('main.js Ende erreicht');
