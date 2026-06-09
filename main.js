@@ -78,7 +78,7 @@ const tickerSegments = [
   },
   {
     triggerId: 'headline-ticker-2019-3',
-    text: `««Grosser Regenschirm» für die beschädigte Kathedrale» SRF News, 16. April 2019 ✦`
+    text: `«Grosser Regenschirm» für die beschädigte Kathedrale» SRF News, 16. April 2019 ✦`
   },
   {
     triggerId: 'headline-ticker-2019-4',
@@ -255,20 +255,22 @@ const tickerSegments = [
 ];
 
 let currentEra = "era1";
+
 let tickerAnimation = null;
 
 function setupTicker(text) {
   const wrapper = document.querySelector('.quote-block-1');
   if (!wrapper) return;
 
-  if (!tickerAnimation) {
-    // Erster Aufruf: normal starten
-    const doubled = `${text}   ${text}`;
+  const inner = wrapper.querySelector('.ticker-inner');
+  const doubled = `${text}   ${text}`;
+
+  if (!tickerAnimation || !inner) {
     wrapper.innerHTML = `<span class="ticker-inner">${doubled}</span>`;
-    const inner = wrapper.querySelector('.ticker-inner');
-    const fullWidth = inner.scrollWidth / 2;
-    gsap.set(inner, { x: 0 });
-    tickerAnimation = gsap.to(inner, {
+    const newInner = wrapper.querySelector('.ticker-inner');
+    const fullWidth = newInner.scrollWidth / 2;
+    gsap.set(newInner, { x: 0 });
+    tickerAnimation = gsap.to(newInner, {
       x: -fullWidth,
       duration: fullWidth / 80,
       ease: 'none',
@@ -277,26 +279,19 @@ function setupTicker(text) {
     return;
   }
 
-  // Folgeaufrufe: Text anhängen ohne Animation zu unterbrechen
-  const inner = wrapper.querySelector('.ticker-inner');
-  if (!inner) return;
-
-  // Aktuellen X-Fortschritt merken
+  // Text wechseln ohne Sprung
   const currentX = gsap.getProperty(inner, 'x');
-
-  // Neuen Text setzen
-  const doubled = `${text}   ${text}`;
+  const progress = Math.abs(currentX) / (inner.scrollWidth / 2);
+  
   inner.textContent = doubled;
-
-  // Neue Breite berechnen
   const fullWidth = inner.scrollWidth / 2;
+  const newX = -(progress * fullWidth);
 
-  // Animation mit gleicher Geschwindigkeit neu starten ab aktuellem X
   tickerAnimation.kill();
-  gsap.set(inner, { x: currentX });
+  gsap.set(inner, { x: newX });
   tickerAnimation = gsap.to(inner, {
     x: -fullWidth,
-    duration: (fullWidth + currentX) / 80, // restliche Distanz
+    duration: ((1 - progress) * fullWidth) / 80,
     ease: 'none',
     onComplete: () => {
       gsap.set(inner, { x: 0 });
@@ -306,6 +301,40 @@ function setupTicker(text) {
         ease: 'none',
         repeat: -1,
       });
+    }
+  });
+}
+
+function initTickerObserver() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !window.isNavigating) {
+        const segment = tickerSegments.find(s => s.triggerId === entry.target.id);
+        if (segment) setupTicker(segment.text);
+      }
+    });
+  }, {
+    threshold: 0,
+    rootMargin: '0px 0px -20% 0px'
+  });
+
+  tickerSegments.forEach(segment => {
+    if (!segment.triggerId) return;
+    const el = document.getElementById(segment.triggerId);
+    if (el) observer.observe(el);
+  });
+}
+
+function initTickerVelocity() {
+  ScrollTrigger.create({
+    trigger: '#smooth-content',
+    start: 'top top',
+    end: 'bottom bottom',
+    onUpdate: (self) => {
+      if (!tickerAnimation) return;
+      const velocity = self.getVelocity();
+      const scale = velocity / 500;
+      tickerAnimation.timeScale(Math.abs(scale) < 0.1 ? 1 : scale);
     }
   });
 }
@@ -428,7 +457,7 @@ function showHeadline(triggerId) {
     }
   });
 
-  gsap.fromTo('#headline-timer-line',
+gsap.fromTo('#headline-timer-line',
     { drawSVG: '0%' },
     {
       drawSVG: '100%', duration: 10, ease: 'none',
@@ -447,6 +476,14 @@ function showHeadline(triggerId) {
       }
     }
   );
+
+
+  const author = trigger.dataset.quoteAuthor || '';
+  if (author.startsWith('@')) {
+    authorEl.innerHTML = `<span style="font-size: 1.3em">@</span>${author.slice(1)}`;
+  } else {
+    authorEl.textContent = author;
+  }
 }
 
 function hideHeadline() {
@@ -469,6 +506,7 @@ function initHeadlines() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         showHeadline(entry.target.id);
+        observer.unobserve(entry.target);
       }
     });
   }, {
@@ -502,16 +540,61 @@ function initInstAds() {
   });
 }
 
+  function fitAdText() {
+  document.querySelectorAll('.insta-ad h3').forEach(h3 => {
+    const box = h3.closest('.insta-ad');
+    const boxWidth = box.offsetWidth - 60; // padding
+    let size = 80;
+    h3.style.fontSize = size + 'px';
+    while (h3.scrollWidth > boxWidth && size > 10) {
+      size -= 2;
+      h3.style.fontSize = size + 'px';
+    }
+  });
+}
+
+// MARK: button storys
+function initStoryPreview() {
+  const triggers = [...document.querySelectorAll('[id^="quote-trigger-"]')];
+  let current = 0;
+
+  // Button erstellen
+  const btn = document.createElement('button');
+  btn.textContent = '▶';
+  btn.style.cssText = `
+    position: fixed;
+    bottom: 120px;
+    right: 20px;
+    z-index: 400;
+    background: #ff002a;
+    color: #f9caf8;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    cursor: pointer;
+  `;
+  document.body.appendChild(btn);
+
+  btn.addEventListener('click', () => {
+    if (current >= triggers.length) current = 0;
+    const id = triggers[current].id;
+    showHeadline(id);
+    current++;
+  });
+}
+  
 
 
 
 // ── MARK: Intro ───────────────────────────────────────────────
 function initIntroTyping() {
   const blocks = [...document.querySelectorAll('.intro-block')];
-  
+
   blocks.forEach(block => {
     block.dataset.fullText = block.textContent.trim();
-    block.textContent = '';
+    block.style.visibility = 'hidden';
   });
 
   function checkAndType() {
@@ -523,6 +606,8 @@ function initIntroTyping() {
       if (Math.abs(y) < 50 && !block._typed && !block._typing) {
         block._typed = true;
         block._typing = true;
+        block.textContent = '';
+        block.style.visibility = 'visible';
         const text = block.dataset.fullText;
         let i = 0;
         const interval = setInterval(() => {
@@ -538,7 +623,8 @@ function initIntroTyping() {
       if (y < -window.innerHeight * 0.5 || y > window.innerHeight * 0.5) {
         if (!block._typing) {
           block._typed = false;
-          block.textContent = '';
+          block.textContent = block.dataset.fullText;
+          block.style.visibility = 'hidden';
         }
       }
     });
@@ -548,26 +634,10 @@ function initIntroTyping() {
   requestAnimationFrame(checkAndType);
 }
 
-/*
- function initEraTitleSnap() {
-  const titles = [...document.querySelectorAll('.era-title')];
-  
-  titles.forEach((title) => {
-    ScrollTrigger.create({
-      trigger: title,
-      start: 'top top',
-      end: '+=100%',
-      pin: true,
-      pinSpacing: false,
-      anticipatePin: 1,
-      scroller: window.smoother ? window.smoother.scrollerProxy : undefined,
-    });
-  });
-} 
-*/
 
+
+// MARK: Setup
 function setup() {
-  // Titel ausblenden
   gsap.to('#title', {
     opacity: 0,
     scrollTrigger: {
@@ -581,24 +651,23 @@ function setup() {
   initEraTitles1();
   initEraTitles2();
   initEraTitles3();
-  // initEraTitleSnap();
   initIntroTyping();
+  initTickerObserver();
+  initTickerVelocity();
+  initInstAds();
+  initStoryPreview();
 
-  // ── Sidebar einblenden beim ersten Post
   ScrollTrigger.create({
     trigger: '#j-2016 .post-wrapper',
     start: 'top 80%',
     onEnter: () => {
       const sideBar = document.getElementById('side-bar');
       sideBar.classList.add('is-open');
-      setTimeout(() => {
-        sideBar.classList.remove('is-open');
-      }, 1000);
+      setTimeout(() => sideBar.classList.remove('is-open'), 1000);
     },
     once: true
   });
 
-  // Ticker einblenden beim Feed, ausblenden wenn zurück zur Titelseite
   ScrollTrigger.create({
     trigger: '#j-2016',
     start: 'top 80%',
@@ -613,7 +682,6 @@ function setup() {
     onLeaveBack: () => gsap.to('.quote-wrapper', { opacity: 0, visibility: 'hidden', duration: 0.5 }),
   });
 
-  // Ticker ausblenden beim Outro
   ScrollTrigger.create({
     trigger: '#outro',
     start: 'top 80%',
@@ -621,78 +689,39 @@ function setup() {
     onLeaveBack: () => gsap.to('.quote-wrapper', { opacity: 1, visibility: 'visible', duration: 0.5 }),
   });
 
-  // Ticker im Impressum wieder einblenden
-  ScrollTrigger.create({
-    trigger: '#impressum',
-    start: 'top 80%',
-    onEnter: () => gsap.to('.quote-wrapper', { opacity: 1, visibility: 'visible', duration: 0.5 }),
-    onLeaveBack: () => gsap.to('.quote-wrapper', { opacity: 0, visibility: 'hidden', duration: 0.5 }),
-  });
-
-
-
-  // Ticker-Wechsel bei weiteren Segmenten
-  const tickersToCreate = tickerSegments.slice(1);
-  const batchSize = 5;
-
-  // Ersetze createTickerBatch + setTimeout komplett durch:
-  function initTickerObserver() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const segment = tickerSegments.find(s => s.triggerId === entry.target.id);
-          if (segment) setupTicker(segment.text);
-        }
-      });
-    }, {
-      threshold: 0,
-      rootMargin: '0px 0px -20% 0px'
-    });
-
-    tickerSegments.forEach(segment => {
-      if (!segment.triggerId) return;
-      const el = document.getElementById(segment.triggerId);
-      if (el) observer.observe(el);
-    });
-  }
-
-  initTickerObserver();
-
   gsap.set('#headline-timer-line', { drawSVG: '0%' });
 
   window.updateTickerForCurrentPosition = function () {
-    // Warte bis Navigation abgeschlossen ist
     if (window.isNavigating) {
       setTimeout(() => window.updateTickerForCurrentPosition(), 100);
       return;
     }
-
     const smoother = ScrollSmoother.get();
     const scrollY = smoother ? smoother.scrollTop() : window.scrollY;
-
+    const feedStartEl = document.getElementById('j-2016');
+    const outroEl = document.getElementById('outro');
+    const feedStart = feedStartEl ? feedStartEl.getBoundingClientRect().top + scrollY : 0;
+    const feedEnd = outroEl ? outroEl.getBoundingClientRect().top + scrollY : Infinity;
+    const pos = scrollY + window.innerHeight * 0.8;
+    const inFeed = pos >= feedStart && scrollY < feedEnd;
+    if (!inFeed) {
+      gsap.to('.quote-wrapper', { opacity: 0, visibility: 'hidden', duration: 0.3 });
+      return;
+    }
     let activeSegment = tickerSegments[0];
-
     for (const segment of tickerSegments) {
       if (!segment.triggerId) continue;
       const el = document.getElementById(segment.triggerId);
       if (!el) continue;
       const elScrollY = el.getBoundingClientRect().top + scrollY;
-      if (elScrollY < scrollY + window.innerHeight * 0.8) {
-        activeSegment = segment;
-      }
+      if (elScrollY < scrollY + window.innerHeight * 0.8) activeSegment = segment;
     }
-
     gsap.set('.quote-wrapper', { opacity: 1, visibility: 'visible' });
     setupTicker(activeSegment.text);
   };
 
   const closeBtn = document.querySelector('.close-headline-btn');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', hideHeadline);
-  }
-
-
-
+  if (closeBtn) closeBtn.addEventListener('click', hideHeadline);
 }
 
 
@@ -725,9 +754,11 @@ document.addEventListener('touchend', touchHandler, { passive: true });
 // SO:
 window.addEventListener('load', () => {
   console.log('load fired');
-  window.scrollTo(0, 0);
+  /*window.scrollTo(0, 0);*/
   setup();
 });
+
+window.addEventListener('load', fitAdText);
 
 let resizeTimer;
 function resizeHandler() {
@@ -774,6 +805,8 @@ window.addEventListener('beforeunload', destroyAll);
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') destroyAll();
 });
+
+window.addEventListener('load', fitAdText);
 
 let inactivityTimer;
 

@@ -10,8 +10,8 @@ h3 {
 
 .outline {
     position: relative;
-    -webkit-text-stroke: 7px #ea3336;
-    text-shadow: 0 0 10px #ea3336;
+    -webkit-text-stroke: 7px #ff002a;
+    text-shadow: 0 0 10px #ff002a;
     text-align: center;
 }
 
@@ -152,7 +152,7 @@ h1 {
 .title-sooo {
     align-self: center;
     width: 100%;
-    height: 90%;
+    height: 95%;
     position: relative;
     z-index: 55;
     margin-top: -90px;
@@ -223,7 +223,7 @@ h1 {
     top: 0;
     left: 0;
     width: 100%;
-    color: #ea3336;
+    color: #ff002a;
     -webkit-text-stroke: 0px transparent;
     text-shadow: none;
 }
@@ -280,7 +280,7 @@ h1 {
 }
 
 .side-bar a {
-    color: #ea3336;
+    color: #ff002a;
     text-decoration: none;
     font-size: 30px;
     line-height: 0.7;
@@ -303,8 +303,14 @@ h1 {
     font-variation-settings: "SRFF" 0, "wght" 700;
 }
 
+.menu-icon0 {
+    width: 8.0svh;
+    height: auto;
+    margin: -0.5svh;
+}
+
 .menu-iconA {
-    width: 8svh;
+    width: 6.5svh;
     height: auto;
     margin: -0.5svh;
 }
@@ -316,19 +322,19 @@ h1 {
 }
 
 .menu-icon2 {
-    width: 9svh;
+    width: 8svh;
     height: auto;
     margin: -0.5svh;
 }
 
 .menu-icon3 {
-    width: 8svh;
+    width: 7svh;
     height: auto;
     margin: -1svh;
 }
 
 .menu-iconB {
-    width: 8svh;
+    width: 6.5svh;
     height: auto;
     margin: -0.5svh;
 }
@@ -355,9 +361,9 @@ h1 {
     font-family: "Arizona Variable";
     font-variation-settings: "SRFF" 0, "wght" 600;
     font-size: 30px;
-    line-height: 1.2;
+    line-height: 1;
     text-align: left;
-    color: #ea3336;
+    color: #ff002a;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -464,7 +470,7 @@ h1 {
     font-family: "Arizona Variable";
     font-variation-settings: "SRFF" 100, "wght" 600;
     font-size: 30px;
-    color: #ea3336;
+    color: #ff002a;
     display: flex;
     white-space: nowrap;
 }
@@ -616,7 +622,7 @@ h1 {
 
 .insta-update-date {
     font-family: "Arizona Variable";
-    font-variation-settings: "SRFF" 0, "wght" 450;
+    font-variation-settings: "SRFF" 0, "wght" 550;
     font-size: 25px;
     text-align: left;
     color: #5c7fff;
@@ -627,9 +633,6 @@ h1 {
     padding: 10px;
 }
 
-.insta-update-date p {
-    font-variation-settings: "SRFF" 0, "wght" 500;
-}
 
 [id^="quote-trigger-"] {
     height: 10px;
@@ -706,11 +709,12 @@ h1 {
     align-items: center;
     justify-content: space-between;
     padding: 8px 0;
-    margin-top: -10px;
+    margin-top: -15px;
 }
 
 .close-headline {
     margin-top: -10px;
+    margin-right: -8px;
     width: 30px;
     flex-shrink: 0;
 }
@@ -750,7 +754,7 @@ h1 {
     font-size: 30px;
     flex: 1;
     padding: 2px;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .headline-author2 {
@@ -760,7 +764,8 @@ h1 {
     font-size: 30px;
     flex: 1;
     padding: 2px;
-    margin-top: 20px;
+    padding-left: 2px;
+    margin-top: 15px;
 }
 
 .headline-author3 {
@@ -770,8 +775,16 @@ h1 {
     font-size: 30px;
     flex: 1;
     padding: 2px;
-    margin-top: 20px;
+    margin-top: 15px;
 }
+
+.headline-author1, 
+.headline-author2,
+.headline-author3 {
+    margin-left: -7px;
+}
+
+
 
 .headline-text-era1 {
     font-family: "Arizona Variable";
@@ -782,6 +795,8 @@ h1 {
     line-height: 1;
     z-index: 201;
 }
+
+
 
 .headline-text-era2 {
     font-family: "Arizona Variable";
@@ -807,12 +822,13 @@ h1 {
 .insta-ad {
     position: fixed;
     aspect-ratio: 1 / 1;
-    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     background: #f9caf890;
     z-index: 100;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     opacity: 0;
     visibility: hidden;
 }
@@ -824,8 +840,10 @@ h1 {
     font-size: 60px;
     line-height: 1;
     color: #5c7fff90;
-    width: fit-content;
-    margin: 0 auto;
+    margin: 0;
+    width: 100;
+    white-space: normal;
+    word-break: break-word;
 }
 
 .insta-ad-left-top {
@@ -894,7 +912,7 @@ h1 {
     bottom: 30%;
 }
 
-.insta-ad-right-bottom-wide {
+.insta-ad-right-bottom-widee {
     width: 83.333%;
     right: 0;
     bottom: 30%;
@@ -930,11 +948,11 @@ h1 {
 
 #outro {
     width: 100%;
-    height: 100svh;
+    height: 120svh;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 60;
+    z-index: 700;
 
 }
 
@@ -958,7 +976,6 @@ h1 {
 }
 
 .outro-middle {
-    margin-top: -170px;
     align-self: center;
     position: relative;
     z-index: 70;
@@ -973,11 +990,11 @@ h1 {
 
 .outro-sooo {
     align-self: center;
-    width: 100%;
-    height: 50%;
+    width: auto;
+    height: 50svh;
     position: relative;
     z-index: 55;
-    margin-top: -40px;
+    margin-top: 10px;
 }
 
 /* MARK: IMPRESSUM */
@@ -988,7 +1005,7 @@ h1 {
 
 .impressum {
     margin: 0;
-    height: 100svh;
+    height: 53svh;
     padding: 40px 0;
     display: flex;
     flex-direction: column;
@@ -1007,7 +1024,16 @@ h1 {
     margin-bottom: 1.2em;
 }
 
+.impressum-group,
+.impressum-group1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .impressum-text {
+    font-family: "Arizona Variable";
+    font-variation-settings: "SRFF" 0, "wght" 700;
     font-size: 30px;
     margin: 0;
     line-height: 1.2;

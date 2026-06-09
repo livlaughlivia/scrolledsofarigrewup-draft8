@@ -18,11 +18,14 @@ function navigateTo(link) {
   window.isNavigating = true;
   const smoother = ScrollSmoother.get();
   if (smoother) {
-    smoother.scrollTo(target, false, "top top");
-    setTimeout(() => { 
-      window.isNavigating = false; 
-      window.updateTickerForCurrentPosition(); 
-    }, 800);
+    smoother.paused(false);
+    requestAnimationFrame(() => {
+      smoother.scrollTo(target, false, "center center");
+      setTimeout(() => { 
+        window.isNavigating = false; 
+        window.updateTickerForCurrentPosition?.(); 
+      }, 800);
+    });
   } else {
     target.scrollIntoView({ behavior: 'instant', block: 'start' });
     setTimeout(() => { window.isNavigating = false; }, 300);
@@ -95,3 +98,11 @@ document.addEventListener('keydown', (e) => {
     sideBar.classList.toggle('is-open');
   }
 });
+
+const reloadBtn = document.getElementById('reload-btn');
+if (reloadBtn) {
+  reloadBtn.addEventListener('click', e => {
+    e.preventDefault();
+    location.reload();
+  });
+}
