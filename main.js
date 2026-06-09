@@ -554,6 +554,7 @@ function initInstAds() {
 }
 
 // MARK: button storys
+
 function initStoryPreview() {
   const triggers = [...document.querySelectorAll('[id^="quote-trigger-"]')];
   let current = 0;
@@ -584,6 +585,7 @@ function initStoryPreview() {
     current++;
   });
 }
+
   
 
 
@@ -655,7 +657,7 @@ function setup() {
   initTickerObserver();
   initTickerVelocity();
   initInstAds();
-  initStoryPreview();
+  //initStoryPreview();
 
   ScrollTrigger.create({
     trigger: '#j-2016 .post-wrapper',
@@ -730,7 +732,7 @@ function setup() {
 // ── MARK: GRID ────────────────────────────────────────────────
 
 // Benannte Handler, damit sie später sauber entfernt werden können
-function toggleGridHandler(e) {
+/* function toggleGridHandler(e) {
   if (e.key === 'g' || e.key === 'G') {
     const overlay = document.getElementById('gridOverlay');
     if (!overlay) return;
@@ -750,11 +752,12 @@ function touchHandler(e) {
   lastTap = now;
 }
 document.addEventListener('touchend', touchHandler, { passive: true });
+*/
 
 // SO:
 window.addEventListener('load', () => {
   console.log('load fired');
-  /*window.scrollTo(0, 0);*/
+  window.scrollTo(0, 0);
   setup();
 });
 

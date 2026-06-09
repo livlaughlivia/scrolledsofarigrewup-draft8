@@ -11,6 +11,13 @@ function navigateTo(link) {
   const target = hash ? document.querySelector(hash) : null;
   if (!target) return;
 
+   // Ads ausblenden wenn zu Outro oder Impressum navigiert wird
+  if (hash === '#outro' || hash === '#impressum') {
+    document.querySelectorAll('.insta-ad').forEach(ad => {
+      gsap.to(ad, { autoAlpha: 0, duration: 0.3 });
+    });
+  }
+
   links.forEach(l => l.classList.remove('nav-active'));
   link.classList.add('nav-active');
   activeLink = link;

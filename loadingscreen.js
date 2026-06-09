@@ -35,7 +35,7 @@ Promise.all([
       if (img.complete) { loaded++; if (loaded === first10.length) resolve(); }
       else img.addEventListener('load', () => { loaded++; if (loaded === first10.length) resolve(); });
     });
-    setTimeout(resolve, 3000); // max 3 Sekunden warten
+    setTimeout(resolve, 6000); // max 3 Sekunden warten
   })
   
 ]).then(() => {
